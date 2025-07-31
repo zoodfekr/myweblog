@@ -4,6 +4,7 @@ import Banner_homePage from '@/components/homePage/banner_homePage'
 import ShowArticles_homePage from '@/components/homePage/ShowArticles_homePage'
 
 const Page = async () => {
+    
     const articles = await getAllArticles()
     const firstSix = articles.slice(0, 6)
 

@@ -5,7 +5,7 @@ import banner from '@/public/image/banner.jpg'
 
 const Banner_homePage = () => {
     return (
-        <div className="relative flex flex-col justify-center items-center shadow-lg mb-12 rounded-b-3xl w-full h-72 md:h-96 overflow-hidden">
+        <div className="relative flex flex-col justify-center items-center shadow-lg mb-12 w-full h-72 md:h-96 overflow-hidden">
             <Image
                 src={banner}
                 alt="بنر سایت"
@@ -14,7 +14,7 @@ const Banner_homePage = () => {
                 priority
             />
             {/* گرادینت ملایم و شفاف روی تصویر */}
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-600/40 via-transparent to-purple-400/30" />
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-blue-600/40 via-transparent to-purple-400/30" /> */}
             <div className="z-10 absolute flex flex-col justify-center items-center w-full h-full">
                 <h1 className="drop-shadow-xl mb-4 font-extrabold text-white text-4xl md:text-6xl text-center">وبلاگ من</h1>
                 <p className="opacity-95 font-medium text-white text-lg md:text-2xl text-center">به دنیای مقالات جذاب خوش آمدید!</p>

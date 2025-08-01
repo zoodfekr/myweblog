@@ -1,5 +1,6 @@
 import { ServerUrl_media } from '@/services/server'
 import { articleType } from '@/types/services/articles'
+import { Button } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -9,10 +10,10 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
     return (
         <div className="mx-auto p-4 container">
             <div className="gap-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {data.map((article: articleType) => (
+                {data.slice(0, 6).map((article: articleType) => (
                     <div
                         key={article.id}
-                        className="group flex flex-col bg-white/40 shadow-lg hover:shadow-xl backdrop-blur-md border border-gray-200 rounded-3xl overflow-hidden hover:scale-[1.01] transition-all hover:-translate-y-1 duration-300 transform"
+                        className="group flex flex-col bg-white shadow-lg hover:shadow-xl backdrop-blur-md border border-gray-200 rounded-3xl overflow-hidden hover:scale-[1.01] transition-all hover:-translate-y-1 duration-300 transform"
                     >
                         <div className="relative w-full h-52 overflow-hidden">
                             <Image
@@ -37,13 +38,19 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
 
                             <Link
                                 href={`/articles/${article.id}`}
-                                className="inline-block bg-gradient-to-r from-indigo-500 hover:from-indigo-600 via-purple-500 to-pink-500 hover:to-pink-600 shadow px-5 py-2 rounded-xl font-semibold text-white text-sm text-center transition-all"
+                                className="inline-block bg-gradient-to-r from-green-500 hover:from-green-600 via-green-500 to-green-500 hover:to-green-600 shadow px-5 py-2 rounded-xl font-semibold text-white text-sm text-center transition-all"
                             >
                                 ادامه مطلب
                             </Link>
                         </div>
                     </div>
                 ))}
+
+                <div className="flex justify-center items-center">
+                    <Button variant="contained" color="primary">
+                        <Link href="/articles">مشاهده همه مقالات</Link>
+                    </Button>
+                </div>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ServerUrl } from "../server";
+import { ServerUrl } from "./server";
 import { articleType } from "@/types/services/articles";
 
 

@@ -1,7 +1,13 @@
 import React from 'react'
 import { Facebook, Instagram, Twitter, Email } from '@mui/icons-material'
+import { getAllCategories } from '@/services/categories'
+import Link from 'next/link'
+import Categores_footer from './partials/categores_footer'
 
 const Footer_homepage = () => {
+
+
+
     return (
         <footer className="py-8 text-white" style={{ background: '#3E5F44' }}>
             <div className="gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto px-4 max-w-6xl">
@@ -13,15 +19,10 @@ const Footer_homepage = () => {
                     </p>
                 </div>
 
-                {/* لینک‌های سریع */}
+                {/* دسته بندی ها  */}
                 <div>
-                    <h2 className="mb-2 font-semibold text-xl">لینک‌های سریع</h2>
-                    <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#" className="hover:text-white transition">خانه</a></li>
-                        <li><a href="#" className="hover:text-white transition">خدمات</a></li>
-                        <li><a href="#" className="hover:text-white transition">تماس با ما</a></li>
-                        <li><a href="#" className="hover:text-white transition">سوالات متداول</a></li>
-                    </ul>
+                    <h2 className="mb-2 font-semibold text-xl">دسته بندی ها  </h2>
+                    <Categores_footer />
                 </div>
 
                 {/* شبکه‌های اجتماعی */}

@@ -1,8 +1,8 @@
 import React from 'react'
-import { getAllArticles } from '@/services/articles/articles'
+import { getAllArticles } from '@/services/articles'
 import Banner_homePage from '@/components/homePage/banner_homePage'
 import ShowArticles_homePage from '@/components/homePage/ShowArticles_homePage'
-import Footer_homepage from '@/components/layouts/Footer_homepage'
+import Footer_homepage from '@/components/layouts/footer/Footer_homepage'
 import Categories from '@/components/homePage/Categories'
 
 const Page = async () => {
@@ -11,7 +11,7 @@ const Page = async () => {
     const firstSix = articles.slice(0, 6)
 
     return (
-        <div className="bg-gradient-to-br from-gray-100 to-blue-100 min-h-screen">
+        <div className="">
 
             {/* بنر سایت */}
             <Banner_homePage />

@@ -1,7 +1,9 @@
 import { ServerUrl_media } from '@/services/server'
 import { articleType } from '@/types/services/articles'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
+
 
 const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
     return (
@@ -32,12 +34,13 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
                                 <span>✍️ نویسنده: {article.author}</span>
                                 <span>{new Date(article.createdAt).toLocaleDateString('fa-IR')}</span>
                             </div>
-                            <a
+
+                            <Link
                                 href={`/articles/${article.id}`}
                                 className="inline-block bg-gradient-to-r from-indigo-500 hover:from-indigo-600 via-purple-500 to-pink-500 hover:to-pink-600 shadow px-5 py-2 rounded-xl font-semibold text-white text-sm text-center transition-all"
                             >
                                 ادامه مطلب
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 ))}

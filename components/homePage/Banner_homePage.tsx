@@ -5,7 +5,7 @@ import banner from '@/public/image/banner.jpg'
 
 const Banner_homePage = () => {
     return (
-        <div className="relative flex flex-col justify-center items-center shadow-lg mb-12 w-full h-72 md:h-96 overflow-hidden">
+        <div className="relative flex flex-col justify-center items-center shadow-lg w-full h-72 md:h-96 overflow-hidden">
             <Image
                 src={banner}
                 alt="بنر سایت"

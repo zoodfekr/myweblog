@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Footer_homepage from "@/components/layouts/Footer_homepage";
+import Appbar from "@/components/layouts/Appbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +27,18 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+
+        {/* اپبار سایت */}
+        <Appbar />
+
+        <div style={{ minHeight: "calc(100vh - 200px)" }}>
+          {/* محتویات سایت */}
+          {children}
+        </div>
+
+
+        {/* فوتر سایت */}
+        <Footer_homepage />
       </body>
     </html>
   );

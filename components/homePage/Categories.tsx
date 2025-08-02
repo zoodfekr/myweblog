@@ -2,6 +2,12 @@ import { getAllCategories } from '@/services/categories'
 import { Button } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
+
+import codeBg from '@/public/icons/codeBg.png'
+import eye from '@/public/icons/eye.png'
+
+
 
 const Categories = async () => {
 
@@ -19,8 +25,17 @@ const Categories = async () => {
                     {categories_vallue.slice(0, 6).map((cat, index) => (
                         <div
                             key={index}
-                            className="bg-white shadow-lg hover:shadow-xl p-6 border border-gray-100 hover:border-blue-300 rounded-xl transition duration-300"
+                            className="relative bg-white shadow-lg hover:shadow-xl p-6 border border-gray-100 hover:border-blue-300 rounded-xl transition duration-300"
                         >
+                            <div className='-top-8 -right-5 absolute'>
+                                <Image
+                                    src={codeBg}
+                                    alt=''
+                                    width={80}
+                                    height={80}
+                                    className="rounded-lg object-cover"
+                                />
+                            </div>
                             <h3 className="mb-2 font-semibold text-gray-700 text-xl">{cat.title}</h3>
                             <p className="text-gray-600 text-sm leading-6">{cat.description}</p>
                         </div>
@@ -29,7 +44,15 @@ const Categories = async () => {
             </div>
 
             <Button variant='contained' color='success'>
-                <Link href={'/categories'}>مشاهده همه </Link >
+                <Link href={'/categories'} className='flex justify-center items-center gap-4 text-white'>
+                    <Image
+                        src={eye}
+                        alt=''
+                        width={30}
+                        height={30}
+                        className="rounded-lg object-cover"
+                    />
+                    مشاهده همه </Link >
             </Button>
         </section>
     )

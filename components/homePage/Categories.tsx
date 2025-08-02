@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 import codeBg from '@/public/icons/codeBg.png'
 import eye from '@/public/icons/eye.png'
+import leaf from '@/public/icons/leaf.png'
 
 
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer_homepage from "@/components/layouts/footer/Footer_homepage";
-import Appbar from "@/components/layouts/Appbar";
+import Appbar from "@/components/layouts/appbar/Appbar";
 
 import jungle from "@/public/backgrounds/jungle.jpg"
 

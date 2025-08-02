@@ -1,10 +1,11 @@
+'use client'
 import React, { useState } from 'react'
 
-interface AddCommentFormProps {
-    onSubmit: (comment: { content: string; author: string; userId: string }) => void
-}
 
-const AddCommentForm = ({ onSubmit }: AddCommentFormProps) => {
+
+const AddCommentForm = () => {
+
+
     const [newComment, setNewComment] = useState({
         content: '',
         author: '',
@@ -18,12 +19,13 @@ const AddCommentForm = ({ onSubmit }: AddCommentFormProps) => {
             return
         }
 
-        onSubmit(newComment)
+        // onSubmit(newComment)
+        console.log(newComment)
         setNewComment({ content: '', author: '', userId: '1' })
     }
 
     return (
-        <div className="bg-white shadow-lg mb-8 p-6 rounded-xl">
+        <div className="bg-white shadow-lg mt-8 mb-8 p-6 rounded-xl">
             <h2 className="mb-6 pb-4 border-gray-200 border-b font-semibold text-gray-800 text-2xl">
                 افزودن نظر
             </h2>
@@ -43,7 +45,7 @@ const AddCommentForm = ({ onSubmit }: AddCommentFormProps) => {
                         required
                     />
                 </div>
-                
+
                 <div>
                     <label htmlFor="content" className="block mb-2 font-medium text-gray-700 text-sm">
                         نظر شما
@@ -58,7 +60,7 @@ const AddCommentForm = ({ onSubmit }: AddCommentFormProps) => {
                         required
                     />
                 </div>
-                
+
                 <button
                     type="submit"
                     className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg w-full font-medium text-white transition-colors"

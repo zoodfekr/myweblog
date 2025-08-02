@@ -1,11 +1,10 @@
 import React from 'react'
+import CommentSection_byId from './CommentSection_byId'
 import { commentsType } from '@/types/services/comments'
+import { getCommentsByArticleId } from '@/services/comments'
 
-interface CommentsSectionProps {
-    comments: commentsType[]
-}
+const Comment_element = async ({ comments }: { comments: commentsType[] }) => {
 
-const CommentsSection = ({ comments }: CommentsSectionProps) => {
     return (
         <div className="bg-white shadow-lg mt-8 p-6 rounded-xl">
             <h2 className="mb-6 pb-4 border-gray-200 border-b font-semibold text-gray-800 text-2xl">
@@ -40,4 +39,4 @@ const CommentsSection = ({ comments }: CommentsSectionProps) => {
     )
 }
 
-export default CommentsSection
+export default Comment_element

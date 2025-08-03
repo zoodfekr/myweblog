@@ -7,6 +7,7 @@ const Comment_element = async ({ comments }: { comments: commentsType[] }) => {
 
     return (
         <div className="bg-white shadow-lg mt-8 p-6 rounded-xl">
+            
             <h2 className="mb-6 pb-4 border-gray-200 border-b font-semibold text-gray-800 text-2xl">
                 نظرات
             </h2>

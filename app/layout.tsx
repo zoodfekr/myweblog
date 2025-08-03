@@ -43,9 +43,23 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
             backgroundAttachment: "fixed",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             backgroundBlendMode: "overlay",
+            position: "relative", // فعال کن!
           }}
-
-        >{children}</div>
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              backdropFilter: "blur(7px)",
+              WebkitBackdropFilter: "blur(1px)", // برای پشتیبانی بهتر
+              zIndex: 1,
+            }}
+          />
+          <div style={{ position: "relative", zIndex: 2 }}>
+            {children}
+          </div>
+        </div>
 
         {/* فوتر سایت */}
         <Footer_homepage />

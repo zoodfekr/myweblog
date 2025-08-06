@@ -26,6 +26,7 @@ const Appbar = () => {
         { name: 'خانه', href: '/', icon: Home },
         { name: 'مقالات', href: '/articles', icon: Article },
         { name: 'دسته‌بندی‌ها', href: '/categories', icon: Category },
+        { name: ' مدیریت', href: '/dashboard ', icon: Category },
         { name: 'نظرات', href: '/comments', icon: Comment },
     ]
 

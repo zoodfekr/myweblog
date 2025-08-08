@@ -6,7 +6,7 @@ import Header_HOC from '@/components/common/HOC/Header_HOC'
 import MainArticlesList from './_partials/MainArticlesList'
 import CommentsSection from './_partials/CommentsSection'
 import Page_HOC from '@/components/common/HOC/Page_HOC'
-import CommentSection_getAll from '@/components/comments/CommentSection_getAll'
+import CommentSection_getAll from '@/components/(pages)/comments/CommentSection_getAll'
 
 const ArticlesPage = async () => {
 

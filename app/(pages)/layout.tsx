@@ -1,5 +1,5 @@
-import Appbar from '@/components/layouts/appbar/Appbar'
-import Footer_homepage from '@/components/layouts/footer/Footer_homepage'
+import Appbar from '@/components/(pages)/layouts/appbar/Appbar'
+import Footer_homepage from '@/components/(pages)/layouts/footer/Footer_homepage'
 import React from 'react'
 
 const layout = ({ children }: { children: React.ReactNode }) => {

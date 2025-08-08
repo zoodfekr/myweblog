@@ -1,5 +1,5 @@
 import React from "react";
-import RandomArticlesSidebar from "../../articles/RandomArticlesSidebar";
+import RandomArticlesSidebar from "../../(pages)/articles/RandomArticlesSidebar";
 import { getAllArticles } from "@/services/articles";
 
 const Page_HOC = async ({ children }: { children: React.ReactNode }) => {

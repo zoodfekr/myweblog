@@ -1,9 +1,9 @@
 import React from 'react'
 import { getAllArticles } from '@/services/articles'
-import Banner_homePage from '@/components/homePage/banner_homePage'
-import ShowArticles_homePage from '@/components/homePage/ShowArticles_homePage'
-import Footer_homepage from '@/components/layouts/footer/Footer_homepage'
-import Categories from '@/components/homePage/Categories'
+import Banner_homePage from '@/components/(pages)/homePage/Banner_homePage'
+import ShowArticles_homePage from '@/components/(pages)/homePage/ShowArticles_homePage'
+import Footer_homepage from '@/components/(pages)/layouts/footer/Footer_homepage'
+import Categories from '@/components/(pages)/homePage/Categories'
 
 const Page = async () => {
 

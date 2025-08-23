@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material'
 import Link from 'next/link'
 // import { usePathname } from 'next/navigation'
-
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 const NavigationBtns = () => {
 
@@ -20,6 +20,7 @@ const NavigationBtns = () => {
         { name: 'دسته‌بندی‌ها', href: '/categories', icon: Category },
         { name: ' مدیریت', href: '/dashboard ', icon: Category },
         { name: 'نظرات', href: '/comments', icon: Comment },
+        { name: 'ورود', href: '/login', icon: LoginRoundedIcon },
     ]
 
 

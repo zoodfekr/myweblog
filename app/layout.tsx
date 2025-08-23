@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import sitebg from '@/public/image/brandi-redd-aJTiW00qqtI-unsplash.jpg';
 
 import "@/public/styles/globals.css";
+import { Providers } from './providers';
 
 
 export const metadata: Metadata = {
@@ -33,12 +34,9 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           backgroundAttachment: 'fixed',
           position: "relative"
         }}>
-
-        {children}
-
-
-
-
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

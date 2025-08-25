@@ -6,6 +6,7 @@ import sitebg from '@/public/image/brandi-redd-aJTiW00qqtI-unsplash.jpg';
 
 import "@/public/styles/globals.css";
 import { Providers } from './providers';
+import { AuthProvider } from "@/contexts/AuthContext";
 
 
 export const metadata: Metadata = {
@@ -34,9 +35,11 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           backgroundAttachment: 'fixed',
           position: "relative"
         }}>
-        <Providers>
-          {children}
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            {children}
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

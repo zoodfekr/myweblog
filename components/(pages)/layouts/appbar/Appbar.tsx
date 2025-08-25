@@ -3,6 +3,7 @@ import Logo_website from './_partials/Logo_website'
 import SearchBar from './_partials/SearchBar'
 import NavigationBtns from './_partials/NavigationBtns'
 import UserIcon from './_partials/UserIcon'
+import LoginBtn from './_partials/LoginBtn'
 
 const Appbar = () => {
 
@@ -19,6 +20,9 @@ const Appbar = () => {
 
                     {/* منوی ناوبری - دسکتاپ */}
                     <NavigationBtns />
+
+
+                    <LoginBtn />
 
                     {/* آیکون‌های کاربر و منو */}
                     <UserIcon />

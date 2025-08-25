@@ -20,7 +20,7 @@ const NavigationBtns = () => {
         { name: 'دسته‌بندی‌ها', href: '/categories', icon: Category },
         { name: ' مدیریت', href: '/dashboard ', icon: Category },
         { name: 'نظرات', href: '/comments', icon: Comment },
-        { name: 'ورود', href: '/login', icon: LoginRoundedIcon },
+        // { name: 'ورود', href: '/login', icon: LoginRoundedIcon },
     ]
 
 

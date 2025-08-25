@@ -5,10 +5,13 @@ import { LockOutlined, EmailOutlined, PasswordOutlined } from '@mui/icons-materi
 import { login_user_service } from '@/services/auth_service'
 import { LoginParams } from '@/types/auth/register'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 
 const LoginPage = () => {
 
+
     const router = useRouter()
+    const { login } = useAuth();
 
 
     const [formData, setFormData] = useState<LoginParams>({ username: '', password: '' })
@@ -26,14 +29,13 @@ const LoginPage = () => {
             const res = await login_user_service(formData)
             console.log('پاسخ سرور:', res)
 
-            if (res?.message === 'ورود موفق') {
+            if (res?.token) {
+                login(res.token, res.user)
                 router.push('/')
-            } else {
-                alert(res?.message || 'خطایی رخ داده است')
             }
         } catch (error) {
             console.error('خطا در ورود:', error.response.data.message)
-            alert(error.response.data.message ?? 'خطا در ورود')
+            alert('خطا در ورود')
         }
     }
 

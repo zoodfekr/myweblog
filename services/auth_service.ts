@@ -38,3 +38,22 @@ export const login_user_service = async (params: user_register_type): Promise<Re
         throw error
     }
 }
+
+
+export const getUserInfoService = async () => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${ServerUrl}/auth/profile`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            ...(token && { "Authorization": `Bearer ${token}` }),
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to get user info');
+    }
+
+    const data = await res.json();
+    return data as UserInfo;
+}

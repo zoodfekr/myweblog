@@ -3,7 +3,7 @@ export type UserInfo = {
     username: string;
     email: string;
     role: string;
-    createdAt: string;
+    createdAt: string; 
 }
 
 export type RegisterParams = {

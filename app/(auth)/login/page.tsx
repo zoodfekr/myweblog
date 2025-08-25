@@ -1,9 +1,44 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { TextField, Button, InputAdornment } from '@mui/material'
 import { LockOutlined, EmailOutlined, PasswordOutlined } from '@mui/icons-material'
+import { login_user_service } from '@/services/auth_service'
+import { LoginParams } from '@/types/auth/register'
+import { useRouter } from 'next/navigation'
 
 const LoginPage = () => {
+
+    const router = useRouter()
+
+
+    const [formData, setFormData] = useState<LoginParams>({ username: '', password: '' })
+
+    const handleChange = (field: keyof LoginParams) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('field', field, event.target.value);
+        setFormData({ ...formData, [field]: event.target.value })
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        console.log('اطلاعات ثبت‌نام:', formData)
+
+        try {
+            const res = await login_user_service(formData)
+            console.log('پاسخ سرور:', res)
+
+            if (res?.message === 'ورود موفق') {
+                router.push('/')
+            } else {
+                alert(res?.message || 'خطایی رخ داده است')
+            }
+        } catch (error) {
+            console.error('خطا در ورود:', error.response.data.message)
+            alert(error.response.data.message ?? 'خطا در ورود')
+        }
+    }
+
+
+
     return (
         <div className="flex justify-center items-center bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-200 min-h-screen">
             <div className="bg-white/30 shadow-xl backdrop-blur-md p-10 border border-white/40 rounded-2xl w-full max-w-md hover:scale-[1.02] transition-all duration-300">
@@ -14,14 +49,15 @@ const LoginPage = () => {
                     <h2 className="mt-4 font-extrabold text-gray-800 text-3xl">ورود به حساب</h2>
                     <p className="mt-1 text-gray-600 text-sm">خوش برگشتی! لطفاً اطلاعات خود را وارد کنید.</p>
                 </div>
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={handleSubmit}>
                     <TextField
-                        label="ایمیل"
+                        label="نام کاربری"
                         variant="outlined"
                         fullWidth
-                        type="email"
+                        type="username"
                         required
                         sx={{ my: 1 }}
+                        onChange={handleChange('username')}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -37,6 +73,7 @@ const LoginPage = () => {
                         type="password"
                         required
                         sx={{ my: 1 }}
+                        onChange={handleChange('password')}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -46,6 +83,7 @@ const LoginPage = () => {
                         }}
                     />
                     <Button
+                        type="submit"
                         sx={{ mt: 1 }}
                         variant="contained"
                         fullWidth

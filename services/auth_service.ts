@@ -24,7 +24,7 @@ export const register_user_service = async (params: RegisterParams): Promise<Reg
 export const login_user_service = async (params: user_register_type): Promise<RegisterResponse> => {
     try {
         const response = await axios.post<RegisterResponse>(
-            `${ServerUrl}//auth/login`,
+            `${ServerUrl}/auth/login`,
             params,
             {
                 headers: {

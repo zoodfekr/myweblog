@@ -42,8 +42,8 @@ const RegisterPage = () => {
                 alert(res?.message || 'خطایی رخ داده است')
             }
         } catch (error) {
-            console.error('خطا در ثبت‌نام:', error)
-            alert('ثبت‌نام با خطا مواجه شد. لطفاً دوباره تلاش کنید.')
+            console.error('خطا در ثبت‌نام:', error.response.data.message)
+            alert(error.response.data.message ?? 'ثبت‌نام با خطا مواجه شد. لطفاً دوباره تلاش کنید.')
         }
     }
 

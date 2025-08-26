@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 import sitebg from '@/public/image/brandi-redd-aJTiW00qqtI-unsplash.jpg';

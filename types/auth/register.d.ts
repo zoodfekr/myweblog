@@ -12,7 +12,7 @@ export type RegisterParams = {
     password: string;
 }
 
-export type LoginParams = {
+export type LoginParams = { 
     username: string;
     password: string;
 }
@@ -25,5 +25,5 @@ export type RegisterResponse = {
 export type LoginResponse = {
     message: string;
     token: string;
-    user: UserInfo;
+    user: UserInfo; 
 }

@@ -1,4 +1,3 @@
-import Header_HOC from '@/components/common/HOC/Header_HOC'
 import { getAllCategories } from '@/services/categories'
 import Link from 'next/link'
 import React from 'react'

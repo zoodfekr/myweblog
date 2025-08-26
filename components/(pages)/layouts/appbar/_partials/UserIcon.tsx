@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Search, AccountCircle, Close, Notifications, Settings } from '@mui/icons-material'
+import {  AccountCircle, Notifications, Settings } from '@mui/icons-material'
 
 
 const UserIcon = () => {

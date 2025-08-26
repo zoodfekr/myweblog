@@ -10,6 +10,9 @@ interface RandomArticlesSidebarProps {
 }
 
 const RandomArticlesSidebar = ({ randomArticles }: RandomArticlesSidebarProps) => {
+
+
+    
     return (
         <div className="top-8 sticky bg-white shadow-lg p-6 rounded-xl">
             <h3 className="mb-6 pb-4 border-gray-200 border-b font-semibold text-gray-800 text-xl">

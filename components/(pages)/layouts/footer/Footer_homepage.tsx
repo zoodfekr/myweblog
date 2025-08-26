@@ -1,8 +1,6 @@
 import React from 'react'
 import { Facebook, Instagram, Twitter, Email } from '@mui/icons-material'
-import { getAllCategories } from '@/services/categories'
-import Link from 'next/link'
-import Categores_footer from './partials/categores_footer'
+import Categores_footer from './partials/Categores_footer'
 
 const Footer_homepage = () => {
 

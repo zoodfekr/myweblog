@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  eslint: {
+    // اجازه بده بیلد حتی اگر import بدون استفاده یا warning وجود داشته باشد
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

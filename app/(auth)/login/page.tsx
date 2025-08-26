@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { TextField, Button, InputAdornment } from '@mui/material'
 import { LockOutlined, EmailOutlined, PasswordOutlined } from '@mui/icons-material'
 import { login_user_service } from '@/services/auth_service'
-import { LoginParams } from '@/types/auth/register'
+import { LoginParams, LoginResponse } from '@/types/auth/register'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -12,7 +12,6 @@ const LoginPage = () => {
 
     const router = useRouter()
     const { login } = useAuth();
-
 
     const [formData, setFormData] = useState<LoginParams>({ username: '', password: '' })
 
@@ -26,15 +25,15 @@ const LoginPage = () => {
         console.log('اطلاعات ثبت‌نام:', formData)
 
         try {
-            const res = await login_user_service(formData)
+            const res : LoginResponse  = await login_user_service(formData) 
             console.log('پاسخ سرور:', res)
 
-            if (res?.token) {
+            if (res.token) {
                 login(res.token, res.user)
                 router.push('/')
             }
         } catch (error) {
-            console.error('خطا در ورود:', error.response.data.message)
+            // console.error('خطا در ورود:', error?.res.data.message)
             alert('خطا در ورود')
         }
     }

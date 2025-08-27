@@ -6,7 +6,7 @@ import {
   EmailOutlined,
   LockOutlined,
 } from "@mui/icons-material";
-import { register_user_service } from "@/services/auth_service";
+import { register_user_service } from "@/services/fetch/auth_service";
 import { useRouter } from "next/navigation";
 
 export type user_register_type = {

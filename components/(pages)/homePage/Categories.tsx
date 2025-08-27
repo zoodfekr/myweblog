@@ -1,4 +1,4 @@
-import { getAllCategories } from '@/services/categories'
+import { getAllCategories } from '@/services/fetch/categories'
 import { Button } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'

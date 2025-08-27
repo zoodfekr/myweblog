@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { UserInfo } from '@/types/auth/register';
-import { getUserInfoService } from '@/services/auth_service';
+import { getUserInfoService } from '@/services/fetch/auth_service';
 
 interface AuthContextType {
   user: UserInfo | null;

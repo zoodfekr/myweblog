@@ -1,14 +1,15 @@
 import React from 'react'
-import { getAllArticles } from '@/services/articles'
+
+
+import { getAllArticles } from '@/services/fetch/articles'
 import Banner_homePage from '@/components/(pages)/homePage/Banner_homePage'
 import ShowArticles_homePage from '@/components/(pages)/homePage/ShowArticles_homePage'
-import Footer_homepage from '@/components/(pages)/layouts/footer/Footer_homepage'
 import Categories from '@/components/(pages)/homePage/Categories'
 
 const Page = async () => {
 
     const articles = await getAllArticles()
-    const firstSix = articles.slice(0, 6)
+    const slicedArticles = articles.slice(0, 10)
 
     return (
         <div className="">
@@ -21,7 +22,7 @@ const Page = async () => {
 
 
             {/* لیست مقالات */}
-            <ShowArticles_homePage data={firstSix} />
+            <ShowArticles_homePage data={slicedArticles} />
 
         </div>
     )

@@ -6,6 +6,8 @@ import Link from 'next/link'
 import React from 'react'
 
 const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
+
+    
     return (
         <div className="mx-auto px-2 py-8 container">
             <h1 className="mb-10 font-bold text-slate-800 text-3xl text-center">آخرین مقالات</h1>

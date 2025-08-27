@@ -1,47 +1,50 @@
-import axios from "axios";
-import { ServerUrl } from "./server";
+import { ServerUrl } from "@/services/server";
 import { LoginParams, LoginResponse, RegisterParams, RegisterResponse, UserInfo } from "@/types/auth/register";
-import { user_register_type } from "@/app/(auth)/register/page";
 
 
 export const register_user_service = async (params: RegisterParams): Promise<RegisterResponse> => {
     try {
-        const response = await axios.post<RegisterResponse>(
-            `${ServerUrl}/auth/register`,
-            params,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        )
-        return response.data
+        const response = await fetch(`${ServerUrl}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params),
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data as RegisterResponse;
     } catch (error) {
         console.error('خطا در ثبت‌نام:', error)
         throw error
     }
 }
 
-
-
 export const login_user_service = async (params: LoginParams): Promise<LoginResponse> => {
     try {
-        const response = await axios.post<LoginResponse>(
-            `${ServerUrl}/auth/login`,
-            params,
-            { headers: { 'Content-Type': 'application/json' } }
-        );
+        const response = await fetch(`${ServerUrl}/auth/login`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(params),
+        });
 
-        // فقط داده واقعی را برگردانید
-        return response.data;
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data as LoginResponse;
     } catch (error) {
         console.error('خطا در ورود:', error);
         throw error;
     }
 };
-
-
-
 
 export const getUserInfoService = async () => {
     const token = localStorage.getItem('token_myweblog');

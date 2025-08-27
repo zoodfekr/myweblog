@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { GetArticlesById } from '@/services/articles'
+import { GetArticlesById } from '@/services/fetch/articles'
 import ArticleContent from './_partials/ArticleContent'
 import Page_HOC from '@/components/common/HOC/Page_HOC'
 import Header_HOC from '@/components/common/HOC/Header_HOC'

@@ -6,7 +6,7 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { theme } from './theme';
+import { theme } from '@/theme/theme';
 
 // ایجاد cache برای RTL
 const cacheRtl = createCache({

@@ -1,7 +1,7 @@
 import React from 'react'
 import CommentSection_byId from './CommentSection_byId'
 import { commentsType } from '@/types/services/comments'
-import { getCommentsByArticleId } from '@/services/comments'
+import { getCommentsByArticleId } from '@/services/fetch/comments'
 
 const Comment_element = async ({ comments }: { comments: commentsType[] }) => {
 

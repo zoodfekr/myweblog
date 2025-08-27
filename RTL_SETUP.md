@@ -55,3 +55,4 @@ import { getRTLMargin, getRTLPadding } from '@/utils/rtl';
 2. برای margin و padding از توابع کمکی استفاده کنید
 3. فونت فارسی به صورت پیش‌فرض تنظیم شده
 4. تمام جداول و فرم‌ها راست چین هستند
+

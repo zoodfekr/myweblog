@@ -1,8 +1,8 @@
-import Header_HOC from "@/components/common/HOC/Header_HOC";
-import { getAllCategoriesById } from "@/services/categories";
+import { getAllCategoriesById } from "@/services/fetch/categories";
 import React from "react";
 
 const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  
   const { slug } = await params;
   const category = await getAllCategoriesById(slug);
 

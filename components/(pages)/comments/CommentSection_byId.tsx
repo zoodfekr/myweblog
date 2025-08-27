@@ -1,4 +1,4 @@
-import { getAllComments, getCommentsByArticleId } from '@/services/comments'
+import { getAllComments } from '@/services/fetch/comments'
 import { commentsType } from '@/types/services/comments'
 import React from 'react'
 import Comment_element from './Comment_element'

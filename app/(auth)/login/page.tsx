@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { TextField, Button, InputAdornment } from '@mui/material'
 import { LockOutlined, EmailOutlined, PasswordOutlined } from '@mui/icons-material'
-import { login_user_service } from '@/services/auth_service'
+import { login_user_service } from '@/services/fetch/auth_service'
 import { LoginParams, LoginResponse } from '@/types/auth/register'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'

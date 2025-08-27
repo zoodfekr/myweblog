@@ -50,3 +50,4 @@ export const theme = createTheme(
   },
   faIR // اضافه کردن locale فارسی
 );
+

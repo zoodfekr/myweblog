@@ -13,12 +13,12 @@ export const api = createApi({
     endpoints: (builder) => ({
 
 
-        getPosts: builder.query({
-            query: () => '/posts',
+        getAllArticles: builder.query({
+            query: () => '/articles',
         }),
 
 
     }),
 });
 
-export const { useGetPostsQuery } = api;
+export const { useGetAllArticlesQuery } = api;

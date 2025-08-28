@@ -2,9 +2,14 @@ import { categoriesType } from "@/types/services/categories";
 import { ServerUrl } from "@/services/server";
 
 
-export const getAllCategories = async (): Promise<categoriesType[]> => {
+export const getAllCategories = async (options?: { revalidate: number, cache: RequestCache }): Promise<categoriesType[]> => {
     try {
-        const res = await fetch(`${ServerUrl}/categories`, { next: { revalidate: 28800 } }); // هر 8 ساعت یکبار
+        const res = await fetch(`${ServerUrl}/categories`,
+            {
+                next: options?.revalidate ? { revalidate: options.revalidate } : undefined,
+                cache: options?.cache ?? 'default'
+            }
+        ); // هر 8 ساعت یکبار
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
 
         const data = await res.json();
@@ -15,8 +20,6 @@ export const getAllCategories = async (): Promise<categoriesType[]> => {
         return [];
     }
 }
-
-
 
 
 export const getAllCategoriesById = async (id: string): Promise<categoriesType | null> => {

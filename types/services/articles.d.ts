@@ -5,5 +5,6 @@ export type articleType = {
     image: string,
     categoryId: string,
     author: string,
+    views: number,
     createdAt: string // or Date if you want to use Date
 } 

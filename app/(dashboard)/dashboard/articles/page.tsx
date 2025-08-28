@@ -1,20 +1,53 @@
 'use client';
+import { getAllArticles } from '@/services/fetch/articles';
+import { articleType } from '@/types/services/articles';
 import ArticleIcon from '@mui/icons-material/Article';
+import { useState, useEffect } from 'react';
 
-const fakeArticles = [
-  { id: 1, title: 'آموزش Next.js', author: 'علی رضایی', views: 120 },
-  { id: 2, title: 'مقدمه‌ای بر React', author: 'مریم محمدی', views: 95 },
-  { id: 3, title: 'ترفندهای جاوااسکریپت', author: 'حسین کریمی', views: 80 },
-  { id: 4, title: 'آشنایی با TypeScript', author: 'سارا احمدی', views: 110 },
-  { id: 5, title: 'بهترین کتابخانه‌های UI', author: 'رضا موسوی', views: 75 },
-  { id: 6, title: 'آموزش Tailwind CSS', author: 'نگار شریفی', views: 130 },
-  { id: 7, title: 'مفاهیم پیشرفته React', author: 'محمد عباسی', views: 90 },
-  { id: 8, title: 'آشنایی با Node.js', author: 'الهام قاسمی', views: 60 },
-  { id: 9, title: 'آموزش Git و GitHub', author: 'کامران صادقی', views: 105 },
-  { id: 10, title: 'تست نویسی در جاوااسکریپت', author: 'فرزانه مرادی', views: 85 },
-];
+const ArticlesPage = () => {
 
-export default function ArticlesPage() {
+
+  const [articles, setArticles] = useState<articleType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setLoading(true);
+        const data = await getAllArticles();
+        setArticles(data);
+      } catch (err) {
+        setError('خطا در دریافت مقالات');
+        console.error('Error fetching articles:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
+
+
+  if (loading) {
+    return (
+      <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
+        <div className="flex justify-center items-center py-8">
+          <div className="text-green-600">در حال بارگذاری...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
+        <div className="flex justify-center items-center py-8">
+          <div className="text-red-600">{error}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
       <div className="flex items-center gap-2 mb-6">
@@ -31,7 +64,7 @@ export default function ArticlesPage() {
           </tr>
         </thead>
         <tbody>
-          {fakeArticles.map((article, idx) => (
+          {articles.map((article, idx) => (
             <tr key={article.id} className="hover:bg-green-50 border-b">
               <td className="px-4 py-2 font-bold text-green-700">{idx + 1}</td>
               <td className="px-4 py-2 text-gray-800">{article.title}</td>
@@ -44,3 +77,6 @@ export default function ArticlesPage() {
     </div>
   );
 }
+
+export default ArticlesPage;
+

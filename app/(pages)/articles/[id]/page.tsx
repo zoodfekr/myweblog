@@ -17,7 +17,7 @@ const SingleArticlePage = async ({ params }: { params: Promise<{ id: string }> }
 
 
     try {
-        const [articleData] = await Promise.all([GetArticlesById(id)])
+        const [articleData] = await Promise.all([GetArticlesById({ id })])
 
         if (!articleData) return <NotFound_Data />
 

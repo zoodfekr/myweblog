@@ -11,11 +11,11 @@ export const register_user_service = async (params: RegisterParams): Promise<Reg
             },
             body: JSON.stringify(params),
         });
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         return data as RegisterResponse;
     } catch (error) {
@@ -28,8 +28,8 @@ export const login_user_service = async (params: LoginParams): Promise<LoginResp
     try {
         const response = await fetch(`${ServerUrl}/auth/login`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
+            headers: {
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(params),
         });
@@ -59,7 +59,6 @@ export const getUserInfoService = async () => {
     if (!res.ok) {
         throw new Error('Failed to get user info');
     }
-
     const data = await res.json();
     return data as UserInfo;
 }

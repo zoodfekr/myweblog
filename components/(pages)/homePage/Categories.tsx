@@ -6,13 +6,13 @@ import Image from 'next/image'
 
 import codeBg from '@/public/icons/codeBg.png'
 import eye from '@/public/icons/eye.png'
+import { categoriesType } from '@/types/services/categories'
 
 
 
-const Categories = async () => {
+const Categories = async ({ data }: { data: categoriesType[] }) => {
 
 
-    const categories_vallue = await getAllCategories()
 
 
     return (
@@ -22,7 +22,7 @@ const Categories = async () => {
                     دسته‌بندی مقالات علمی و آموزشی
                 </h2>
                 <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    {categories_vallue.slice(0, 6).map((cat, index) => (
+                    {data.slice(0, 6).map((cat, index) => (
                         <div
                             key={index}
                             className="relative bg-white shadow-lg hover:shadow-xl p-6 border border-gray-100 hover:border-blue-300 rounded-xl transition duration-300"

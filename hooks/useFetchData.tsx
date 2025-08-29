@@ -40,3 +40,6 @@ export const useFetchData = <T,>({ fetchFunction }: UseFetchDataProps<T>): UseFe
 
     return { data, loading, error, success };
 };
+
+
+//   const { data, loading, error } = useFetchData<articleType[]>({ fetchFunction: getAllArticles })

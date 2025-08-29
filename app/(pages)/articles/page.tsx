@@ -6,7 +6,9 @@ import Page_HOC from "@/components/common/HOC/Page_HOC";
 import CommentSection_getAll from "@/components/(pages)/comments/CommentSection_getAll";
 
 const ArticlesPage = async () => {
-  const articles: articleType[] = await getAllArticles();
+
+
+  const articles: articleType[] = await getAllArticles({ revalidate: 28800, cache: 'force-cache' });
 
   return (
     <div>

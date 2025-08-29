@@ -13,6 +13,7 @@ const links = [
     { href: '/dashboard', label: 'داشبورد', icon: <DashboardIcon className="text-blue-600" />, blank: false },
     { href: '/', label: 'مشاهده سایت', icon: <CoPresentRoundedIcon className="text-blue-600" />, blank: true },
     { href: '/dashboard/articles', label: 'مقالات', icon: <ArticleIcon className="text-green-600" />, blank: false },
+    { href: '/dashboard/categories', label: 'دسته بندی ها ', icon: <ArticleIcon className="text-green-600" />, blank: false },
     { href: '/dashboard/comments', label: 'نظرات', icon: <CommentIcon className="text-yellow-600" />, blank: false },
     { href: '/dashboard/users', label: 'کاربران', icon: <PeopleIcon className="text-purple-600" />, blank: false },
     { href: '/dashboard/reports', label: 'گزارشات', icon: <BarChartIcon className="text-pink-600" />, blank: false },

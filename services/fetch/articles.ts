@@ -1,5 +1,5 @@
 import { ServerUrl } from "@/services/server";
-import { articleType } from "@/types/services/articles";
+import { AddArticleTyle, articleType } from "@/types/services/articles";
 
 
 export const getAllArticles = async (options?: { revalidate: number, cache: RequestCache }): Promise<articleType[]> => {
@@ -16,6 +16,32 @@ export const getAllArticles = async (options?: { revalidate: number, cache: Requ
         return [];
     }
 }
+
+
+export const AddArticle = async (article: AddArticleTyle, token: string): Promise<AddArticleTyle | null> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(article),
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data as AddArticleTyle;
+    } catch (error) {
+        console.error("Error creating article:", error);
+        return null;
+    }
+};
+
+
 
 export const GetArticlesById = async ({ id, options }: { id: string, options?: { revalidate: number, cache: RequestCache } }): Promise<articleType | null> => {
     try {

@@ -1,4 +1,5 @@
 'use client';
+
 import CommentIcon from '@mui/icons-material/Comment';
 
 const fakeComments = [

@@ -3,3 +3,8 @@ export type categoriesType = {
     title: string,
     description: string
 }
+
+export type AddcategoriesType = {
+    title: string,
+    description: string
+}

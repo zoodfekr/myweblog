@@ -1,4 +1,4 @@
-import { categoriesType } from "@/types/services/categories";
+import { AddcategoriesType, categoriesType } from "@/types/services/categories";
 import { ServerUrl } from "@/services/server";
 
 
@@ -20,6 +20,32 @@ export const getAllCategories = async (options?: { revalidate: number, cache: Re
         return [];
     }
 }
+
+
+export const Add = async (article: AddcategoriesType, token: string): Promise<AddcategoriesType | null> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(article),
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data as categoriesType;
+    } catch (error) {
+        console.error("Error creating article:", error);
+        return null;
+    }
+};
+
+
 
 
 export const getAllCategoriesById = async (id: string): Promise<categoriesType | null> => {

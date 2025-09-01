@@ -10,6 +10,7 @@ export interface UseFetchDataResult<T> {
     loading: boolean;
     error: string | null;
     success: boolean;
+    setData: (data: T) => void;
 }
 
 
@@ -38,8 +39,8 @@ export const useFetchData = <T,>({ fetchFunction }: UseFetchDataProps<T>): UseFe
         fetchData();
     }, [fetchFunction]);
 
-    return { data, loading, error, success };
+    return { data, loading, error, success, setData };
 };
 
 
-//   const { data, loading, error } = useFetchData<articleType[]>({ fetchFunction: getAllArticles })
+//   const { data, loading, error , setData } = useFetchData<articleType[]>({ fetchFunction: getAllArticles })

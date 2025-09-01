@@ -74,7 +74,7 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
       <DialogTitle
         sx={{ m: 0, p: 2 }}
         id="customized-dialog-title"
-        className="chart_title"
+        className="bg-blue-400 chart_title"
       >
         {title}
       </DialogTitle>

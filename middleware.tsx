@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
 
     const token = req.cookies.get('token_myweblog')?.value;
 
-    if (!token) return NextResponse.redirect(new URL('/', req.url));
+    if (!token) return NextResponse.redirect(new URL('/login', req.url));
 
     const status = await UserIsAdmin({ token });
 
@@ -18,3 +18,6 @@ export async function middleware(req: NextRequest) {
 export const config = {
     matcher: ['/dashboard/:path*'],
 };
+
+
+

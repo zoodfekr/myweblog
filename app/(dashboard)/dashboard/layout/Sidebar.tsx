@@ -2,24 +2,26 @@ import Link from 'next/link';
 import DashboardIcon from '@mui/icons-material/SpaceDashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import CommentIcon from '@mui/icons-material/Comment';
-import PeopleIcon from '@mui/icons-material/People';
-import SettingsIcon from '@mui/icons-material/Settings';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import LogoutIcon from '@mui/icons-material/Logout';
+// import PeopleIcon from '@mui/icons-material/People';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import BarChartIcon from '@mui/icons-material/BarChart';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import LogoutIcon from '@mui/icons-material/Logout';
 import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
 
 const links = [
     { href: '/dashboard', label: 'داشبورد', icon: <DashboardIcon className="text-blue-600" />, blank: false },
-    { href: '/', label: 'مشاهده سایت', icon: <CoPresentRoundedIcon className="text-blue-600" />, blank: true },
     { href: '/dashboard/articles', label: 'مقالات', icon: <ArticleIcon className="text-green-600" />, blank: false },
     { href: '/dashboard/categories', label: 'دسته بندی ها ', icon: <ArticleIcon className="text-green-600" />, blank: false },
     { href: '/dashboard/comments', label: 'نظرات', icon: <CommentIcon className="text-yellow-600" />, blank: false },
-    { href: '/dashboard/users', label: 'کاربران', icon: <PeopleIcon className="text-purple-600" />, blank: false },
-    { href: '/dashboard/reports', label: 'گزارشات', icon: <BarChartIcon className="text-pink-600" />, blank: false },
-    { href: '/dashboard/notifications', label: 'اعلان‌ها', icon: <NotificationsIcon className="text-orange-500" />, blank: false },
-    { href: '/dashboard/settings', label: 'تنظیمات', icon: <SettingsIcon className="text-gray-600" />, blank: false },
-    { href: '/logout', label: 'خروج', icon: <LogoutIcon className="text-red-500" />, blank: false },
+    { href: '/', label: 'مشاهده سایت', icon: <CoPresentRoundedIcon className="text-blue-600" />, blank: true },
+
+
+    // { href: '/dashboard/users', label: 'کاربران', icon: <PeopleIcon className="text-purple-600" />, blank: false },
+    // { href: '/dashboard/reports', label: 'گزارشات', icon: <BarChartIcon className="text-pink-600" />, blank: false },
+    // { href: '/dashboard/notifications', label: 'اعلان‌ها', icon: <NotificationsIcon className="text-orange-500" />, blank: false },
+    // { href: '/dashboard/settings', label: 'تنظیمات', icon: <SettingsIcon className="text-gray-600" />, blank: false },
+    // { href: '/logout', label: 'خروج', icon: <LogoutIcon className="text-red-500" />, blank: false },
 ];
 
 const Sidebar = () => {

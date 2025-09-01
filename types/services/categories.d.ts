@@ -6,5 +6,5 @@ export type categoriesType = {
 
 export type AddcategoriesType = {
     title: string,
-    description: string
+    description: string,
 }

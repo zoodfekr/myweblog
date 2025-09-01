@@ -1,7 +1,8 @@
 import { AddcategoriesType, categoriesType } from "@/types/services/categories";
 import { ServerUrl } from "@/services/server";
+import { promises } from "dns";
 
-
+// دریافت تمام دسته بندی ها
 export const getAllCategories = async (options?: { revalidate: number, cache: RequestCache }): Promise<categoriesType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/categories`,
@@ -21,14 +22,14 @@ export const getAllCategories = async (options?: { revalidate: number, cache: Re
     }
 }
 
-
-export const Add = async (article: AddcategoriesType, token: string): Promise<AddcategoriesType | null> => {
+// افزودن دسته بندی
+export const AddCategory = async (article: AddcategoriesType, token: string): Promise<categoriesType | null> => {
     try {
-        const res = await fetch(`${ServerUrl}/articles`, {
+        const res = await fetch(`${ServerUrl}/categories`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(article),
         });
@@ -36,7 +37,6 @@ export const Add = async (article: AddcategoriesType, token: string): Promise<Ad
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
         }
-
         const data = await res.json();
         return data as categoriesType;
     } catch (error) {
@@ -45,9 +45,7 @@ export const Add = async (article: AddcategoriesType, token: string): Promise<Ad
     }
 };
 
-
-
-
+// دریافت یک دسته بندی با ایدی
 export const getAllCategoriesById = async (id: string): Promise<categoriesType | null> => {
     try {
         const res = await fetch(`${ServerUrl}/categories/${id}`);
@@ -61,3 +59,30 @@ export const getAllCategoriesById = async (id: string): Promise<categoriesType |
         return null;
     }
 }
+
+
+// حذف دسته بندی
+export const deleteCategory = async ({ id, token }: { id: string, token: string }): Promise<{ message: string, status: number }> => {
+    try {
+        const res = await fetch(`${ServerUrl}/categories/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        });
+
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        return {
+            status: data.status,
+            message: data.message
+        };
+    } catch (error) {
+        console.error("Error creating article:", error);
+        return {
+            status: 500,
+            message: 'خطا در حذف دسته بندی'
+        };
+    }
+};

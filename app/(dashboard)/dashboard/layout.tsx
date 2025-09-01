@@ -1,6 +1,6 @@
 import React from 'react'
-import Appbar from './_partials/Appbar'
-import Sidebar from './_partials/Sidebar'
+import Appbar from './layout/Appbar'
+import Sidebar from './layout/Sidebar'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (

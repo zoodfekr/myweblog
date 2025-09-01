@@ -1,48 +1,50 @@
 "use client";
 
 import React, { useState } from "react";
-import { AddcategoriesType } from "@/types/services/categories";
+import { AddcategoriesType, categoriesType } from "@/types/services/categories";
 import CategoryIcon from "@mui/icons-material/Category"; // آیکون متریال
 import DescriptionIcon from "@mui/icons-material/Description";
-import { AddArticle } from "@/services/fetch/articles";
+import { AddCategory } from "@/services/fetch/categories";
 
-const AddCategories = () => {
-    const [formData, setFormData] = useState<AddcategoriesType>({
-        title: "",
-        description: "",
-    });
+const AddCategories = ({ setOpenDialog, handleFreshData }:
+    {
+        setOpenDialog: (value: boolean) => void
+        handleFreshData: (value: categoriesType) => void
+    }) => {
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
+
+    const [formData, setFormData] = useState<AddcategoriesType>({ title: "", description: "" });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
+
+
+    const token = localStorage.getItem('token_myweblog');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("📂 ارسال دسته‌بندی:", formData);
-
-
-        const res = await (formData, data)
-
+        if (!token) {
+            console.log("مشکل در افزودن دسته بندی");
+            return false
+        }
+        const res = await AddCategory(formData, token)
+        if (res !== null) {
+            handleFreshData(res);
+        }
+        setOpenDialog(false)
         console.log("پاسخ سرور برا یافزودن دسته بندی", res);
-        // اینجا میتونی تابع AddCategory API رو صدا بزنی
-        // await AddCategory(formData, token);
+
     };
 
     return (
-        <div className="flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6 min-h-screen">
+        <div className="flex justify-center items-center">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-lg p-1 rounded-2xl w-full max-w-md"
+                className="bg-white shadow-xl p-3 rounded-2xl w-full"
             >
-                <h2 className="mb-6 font-bold text-gray-800 text-2xl text-center">
-                    ➕ افزودن دسته‌بندی جدید
-                </h2>
 
                 {/* فیلد عنوان */}
                 <div className="mb-4">

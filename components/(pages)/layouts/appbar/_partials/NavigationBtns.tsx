@@ -24,11 +24,6 @@ const NavigationBtns = () => {
     ]
 
 
-    // const isActive = (href: string) => {
-    //     if (href === '/') return pathname === '/'
-    //     return pathname.startsWith(href)
-    // }
-
 
     return (
         <nav className="hidden md:flex items-center space-x-2 rtl:space-x-reverse">

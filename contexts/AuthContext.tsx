@@ -15,7 +15,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  
+
   const [user, setUser] = useState<UserInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('token_myweblog', token);
       localStorage.setItem('user_myweblog', JSON.stringify(userData));
-      document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 روز
+      document.cookie = `token_myweblog=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 روز
     }
     setUser(userData);
   };
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token_myweblog');
       localStorage.removeItem('user_myweblog');
-      document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      document.cookie = 'token_myweblog=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
     }
     setUser(null);
   };
@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const token = localStorage.getItem('token_myweblog');
       const savedUser = localStorage.getItem('user_myweblog');
-      
+
       if (!token) {
         setIsLoading(false);
         return;
@@ -69,10 +69,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // بررسی اعتبار توکن با سرور
       const userData = await getUserInfoService();
       setUser(userData);
-      
+
       // به‌روزرسانی اطلاعات کاربر در localStorage
       localStorage.setItem('user_myweblog', JSON.stringify(userData));
-      
+
     } catch (error) {
       console.error('خطا در بررسی احراز هویت:', error);
       logout();

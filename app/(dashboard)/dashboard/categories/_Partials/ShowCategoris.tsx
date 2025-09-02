@@ -1,12 +1,22 @@
+'use client'
 import React from 'react'
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton'
+import { blue, red } from '@mui/material/colors';
+import { BiSolidEdit } from "react-icons/bi";
 
 import { categoriesType } from '@/types/services/categories'
-import IconButton from '@mui/material/IconButton'
-import { red } from '@mui/material/colors';
 
-const ShowCategoris = ({ data, deleteFunction }: { data: categoriesType[], deleteFunction: (id: string) => void }) => {
+
+type ShowCategorisType = {
+    data: categoriesType[],
+    deleteFunction: (id: string) => void,
+    editFunction: (data: categoriesType) => void
+}
+
+
+const ShowCategoris = ({ data, deleteFunction, editFunction }: ShowCategorisType) => {
     return (
         <div className="mx-auto p-6 max-w-5xl">
             <h1 className="mb-6 font-extrabold text-gray-800 text-2xl text-center">
@@ -37,6 +47,9 @@ const ShowCategoris = ({ data, deleteFunction }: { data: categoriesType[], delet
                         <div className='flex justify-end border-red-500 grow'>
                             <IconButton aria-label="" onClick={() => deleteFunction(val.id)}>
                                 <DeleteIcon sx={{ fontSize: "15px", color: red[500] }} />
+                            </IconButton>
+                            <IconButton aria-label="" onClick={() => editFunction(val)}>
+                                <BiSolidEdit style={{ fontSize: "15px", color: blue[500] }} />
                             </IconButton>
                         </div>
                     </div>

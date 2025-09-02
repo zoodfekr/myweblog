@@ -1,43 +1,74 @@
 "use client";
 
-import React, { useState } from "react";
-import { AddcategoriesType, categoriesType } from "@/types/services/categories";
+import React, { useEffect, useState } from "react";
+import { categoriesType } from "@/types/services/categories";
 import CategoryIcon from "@mui/icons-material/Category"; // آیکون متریال
 import DescriptionIcon from "@mui/icons-material/Description";
-import { AddCategory } from "@/services/fetch/categories";
-
-const AddCategories = ({ setOpenDialog, handleFreshData }:
-    {
-        setOpenDialog: (value: boolean) => void
-        handleFreshData: (value: categoriesType) => void
-    }) => {
+import { AddCategory, editCategory } from "@/services/fetch/categories";
+import { getCookie } from "@/components/common/functions/cookie";
+import useSnack from "@/hooks/useSnack";
 
 
-    const [formData, setFormData] = useState<AddcategoriesType>({ title: "", description: "" });
+type AddCategoriesType = {
+    setOpenDialog: (value: boolean) => void
+    handleFreshData: (value: categoriesType, type: 'add' | 'edit') => void
+    stateValue: { status: boolean, type: 'add' | 'edit', value: categoriesType | null }
+}
 
+
+const AddCategories = ({ setOpenDialog, handleFreshData, stateValue }: AddCategoriesType) => {
+
+    const token = getCookie('token_myweblog');
+    const snack = useSnack()
+
+    const [formData, setFormData] = useState<categoriesType>({ title: "", description: "", id: '' });
+
+    const handleResetState = () => setFormData({ title: "", description: "", id: '' })
+
+    useEffect(() => {
+        if (stateValue.type === 'edit' && stateValue.value != null) setFormData(stateValue.value)
+        else handleResetState();
+    }, [stateValue])
+
+
+
+    // ثبت تغییرات فرم در state
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-
-    const token = localStorage.getItem('token_myweblog');
-
+    // ارسال دیتا به سرور برای ثبت
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("📂 ارسال دسته‌بندی:", formData);
-        if (!token) {
-            console.log("مشکل در افزودن دسته بندی");
-            return false
-        }
-        const res = await AddCategory(formData, token)
-        if (res !== null) {
-            handleFreshData(res);
-        }
-        setOpenDialog(false)
-        console.log("پاسخ سرور برا یافزودن دسته بندی", res);
 
+        if (!token) {
+            snack({ text: 'مشکل در افزودن دسته بندی', variant: 'error' });
+            return; // فقط return خالی کافیه
+        }
+
+        try {
+            let res: any = null;
+
+            if (stateValue.type === 'add') {
+                res = await AddCategory(formData, token);
+            } else if (stateValue.type === 'edit') {
+                res = await editCategory(formData, token);
+            }
+
+            if (res) {
+                handleFreshData(res, stateValue.type);
+                handleResetState();
+                setOpenDialog(false);
+                console.log("✅ پاسخ سرور برای افزودن/ویرایش دسته بندی:", res);
+            }
+        } catch (error) {
+            console.error("❌ خطا در ارسال دسته‌بندی:", error);
+            snack({ text: 'خطا در ارسال دسته‌بندی', variant: 'error' });
+        }
     };
+
 
     return (
         <div className="flex justify-center items-center">

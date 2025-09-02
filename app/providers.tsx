@@ -7,6 +7,7 @@ import createCache from '@emotion/cache';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { theme } from '@/theme/theme';
+import { SnackbarProvider } from 'notistack';
 
 // ایجاد cache برای RTL
 const cacheRtl = createCache({
@@ -18,8 +19,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
+        <SnackbarProvider>
+          <CssBaseline />
+          {children}
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );

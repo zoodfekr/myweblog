@@ -45,6 +45,30 @@ export const AddCategory = async (article: AddcategoriesType, token: string): Pr
     }
 };
 
+// ویرایش دسته بندی
+export const editCategory = async (article: categoriesType, token: string): Promise<categoriesType | null> => {
+    try {
+        const res = await fetch(`${ServerUrl}/categories/${article.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(article),
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data as categoriesType;
+    } catch (error) {
+        console.error("Error creating article:", error);
+        return null;
+    }
+};
+
+
 // دریافت یک دسته بندی با ایدی
 export const getAllCategoriesById = async (id: string): Promise<categoriesType | null> => {
     try {
@@ -72,14 +96,14 @@ export const deleteCategory = async ({ id, token }: { id: string, token: string 
             },
         });
 
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
+
         return {
-            status: data.status,
+            status: res.status,
             message: data.message
         };
     } catch (error) {
-        console.error("Error creating article:", error);
+        console.error("Error deleting category:", error);
         return {
             status: 500,
             message: 'خطا در حذف دسته بندی'

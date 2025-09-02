@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import IsError_status from '@/components/common/statusPages/IsError_status'
 import IsLoading_status from '@/components/common/statusPages/IsLoading_status'
 import { useFetchData } from '@/hooks/useFetchData'
@@ -13,43 +13,69 @@ import { Button } from '@mui/material'
 import AddCategories from './_Partials/AddCategories'
 
 import { getCookie } from '@/components/common/functions/cookie'
+import useSnack from '@/hooks/useSnack'
 
 const CategoriesPage = () => {
 
-    const token = getCookie('token_myweblog');
+    const snack = useSnack()
 
-    // hooks
     const { data, loading, error, setData } = useFetchData<categoriesType[]>({ fetchFunction: getAllCategories });
-    const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+    const [openDialog, setOpenDialog] = useState<{ status: boolean, type: 'add' | 'edit', value: categoriesType | null }>({ status: false, type: 'add', value: null })
+    const [tokenValue, settokenValue] = useState<string>('')
 
 
-    // functions
+    // ست کننده توکن در state
+    useEffect(() => { const token = getCookie('token_myweblog'); if (token) settokenValue(token) }, [])
 
-    // تابع افزودن دیتا به کش
-    const handleFreshData = (value: categoriesType) => setData(data ? [...data, value] : [value])
+    //   تایع مدیریت کش
+    const handleFreshData = (value: categoriesType, type: 'add' | 'edit') => {
+        if (type === 'add') {
+            setData(data ? [...data, value] : [value]);
+            snack({ text: 'دسته بندی افزوده شد', variant: 'success' });
+        } else if (type === 'edit') {
+            const updatedData = data
+                ? data.map(val => val.id === value.id ? { ...val, ...value } : val)
+                : [value]; // اگر قبلا دیتایی نبوده، یه آرایه جدید بسازه
+            setData(updatedData);
+            snack({ text: 'دسته بندی ویرایش شد', variant: 'success' });
+        }
+    };
+
     // تابع حذف دیتا از کش
     const handleDeleteCategory = async (id: string) => {
         console.log('del id', id);
-        if (token) {
-            const res = await deleteCategory({ id: id, token })
+        if (tokenValue) {
+            const res = await deleteCategory({ id: id, token: tokenValue })
+            console.log('del res', res);
             switch (res.status) {
                 case 200:
                     console.log(res.message);
                     const filteredData = data?.filter(val => val.id !== id) || [];
                     setData([...filteredData]);
+                    snack({ text: res.message, variant: 'success' })
                     break;
                 case 400:
                 case 403:
                 case 404:
-                    console.log(res.message);
+                    snack({ text: res.message, variant: 'error' })
                     break;
                 default:
-                    console.log("خطای ناشناخته:", res.message);
+                    snack({ text: 'خطای ناشناخته', variant: 'error' })
             }
         } else {
+            snack({ text: 'توکن نامعتبر', variant: 'info' })
             console.log('توکن نامعتبر');
         }
     }
+
+
+    // تابع بستن دیالوگ
+    const handleCloseDialogFunction = () => setOpenDialog({ status: false, type: 'add', value: null })
+    // بازکردن دیالوگ برای ادیت دسته بندی
+    const handleEditFunction = (value: categoriesType) => setOpenDialog({ status: true, type: 'edit', value: value })
+    // باز کردن دیالوگ برای افزودن دسته بندی
+    const handleAddFunctin = (status: boolean) => setOpenDialog({ status: status, type: 'add', value: null })
 
 
     // elements
@@ -62,16 +88,16 @@ const CategoriesPage = () => {
         <div className='relative border-red-500'>
 
 
-            <CustomDialog open={openDialog} handleClose={() => setOpenDialog(false)} title='  ➕ افزودن دسته بندی' >
-                <AddCategories setOpenDialog={setOpenDialog} handleFreshData={handleFreshData} />
+            <CustomDialog open={openDialog.status} handleClose={handleCloseDialogFunction} title='  ➕ افزودن دسته بندی' >
+                <AddCategories setOpenDialog={handleAddFunctin} handleFreshData={handleFreshData} stateValue={openDialog} />
             </CustomDialog>
 
 
             <div className='top-0 left-0 absolute p-2'>
-                <Button variant='contained' onClick={() => setOpenDialog(true)}>افزودن مقاله</Button>
+                <Button variant='contained' onClick={() => handleAddFunctin(true)}>افزودن مقاله</Button>
             </div>
 
-            <ShowCategoris data={data} deleteFunction={handleDeleteCategory} />
+            <ShowCategoris data={data} deleteFunction={handleDeleteCategory} editFunction={handleEditFunction} />
         </div>
     );
 };

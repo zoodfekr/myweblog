@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { articleType } from '@/types/services/articles'
+import { articleType } from '@/types/articles'
 import { ServerUrl_media } from '@/services/server'
 import Link from 'next/link'
 import { Button } from '@mui/material'

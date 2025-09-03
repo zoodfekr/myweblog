@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { UserInfo } from '@/types/auth/register';
+import { UserInfo } from '@/types/register';
 import { getUserInfoService } from '@/services/fetch/auth_service';
 
 interface AuthContextType {

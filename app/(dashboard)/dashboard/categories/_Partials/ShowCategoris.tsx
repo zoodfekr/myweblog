@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import { blue, red } from '@mui/material/colors';
 import { BiSolidEdit } from "react-icons/bi";
 
-import { categoriesType } from '@/types/services/categories'
+import { categoriesType } from '@/types/categories'
 
 
 type ShowCategorisType = {

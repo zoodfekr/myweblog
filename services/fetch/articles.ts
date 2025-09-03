@@ -1,5 +1,5 @@
 import { ServerUrl } from "@/services/server";
-import { AddArticleTyle, articleType } from "@/types/services/articles";
+import { AddArticleTyle, articleType } from "@/types/articles";
 
 
 export const getAllArticles = async (options?: { revalidate: number, cache: RequestCache }): Promise<articleType[]> => {
@@ -41,7 +41,37 @@ export const AddArticle = async (article: AddArticleTyle, token: string): Promis
     }
 };
 
+// ویرایش یک مقاله
+export const editArticle = async (article: AddArticleTyle, token: string): Promise<{ message: string, status: number }> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(article),
+        });
 
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+
+        return {
+            status: res.status,
+            message: data.message
+        };
+    } catch (error) {
+        console.error("Error creating article:", error);
+        return {
+            status: 500,
+            message: 'خطا در حذف دسته بندی'
+        };
+    }
+};
 
 export const GetArticlesById = async ({ id, options }: { id: string, options?: { revalidate: number, cache: RequestCache } }): Promise<articleType | null> => {
     try {

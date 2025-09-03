@@ -1,8 +1,8 @@
 import { getAllComments } from '@/services/fetch/comments'
-import { commentsType } from '@/types/services/comments'
+import { commentsType } from '@/types/comments'
 import React from 'react'
 import Comment_element from './Comment_element'
-import { articleType } from '@/types/services/articles'
+import { articleType } from '@/types/articles'
 
 const CommentSection_byId = async ({ articleData }: { articleData: articleType }) => {
 

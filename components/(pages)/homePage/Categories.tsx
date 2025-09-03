@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 import codeBg from '@/public/icons/codeBg.png'
 import eye from '@/public/icons/eye.png'
-import { categoriesType } from '@/types/services/categories'
+import { categoriesType } from '@/types/categories'
 
 
 

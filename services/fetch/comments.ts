@@ -1,5 +1,5 @@
 import { ServerUrl } from "@/services/server";
-import { commentsType } from "@/types/services/comments";
+import { commentsType } from "@/types/comments";
 
 
 export const getAllComments = async (): Promise<commentsType[]> => {

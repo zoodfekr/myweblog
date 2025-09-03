@@ -1,4 +1,4 @@
-import { AddcategoriesType, categoriesType } from "@/types/services/categories";
+import { AddcategoriesType, categoriesType } from "@/types/categories";
 import { ServerUrl } from "@/services/server";
 import { promises } from "dns";
 

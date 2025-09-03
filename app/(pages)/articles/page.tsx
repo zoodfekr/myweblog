@@ -1,5 +1,5 @@
 import { getAllArticles } from "@/services/fetch/articles";
-import { articleType } from "@/types/services/articles";
+import { articleType } from "@/types/articles";
 import Header_HOC from "@/components/common/HOC/Header_HOC";
 import MainArticlesList from "./_partials/MainArticlesList";
 import Page_HOC from "@/components/common/HOC/Page_HOC";

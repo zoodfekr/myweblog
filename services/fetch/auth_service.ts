@@ -1,5 +1,5 @@
 import { ServerUrl } from "@/services/server";
-import { LoginParams, LoginResponse, RegisterParams, RegisterResponse, UserInfo } from "@/types/auth/register";
+import { LoginParams, LoginResponse, RegisterParams, RegisterResponse, UserInfo } from "@/types/register";
 
 // ثبت نام کاربر
 export const register_user_service = async (params: RegisterParams): Promise<RegisterResponse> => {

@@ -5,7 +5,7 @@ import IsError_status from '@/components/common/statusPages/IsError_status'
 import IsLoading_status from '@/components/common/statusPages/IsLoading_status'
 import { useFetchData } from '@/hooks/useFetchData'
 import { deleteCategory, getAllCategories } from '@/services/fetch/categories'
-import { categoriesType } from '@/types/services/categories'
+import { categoriesType } from '@/types/categories'
 import ShowCategoris from './_Partials/ShowCategoris'
 import DataNotFound from '@/components/common/statusPages/DataNotFound'
 import CustomDialog from '@/components/common/CustomDialog'
@@ -24,7 +24,7 @@ const CategoriesPage = () => {
     const [openDialog, setOpenDialog] = useState<{ status: boolean, type: 'add' | 'edit', value: categoriesType | null }>({ status: false, type: 'add', value: null })
     const [tokenValue, settokenValue] = useState<string>('')
 
-
+  
     // ست کننده توکن در state
     useEffect(() => { const token = getCookie('token_myweblog'); if (token) settokenValue(token) }, [])
 

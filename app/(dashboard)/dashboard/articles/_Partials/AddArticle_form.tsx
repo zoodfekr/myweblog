@@ -12,6 +12,7 @@ type ArticleFormType = {
 };
 
 const AddArticle_form = () => {
+  
   const [formData, setFormData] = useState<ArticleFormType>({
     title: "",
     content: "",
@@ -20,9 +21,7 @@ const AddArticle_form = () => {
     author: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { categoriesType } from "@/types/services/categories";
+import { categoriesType } from "@/types/categories";
 import CategoryIcon from "@mui/icons-material/Category"; // آیکون متریال
 import DescriptionIcon from "@mui/icons-material/Description";
 import { AddCategory, editCategory } from "@/services/fetch/categories";

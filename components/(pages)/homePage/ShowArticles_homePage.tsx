@@ -1,5 +1,5 @@
 import { ServerUrl_media } from '@/services/server'
-import { articleType } from '@/types/services/articles'
+import { articleType } from '@/types/articles'
 import { Button } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'

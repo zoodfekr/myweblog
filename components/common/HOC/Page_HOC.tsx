@@ -1,7 +1,7 @@
 import React from "react";
 import RandomArticlesSidebar from "../../(pages)/articles/RandomArticlesSidebar";
 import { getAllArticles } from "@/services/fetch/articles";
-import { articleType } from "@/types/services/articles";
+import { articleType } from "@/types/articles";
 
 const Page_HOC = async ({ children }: { children: React.ReactNode }) => {
 

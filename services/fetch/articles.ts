@@ -1,7 +1,7 @@
 import { ServerUrl } from "@/services/server";
 import { AddArticleTyle, articleType } from "@/types/articles";
 
-
+// دریافت تمام مقالات
 export const getAllArticles = async (options?: { revalidate: number, cache: RequestCache }): Promise<articleType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
@@ -17,7 +17,7 @@ export const getAllArticles = async (options?: { revalidate: number, cache: Requ
     }
 }
 
-
+// افزودن مقاله
 export const AddArticle = async (article: AddArticleTyle, token: string): Promise<AddArticleTyle | null> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
@@ -52,14 +52,10 @@ export const editArticle = async (article: AddArticleTyle, token: string): Promi
             },
             body: JSON.stringify(article),
         });
-
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
         }
-
         const data = await res.json();
-
-
         return {
             status: res.status,
             message: data.message
@@ -73,6 +69,7 @@ export const editArticle = async (article: AddArticleTyle, token: string): Promi
     }
 };
 
+// دریافت مقاله با شناسه
 export const GetArticlesById = async ({ id, options }: { id: string, options?: { revalidate: number, cache: RequestCache } }): Promise<articleType | null> => {
     try {
         const res = await fetch(`${ServerUrl}/articles/${id}`,
@@ -92,5 +89,32 @@ export const GetArticlesById = async ({ id, options }: { id: string, options?: {
     }
 }
 
+
+
+// حذف مقاله
+export const deleteArticle = async ({ id, token }: { id: string, token: string }): Promise<{ message: string, status: number }> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        });
+
+        const data = await res.json();
+
+        return {
+            status: res.status,
+            message: data.message
+        };
+    } catch (error) {
+        console.error("Error deleting category:", error);
+        return {
+            status: 500,
+            message: 'خطا در حذف دسته بندی'
+        };
+    }
+};
 
 

@@ -1,6 +1,8 @@
 "use client";
 
-import { AddArticle } from "@/services/fetch/articles";
+import useSnack from "@/hooks/useSnack";
+import { AddArticle, editArticle } from "@/services/fetch/articles";
+import { articleType } from "@/types/articles";
 import React, { useState } from "react";
 
 type ArticleFormType = {
@@ -11,8 +13,17 @@ type ArticleFormType = {
   author: string;
 };
 
-const AddArticle_form = () => {
-  
+type AddArticle_formType = {
+  setOpenDialog: (value: boolean) => void
+  handleFreshData: (value: articleType, type: 'add' | 'edit') => void
+  stateValue: { status: boolean, type: 'add' | 'edit', value: articleType | null }
+}
+
+const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArticle_formType) => {
+
+
+  const snack = useSnack()
+
   const [formData, setFormData] = useState<ArticleFormType>({
     title: "",
     content: "",
@@ -20,6 +31,10 @@ const AddArticle_form = () => {
     categoryId: "",
     author: "",
   });
+
+  // تابع ریست کننده state
+  const handleResetState = () => setFormData({ title: "", content: "", image: "", categoryId: "", author: "" })
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -29,23 +44,43 @@ const AddArticle_form = () => {
     }));
   };
 
+
+
+  // ارسال دیتا به سرور برای افزودن و ادیت
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("ارسال مقاله:", formData);
-
     const token = localStorage.getItem('token_myweblog');
+    if (!token) {
+      snack({ text: 'مشکل در افزودن دسته بندی', variant: 'error' });
+      return;
+    }
+    try {
+      let res: any = null;
 
-    const res = await AddArticle(formData, token)
+      if (stateValue.type === 'add') {
+        res = await AddArticle(formData, token)
+      } else if (stateValue.type === 'edit') {
+        res = await editArticle(formData, token)
+      }
 
-    console.log('پاسخ سرور', res);
-
-    // مثال ارسال به API
-    // fetch("/api/articles", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(formData),
-    // });
+      if (res) {
+        handleFreshData(res, stateValue.type);
+        handleResetState();
+        setOpenDialog(false);
+        console.log("✅ پاسخ سرور برای افزودن/ویرایش دسته بندی:", res);
+      }
+    } catch (error) {
+      console.error("❌ خطا در ارسال دسته‌بندی:", error);
+      snack({ text: 'خطا در ارسال دسته‌بندی', variant: 'error' });
+    }
   };
+
+
+
+
+
+
 
   return (
     <form

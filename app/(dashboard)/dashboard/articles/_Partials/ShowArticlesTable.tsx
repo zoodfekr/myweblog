@@ -4,14 +4,19 @@ import { articleType } from '@/types/articles';
 import { IconButton } from '@mui/material';
 
 import { TiEdit } from "react-icons/ti";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { red } from '@mui/material/colors';
 
 
 interface ShowArticlesTableType {
     data: articleType[],
     handleEdit: (type: 'add' | 'edit', value: articleType) => void
+    deleteFunction: (id: string) => void
 }
 
-const ShowArticlesTable = ({ data, handleEdit }: ShowArticlesTableType) => {
+
+
+const ShowArticlesTable = ({ data, handleEdit, deleteFunction }: ShowArticlesTableType) => {
     return (
         <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
             <div className="flex items-center gap-2 mb-6">
@@ -37,11 +42,16 @@ const ShowArticlesTable = ({ data, handleEdit }: ShowArticlesTableType) => {
                             <td className="px-4 py-2 text-gray-600">{article.author}</td>
                             <td className="px-4 py-2 font-semibold text-green-700">{article.views}</td>
                             <td className="px-4 py-2 font-semibold text-green-700">{article.createdAt}</td>
+
                             <td className="px-4 py-2 font-semibold text-green-700">
                                 <IconButton onClick={() => handleEdit('edit', article)} >
                                     <TiEdit />
                                 </IconButton>
+                                <IconButton aria-label="" onClick={() => deleteFunction(article.id)}>
+                                    <DeleteIcon sx={{ fontSize: "15px", color: red[500] }} />
+                                </IconButton>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>

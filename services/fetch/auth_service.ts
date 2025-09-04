@@ -1,8 +1,8 @@
 import { ServerUrl } from "@/services/server";
-import { LoginParams, LoginResponse, RegisterParams, RegisterResponse, UserInfo } from "@/types/register";
+import { ErrorResponseType, LoginParams, LoginResponse, RegisterParams, RegisterResponse, UserInfo } from "@/types/register";
 
 // ثبت نام کاربر
-export const register_user_service = async (params: RegisterParams): Promise<RegisterResponse> => {
+export const register_user_service = async (params: RegisterParams): Promise<RegisterResponse | ErrorResponseType> => {
     try {
         const response = await fetch(`${ServerUrl}/auth/register`, {
             method: 'POST',
@@ -11,13 +11,11 @@ export const register_user_service = async (params: RegisterParams): Promise<Reg
             },
             body: JSON.stringify(params),
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const data = await response.json();
-        return data as RegisterResponse;
+
+        if (response.ok) return data as RegisterResponse;
+        else return { status: response.status, message: data.message }
+
     } catch (error) {
         console.error('خطا در ثبت‌نام:', error)
         throw error
@@ -25,7 +23,7 @@ export const register_user_service = async (params: RegisterParams): Promise<Reg
 }
 
 // ورود کاربرّ
-export const login_user_service = async (params: LoginParams): Promise<LoginResponse> => {
+export const login_user_service = async (params: LoginParams): Promise<LoginResponse | ErrorResponseType> => {
     try {
         const response = await fetch(`${ServerUrl}/auth/login`, {
             method: 'POST',
@@ -34,13 +32,9 @@ export const login_user_service = async (params: LoginParams): Promise<LoginResp
             },
             body: JSON.stringify(params),
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const data = await response.json();
-        return data as LoginResponse;
+        if (response.ok) return data as LoginResponse;
+        else return { status: response.status, message: data.message }
     } catch (error) {
         console.error('خطا در ورود:', error);
         throw error;

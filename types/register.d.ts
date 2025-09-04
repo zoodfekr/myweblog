@@ -3,7 +3,7 @@ export type UserInfo = {
     username: string;
     email: string;
     role: string;
-    createdAt: string; 
+    createdAt: string;
 }
 
 export type RegisterParams = {
@@ -12,7 +12,7 @@ export type RegisterParams = {
     password: string;
 }
 
-export type LoginParams = { 
+export type LoginParams = {
     username: string;
     password: string;
 }
@@ -25,5 +25,7 @@ export type RegisterResponse = {
 export type LoginResponse = {
     message: string;
     token: string;
-    user: UserInfo; 
+    user: UserInfo;
 }
+
+export type ErrorResponseType = { status: number, message: string }

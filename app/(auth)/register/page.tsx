@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import { register_user_service } from "@/services/fetch/auth_service";
 import { useRouter } from "next/navigation";
+import useSnack from "@/hooks/useSnack";
 
 export type user_register_type = {
   username: string;
@@ -17,7 +18,9 @@ export type user_register_type = {
 };
 
 const RegisterPage = () => {
+
   const router = useRouter();
+  const snack = useSnack();
 
   const [formData, setFormData] = useState<user_register_type>({
     username: "",
@@ -26,11 +29,15 @@ const RegisterPage = () => {
     role: "user",
   });
 
-  const handleChange =
-    (field: keyof user_register_type) =>
+  const handleChange = (field: keyof user_register_type) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setFormData({ ...formData, [field]: event.target.value });
     };
+
+
+
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,12 +45,12 @@ const RegisterPage = () => {
 
     try {
       const res = await register_user_service(formData);
-      console.log("پاسخ سرور:", res);
 
-      if (res?.message === "کاربر با موفقیت ثبت شد") {
-        router.push("/login");
+      if ("status" in res) {
+        snack({ text: res.message, variant: 'error' })
       } else {
-        alert(res?.message || "خطایی رخ داده است");
+        router.push("/login");
+        snack({ text: "ثبت نام موفق", variant: 'success' })
       }
     } catch (error) {
       // console.error('خطا در ثبت‌نام:', error.response.data.message)

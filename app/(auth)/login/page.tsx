@@ -3,38 +3,42 @@ import React, { useState } from 'react'
 import { TextField, Button, InputAdornment } from '@mui/material'
 import { LockOutlined, EmailOutlined, PasswordOutlined } from '@mui/icons-material'
 import { login_user_service } from '@/services/fetch/auth_service'
-import { LoginParams, LoginResponse } from '@/types/register'
+import { ErrorResponseType, LoginParams, LoginResponse } from '@/types/register'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import useSnack from '@/hooks/useSnack'
 
 const LoginPage = () => {
 
 
     const router = useRouter()
     const { login } = useAuth();
+    const snack = useSnack()
 
     const [formData, setFormData] = useState<LoginParams>({ username: '', password: '' })
+
+
 
     const handleChange = (field: keyof LoginParams) => (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log('field', field, event.target.value);
         setFormData({ ...formData, [field]: event.target.value })
     }
 
+    
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('اطلاعات ثبت‌نام:', formData)
-
         try {
-            const res : LoginResponse  = await login_user_service(formData) 
-            console.log('پاسخ سرور:', res)
-
-            if (res.token) {
+            const res: LoginResponse | ErrorResponseType = await login_user_service(formData)
+            if ("token" in res) {
                 login(res.token, res.user)
                 router.push('/')
+            } else {
+                snack({ text: res.message, variant: 'error' })
             }
         } catch (error) {
-            // console.error('خطا در ورود:', error?.res.data.message)
-            alert('خطا در ورود')
+            console.log(error);
         }
     }
 

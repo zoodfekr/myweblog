@@ -1,9 +1,12 @@
 "use client";
 
+import { useFetchData } from "@/hooks/useFetchData";
 import useSnack from "@/hooks/useSnack";
 import { AddArticle, editArticle } from "@/services/fetch/articles";
+import { getAllCategories } from "@/services/fetch/categories";
 import { articleType } from "@/types/articles";
-import React, { useState } from "react";
+import { categoriesType } from "@/types/categories";
+import React, { useEffect, useState } from "react";
 
 type ArticleFormType = {
   title: string;
@@ -14,12 +17,17 @@ type ArticleFormType = {
 };
 
 type AddArticle_formType = {
-  setOpenDialog: (value: boolean) => void
+  setOpenDialog: () => void
   handleFreshData: (value: articleType, type: 'add' | 'edit') => void
-  stateValue: { status: boolean, type: 'add' | 'edit', value: articleType | null }
+  stateValue: { status: boolean, type: 'add' | 'edit' | 'show', value: articleType | null }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArticle_formType) => {
+
+
+  const { data: data_category, loading: loading_category, error: error_category, setData: setDate_category } = useFetchData<categoriesType[]>({ fetchFunction: getAllCategories });
 
 
   const snack = useSnack()
@@ -35,16 +43,32 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
   // تابع ریست کننده state
   const handleResetState = () => setFormData({ title: "", content: "", image: "", categoryId: "", author: "" })
 
+  // پر کردن فرم در حالت ادیت
+  useEffect(() => {
+    if (stateValue.type === "edit" && stateValue.value != null) {
+      console.log('حالت ویرایش', stateValue.value)
+      setFormData({
+        title: stateValue.value.title || "",
+        content: stateValue.value.content || "",
+        image: stateValue.value.image || "",
+        categoryId: stateValue.value.categoryId?.toString() || "",
+        author: stateValue.value.author || "",
+      });
+    } else {
+      handleResetState();
+    }
+  }, [stateValue]);
 
+  // ثبت تغییرات فرم در state
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+
+    console.log({ name, value });
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
-
 
   // ارسال دیتا به سرور برای افزودن و ادیت
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,24 +79,32 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
       snack({ text: 'مشکل در افزودن دسته بندی', variant: 'error' });
       return;
     }
+
     try {
       let res: any = null;
 
       if (stateValue.type === 'add') {
         res = await AddArticle(formData, token)
       } else if (stateValue.type === 'edit') {
-        res = await editArticle(formData, token)
+        res = await editArticle(formData, token, stateValue.value ? stateValue.value.id : '');
       }
 
-      if (res) {
+      if (res.status && res.status !== 200 && res.status !== 201) {
+        snack({ text: res.message || 'خظا در انجام عملیات', variant: 'error' });
+        return;
+      } else if (res) {
         handleFreshData(res, stateValue.type);
         handleResetState();
-        setOpenDialog(false);
+        setOpenDialog();
         console.log("✅ پاسخ سرور برای افزودن/ویرایش دسته بندی:", res);
       }
+
     } catch (error) {
-      console.error("❌ خطا در ارسال دسته‌بندی:", error);
-      snack({ text: 'خطا در ارسال دسته‌بندی', variant: 'error' });
+      console.log('Error submitting article:', error);
+      snack({
+        text: error?.message || 'خطا در انجام عملیات',
+        variant: 'error'
+      });
     }
   };
 
@@ -116,15 +148,20 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
         className="p-2 border rounded"
       />
 
-      <input
-        type="text"
+      <select
         name="categoryId"
-        placeholder="شناسه دسته‌بندی"
-        value={formData.categoryId}
+        value={formData.categoryId ?? ""}   // null → ""
         onChange={handleChange}
         className="p-2 border rounded"
         required
-      />
+      >
+        <option value="">انتخاب دسته‌بندی</option>
+        {data_category?.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.title}
+          </option>
+        ))}
+      </select>
 
       <input
         type="text"
@@ -140,7 +177,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
         type="submit"
         className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white"
       >
-        افزودن مقاله
+        {stateValue.type === "edit" ? "ویرایش مقاله" : "افزودن مقاله"}
       </button>
     </form>
   );

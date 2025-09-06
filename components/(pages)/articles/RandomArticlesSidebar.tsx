@@ -4,13 +4,13 @@ import { articleType } from '@/types/articles'
 import { ServerUrl_media } from '@/services/server'
 import { Button } from '@mui/material'
 import Link from 'next/link'
+import { useFetchData } from '@/hooks/useFetchData'
 
 interface RandomArticlesSidebarProps {
     randomArticles: articleType[]
 }
 
 const RandomArticlesSidebar = ({ randomArticles }: RandomArticlesSidebarProps) => {
-
 
     
     return (

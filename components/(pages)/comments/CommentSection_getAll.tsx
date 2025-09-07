@@ -5,7 +5,7 @@ import Comment_element from './Comment_element'
 
 const CommentSection_getAll = async () => {
 
-    const comments: commentsType[] = await getAllComments()
+    const comments: commentsType[] = await getAllComments({ revalidate: 28800, cache: 'force-cache' })
 
 
     return (

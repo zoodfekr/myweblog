@@ -124,7 +124,7 @@ const ArticlesPage = () => {
   // ? بخش محتوا
   if (loading) (<IsLoading_status />)
   if (error) (<IsError_status />)
-  if (!data || data.length === 0 && !loading) return <DataNotFound />
+  if ((!data || data.length === 0) && !loading) return <DataNotFound />
 
   return (
     <>

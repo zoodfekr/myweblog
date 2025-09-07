@@ -28,7 +28,7 @@ const SingleArticlePage = async ({ params }: { params: Promise<{ id: string }> }
                 <Page_HOC>
                     <ArticleContent article={articleData} />
                     <CommentSection_byId articleData={articleData} />
-                    <AddCommentForm postId={id}  />
+                    <AddCommentForm postId={id} article={articleData} />
                 </Page_HOC>
             </div >
         )

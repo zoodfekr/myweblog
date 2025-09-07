@@ -1,11 +1,19 @@
 import { ServerUrl } from "@/services/server";
-import { commentsType } from "@/types/comments";
+import { AddcommentsType, commentsType } from "@/types/comments";
 import { promises } from "dns";
 
 // دریافت تمام نظرات
-export const getAllComments = async (): Promise<commentsType[]> => {
+export const getAllComments = async (options?: {
+  revalidate: number;
+  cache: RequestCache;
+}): Promise<commentsType[]> => {
   try {
-    const res = await fetch(`${ServerUrl}/comments`);
+    const res = await fetch(`${ServerUrl}/comments`, {
+      next: options?.revalidate
+        ? { revalidate: options.revalidate }
+        : undefined,
+      cache: options?.cache ?? "default",
+    });
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -22,7 +30,7 @@ export const createComment = async ({
   body,
   token,
 }: {
-  body: commentsType;
+  body: AddcommentsType;
   token: string;
 }): Promise<commentsType | { message: string; status: number }> => {
   try {
@@ -80,5 +88,33 @@ export const getCommentsByArticleId = async (
   } catch (error) {
     console.error("Error fetching comments by article id:", error);
     return [];
+  }
+};
+
+// حذف نظر بر اساس آیدی
+export const deleteComment = async ({
+  id,
+  token,
+}: {
+  id: string;
+  token: string;
+}): Promise<{ message: string; status: number }> => {
+  try {
+    const res = await fetch(`${ServerUrl}/comments/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      return { message: data.message, status: 200 };
+    } else {
+      return { message: data.message, status: res.status };
+    }
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    return { message: "خطا در انجام عملیات", status: 500 };
   }
 };

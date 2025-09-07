@@ -1,17 +1,37 @@
 "use client";
+import useSnack from "@/hooks/useSnack";
+import { createComment } from "@/services/fetch/comments";
+import { articleType } from "@/types/articles";
+import { AddcommentsType } from "@/types/comments";
 import { UserInfo } from "@/types/register";
 import React, { useEffect, useState } from "react";
 
-const AddCommentForm = ({ postId }: { postId: string }) => {
+const AddCommentForm = ({
+  postId,
+  article,
+}: {
+  postId: string;
+  article: articleType;
+}) => {
+  const snack = useSnack();
+
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token_myweblog");
+    setToken(storedToken);
+  }, []);
+
+  //   state فرم  نظر جدید
   const [newComment, setNewComment] = useState({
     content: "",
     author: "",
     userId: "", // Default user ID
+    articleId: article.id,
   });
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user_myweblog");
-
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser) as UserInfo;
@@ -31,10 +51,30 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
       alert("لطفاً تمام فیلدها را پر کنید");
       return;
     }
-
-    // onSubmit(newComment)
     console.log(newComment);
+    handleSendComment(newComment);
     setNewComment((prev) => ({ ...prev, content: "", author: "" }));
+  };
+
+  // تابع افزودن  کامنت 
+  const handleSendComment = async (prop: AddcommentsType) => {
+    if (!token) {
+      alert("لطفاً ابتدا وارد شوید");
+      return;
+    }
+    try {
+      const res = await createComment({ body: prop, token: token });
+      if ("id" in res)
+        snack({ text: "نظر شما با موفقیت ثبت شد", variant: "success" });
+      else
+        snack({
+          text: "خطا در ثبت نظر، لطفاً دوباره تلاش کنید",
+          variant: "error",
+        });
+      console.log("res add com ===>", res);
+    } catch (error) {
+      console.error("Error sending comment:", error);
+    }
   };
 
   return (

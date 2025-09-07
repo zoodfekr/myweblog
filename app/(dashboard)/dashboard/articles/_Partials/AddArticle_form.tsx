@@ -18,7 +18,7 @@ type ArticleFormType = {
 
 type AddArticle_formType = {
   setOpenDialog: () => void
-  handleFreshData: (value: articleType, type: 'add' | 'edit') => void
+  handleFreshData: (value: articleType, type: 'add' | 'edit' | 'show') => void
   stateValue: { status: boolean, type: 'add' | 'edit' | 'show', value: articleType | null }
 }
 

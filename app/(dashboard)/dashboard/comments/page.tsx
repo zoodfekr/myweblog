@@ -17,9 +17,7 @@ import useSnack from "@/hooks/useSnack";
 export default function CommentsPage() {
   const snack = useSnack();
 
-  const { data, loading, error, setData } = useFetchData<commentsType[]>({
-    fetchFunction: getAllComments,
-  });
+  const { data, loading, error, setData } = useFetchData<commentsType[]>({ fetchFunction: getAllComments });
 
   const [token, setToken] = React.useState<string | null>(null);
 

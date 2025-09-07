@@ -2,6 +2,7 @@ import Link from 'next/link';
 import DashboardIcon from '@mui/icons-material/SpaceDashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import CommentIcon from '@mui/icons-material/Comment';
+import { FaUsers } from "react-icons/fa";
 // import PeopleIcon from '@mui/icons-material/People';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import BarChartIcon from '@mui/icons-material/BarChart';
@@ -14,6 +15,7 @@ const links = [
     { href: '/dashboard/articles', label: 'مقالات', icon: <ArticleIcon className="text-green-600" />, blank: false },
     { href: '/dashboard/categories', label: 'دسته بندی ها ', icon: <ArticleIcon className="text-green-600" />, blank: false },
     { href: '/dashboard/comments', label: 'نظرات', icon: <CommentIcon className="text-yellow-600" />, blank: false },
+    { href: '/dashboard/users', label: 'کاربران', icon: <FaUsers className="text-purple-600" />, blank: false },
     { href: '/', label: 'مشاهده سایت', icon: <CoPresentRoundedIcon className="text-blue-600" />, blank: true },
 
 

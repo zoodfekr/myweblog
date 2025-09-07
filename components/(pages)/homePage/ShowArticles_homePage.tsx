@@ -18,12 +18,12 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
                         className="group flex flex-col bg-white shadow-md hover:shadow-xl border border-gray-100 rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform hover:-translate-y-1 duration-300"
                     >
                         <div className="relative w-full h-52">
-                            <Image
+                            {/* <Image
                                 src={`${ServerUrl_media}${article.image}`}
                                 alt={article.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
+                            /> */}
                         </div>
                         <div className="flex flex-col flex-1 space-y-3 p-5">
                             <h2 className="font-bold text-slate-900 text-lg line-clamp-2">{article.title}</h2>

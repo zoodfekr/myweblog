@@ -3,10 +3,7 @@ import { AddcommentsType, commentsType } from "@/types/comments";
 import { promises } from "dns";
 
 // دریافت تمام نظرات
-export const getAllComments = async (options?: {
-  revalidate: number;
-  cache: RequestCache;
-}): Promise<commentsType[]> => {
+export const getAllComments = async (options?: { revalidate: number, cache: RequestCache }): Promise<commentsType[]> => {
   try {
     const res = await fetch(`${ServerUrl}/comments`, {
       next: options?.revalidate

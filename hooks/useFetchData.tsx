@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
+// پراپ‌های ورودی هوک
+export interface UseFetchDataProps<T> {
+    fetchFunction: (args?: { token?: string }) => Promise<T>; // هم با token هم بدونش کار می‌کنه
+    token?: string;
+}
 
-// تایپ پراپ‌های هوک
-export interface UseFetchDataProps<T> { fetchFunction: () => Promise<T> }
-
-// نتیجه‌ای که هوک برمی‌گردونه
+// خروجی هوک
 export interface UseFetchDataResult<T> {
     data: T | null;
     loading: boolean;
@@ -13,9 +15,10 @@ export interface UseFetchDataResult<T> {
     setData: (data: T) => void;
 }
 
-
-export const useFetchData = <T,>({ fetchFunction }: UseFetchDataProps<T>): UseFetchDataResult<T> => {
-
+export const useFetchData = <T,>({
+    fetchFunction,
+    token,
+}: UseFetchDataProps<T>): UseFetchDataResult<T> => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -25,11 +28,15 @@ export const useFetchData = <T,>({ fetchFunction }: UseFetchDataProps<T>): UseFe
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const result = await fetchFunction();
-                if (result) setSuccess(true);
+
+                // اگر توکن بود، پاس بده؛ اگر نبود، بدون پارامتر صدا بزن
+                const result = token
+                    ? await fetchFunction({ token })
+                    : await fetchFunction();
+
                 setData(result);
+                setSuccess(true);
             } catch (err: unknown) {
-                // safe cast
                 setError(err instanceof Error ? err.message : "Unexpected error");
             } finally {
                 setLoading(false);
@@ -37,10 +44,7 @@ export const useFetchData = <T,>({ fetchFunction }: UseFetchDataProps<T>): UseFe
         };
 
         fetchData();
-    }, [fetchFunction]);
+    }, [fetchFunction, token]);
 
     return { data, loading, error, success, setData };
 };
-
-
-//   const { data, loading, error , setData } = useFetchData<articleType[]>({ fetchFunction: getAllArticles })

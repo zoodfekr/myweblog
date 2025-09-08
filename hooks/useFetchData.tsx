@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 // پراپ‌های ورودی هوک
 export interface UseFetchDataProps<T> {
-    fetchFunction: (args?: { token?: string }) => Promise<T>; // هم با token هم بدونش کار می‌کنه
-    token?: string;
+    fetchFunction: (args?: { token?: string } | undefined) => Promise<T>; // هم با token هم بدونش کار می‌کنه
+    token?: string; // توکن اختیاری
 }
 
 // خروجی هوک
@@ -12,13 +12,15 @@ export interface UseFetchDataResult<T> {
     loading: boolean;
     error: string | null;
     success: boolean;
-    setData: (data: T) => void;
+    setData: React.Dispatch<React.SetStateAction<T | null>>;
 }
 
 export const useFetchData = <T,>({
     fetchFunction,
     token,
 }: UseFetchDataProps<T>): UseFetchDataResult<T> => {
+
+    
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -30,9 +32,7 @@ export const useFetchData = <T,>({
                 setLoading(true);
 
                 // اگر توکن بود، پاس بده؛ اگر نبود، بدون پارامتر صدا بزن
-                const result = token
-                    ? await fetchFunction({ token })
-                    : await fetchFunction();
+                const result = await fetchFunction(token ? { token } : undefined);
 
                 setData(result);
                 setSuccess(true);
@@ -44,7 +44,7 @@ export const useFetchData = <T,>({
         };
 
         fetchData();
-    }, [fetchFunction, token]);
+    }, [token]);
 
     return { data, loading, error, success, setData };
 };

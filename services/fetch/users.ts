@@ -1,8 +1,10 @@
 import { UsersType } from "@/types/users";
 import { ServerUrl } from "../server";
 
-export const getAllUsers = async ({ token }: { token?: string }): Promise<UsersType[]> => {
-    const res = await fetch(`${ServerUrl}/comments/users`, {
+// دریافت همه کاربران
+export const getAllUsers = async (args?: { token?: string }): Promise<UsersType[]> => {
+    const { token } = args || {};
+    const res = await fetch(`${ServerUrl}/auth/users`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -16,3 +18,6 @@ export const getAllUsers = async ({ token }: { token?: string }): Promise<UsersT
 
     return await res.json();
 };
+
+
+// دریافت کاربر بر اساس شناسه

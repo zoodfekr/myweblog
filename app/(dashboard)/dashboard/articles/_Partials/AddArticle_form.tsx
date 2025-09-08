@@ -102,7 +102,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
     } catch (error) {
       console.log('Error submitting article:', error);
       snack({
-        text: error?.message || 'خطا در انجام عملیات',
+        text:  'خطا در انجام عملیات',
         variant: 'error'
       });
     }

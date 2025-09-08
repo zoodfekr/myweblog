@@ -3,14 +3,13 @@ import { ServerUrl } from "@/services/server";
 import { promises } from "dns";
 
 // دریافت تمام دسته بندی ها
-export const getAllCategories = async (options?: { revalidate: number, cache: RequestCache }): Promise<categoriesType[]> => {
+export const getAllCategories = async (args?: { token?: string } | undefined): Promise<categoriesType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/categories`,
             {
-                next: options?.revalidate ? { revalidate: options.revalidate } : undefined,
-                cache: options?.cache ?? 'default'
+                cache: 'default'
             }
-        ); // هر 8 ساعت یکبار
+        );
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
 
         const data = await res.json();

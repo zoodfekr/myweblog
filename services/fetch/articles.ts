@@ -3,11 +3,10 @@ import { AddArticleTyle, articleType } from "@/types/articles";
 import { ErrorResponseType } from "@/types/register";
 
 // دریافت تمام مقالات
-export const getAllArticles = async (options?: { revalidate: number, cache: RequestCache }): Promise<articleType[]> => {
+export const getAllArticles = async (args?: { token?: string } | undefined): Promise<articleType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
-            next: options?.revalidate ? { revalidate: options.revalidate } : undefined,
-            cache: options?.cache ?? 'default'
+            cache: 'default'
         });
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();

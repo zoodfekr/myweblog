@@ -128,7 +128,7 @@ const ArticlesPage = () => {
 
   return (
     <>
-      <div className='relative'>
+      <div className='relative bg-transparent'>
 
 
         <CustomDialog open={openDialog.status} handleClose={handleCloseDialog} title={handlleDialogTitle(openDialog.type)}>

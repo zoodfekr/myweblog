@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import '../../components/common/ui_components/GradientText/GradientText.css';
 
 :root {
   --background: #ffffff;

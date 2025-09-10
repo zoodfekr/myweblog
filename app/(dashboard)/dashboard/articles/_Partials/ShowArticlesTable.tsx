@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 
 import { TiEdit } from "react-icons/ti";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { red } from '@mui/material/colors';
+import { blue, red } from '@mui/material/colors';
 import ShowCategoryById from '@/components/common/ShowCategoryById';
 
 
@@ -24,7 +24,7 @@ const ShowArticlesTable = ({ data, handleEdit, deleteFunction, handleShow }: Sho
 
 
     return (
-        <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
+        <div className="bg-stone-900/95 shadow p-6 rounded-lg">
             <div className="flex items-center gap-2 mb-6">
                 <ArticleIcon className="bg-green-100 p-1 rounded-full text-green-600 text-2xl" />
                 <h2 className="font-bold text-green-800 text-lg">لیست مقالات</h2>
@@ -45,8 +45,8 @@ const ShowArticlesTable = ({ data, handleEdit, deleteFunction, handleShow }: Sho
                     {data && data.map((article, idx) => (
                         <tr key={article.id} className="hover:bg-green-50 border-b cursor-pointer" onClick={() => handleShow(article)} >
                             <td className="px-4 py-2 font-bold text-green-700">{idx + 1}</td>
-                            <td className="px-4 py-2 text-gray-800">{article.title}</td>
-                            <td className="px-4 py-2 text-gray-600">{article.author}</td>
+                            <td className="px-4 py-2 text-white">{article.title}</td>
+                            <td className="px-4 py-2 text-white">{article.author}</td>
                             <td className="px-4 py-2 font-semibold text-green-700">{article.views}</td>
                             <td className="px-4 py-2 font-semibold text-green-700">{article.createdAt}</td>
                             <td className="px-4 py-2 font-semibold text-green-700">
@@ -60,7 +60,7 @@ const ShowArticlesTable = ({ data, handleEdit, deleteFunction, handleShow }: Sho
                                         handleEdit("edit", article);
                                     }}
                                 >
-                                    <TiEdit />
+                                    <TiEdit style={{ fontSize: "25px", color: blue[500] }} />
                                 </IconButton>
                                 <IconButton
                                     onClick={(e) => {
@@ -68,7 +68,7 @@ const ShowArticlesTable = ({ data, handleEdit, deleteFunction, handleShow }: Sho
                                         deleteFunction(article.id);
                                     }}
                                 >
-                                    <DeleteIcon sx={{ fontSize: "15px", color: red[500] }} />
+                                    <DeleteIcon sx={{ fontSize: "25px", color: red[500] }} />
                                 </IconButton>
                             </td>
 

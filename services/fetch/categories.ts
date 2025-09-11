@@ -1,13 +1,19 @@
 import { AddcategoriesType, categoriesType } from "@/types/categories";
 import { ServerUrl } from "@/services/server";
-import { promises } from "dns";
 
 // دریافت تمام دسته بندی ها
-export const getAllCategories = async (args?: { token?: string } | undefined): Promise<categoriesType[]> => {
+export const getAllCategories = async (args?: { token?: string , revalidate?: number, cache?: RequestCache, headers?: { "Content-Type": string, Authorization: string } } | undefined): Promise<categoriesType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/categories`,
             {
-                cache: 'default'
+                cache: args?.cache ?? 'default',
+                next: args?.revalidate
+                    ? { revalidate: args.revalidate }
+                    : undefined,
+                headers: args?.headers ?? {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${args?.token}`,
+                },
             }
         );
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
@@ -22,13 +28,13 @@ export const getAllCategories = async (args?: { token?: string } | undefined): P
 }
 
 // افزودن دسته بندی
-export const AddCategory = async (article: AddcategoriesType, token: string): Promise<categoriesType | null> => {
+export const AddCategory = async (article: AddcategoriesType, args?: { token?: string , headers?: { "Content-Type": string, Authorization: string } } | undefined): Promise<categoriesType | null> => {
     try {
         const res = await fetch(`${ServerUrl}/categories`, {
             method: "POST",
-            headers: {
+            headers: args?.headers ?? {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${args?.token}`,
             },
             body: JSON.stringify(article),
         });
@@ -45,13 +51,13 @@ export const AddCategory = async (article: AddcategoriesType, token: string): Pr
 };
 
 // ویرایش دسته بندی
-export const editCategory = async (article: categoriesType, token: string): Promise<categoriesType | null> => {
+export const editCategory = async (article: categoriesType, args?: { token?: string , headers?: { "Content-Type": string, Authorization: string } } | undefined): Promise<categoriesType | null> => {
     try {
         const res = await fetch(`${ServerUrl}/categories/${article.id}`, {
             method: "PUT",
-            headers: {
+            headers: args?.headers ?? {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${args?.token}`,
             },
             body: JSON.stringify(article),
         });
@@ -69,9 +75,14 @@ export const editCategory = async (article: categoriesType, token: string): Prom
 
 
 // دریافت یک دسته بندی با ایدی
-export const getAllCategoriesById = async (id: string): Promise<categoriesType | null> => {
+export const getAllCategoriesById = async (id: string, args?: { token?: string , headers?: { "Content-Type": string, Authorization: string } , revalidate?: number, cache?: RequestCache } | undefined): Promise<categoriesType | null> => {
     try {
-        const res = await fetch(`${ServerUrl}/categories/${id}`);
+        const res = await fetch(`${ServerUrl}/categories/${id}`, {
+            headers: args?.headers ?? {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${args?.token}`,
+            },
+        });
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -85,13 +96,13 @@ export const getAllCategoriesById = async (id: string): Promise<categoriesType |
 
 
 // حذف دسته بندی
-export const deleteCategory = async ({ id, token }: { id: string, token: string }): Promise<{ message: string, status: number }> => {
+export const deleteCategory = async ({ id, args }: { id: string, args?: { token?: string , headers?: { "Content-Type": string, Authorization: string } } | undefined }): Promise<{ message: string, status: number }> => {
     try {
         const res = await fetch(`${ServerUrl}/categories/${id}`, {
             method: "DELETE",
-            headers: {
+            headers: args?.headers ?? {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${args?.token}`,
             },
         });
 

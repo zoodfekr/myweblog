@@ -1,9 +1,8 @@
 import { ServerUrl } from "@/services/server";
 import { AddcommentsType, commentsType } from "@/types/comments";
-import { promises } from "dns";
 
 // دریافت تمام نظرات
-export const getAllComments = async (options?: { revalidate: number, cache: RequestCache }): Promise<commentsType[]> => {
+export const getAllComments = async (options?: { revalidate?: number, cache?: RequestCache, token?: string } ): Promise<commentsType[]> => {
   try {
     const res = await fetch(`${ServerUrl}/comments`, {
       next: options?.revalidate

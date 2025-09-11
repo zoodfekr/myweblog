@@ -27,7 +27,7 @@ const CategoriesPage = () => {
     const [openDialog, setOpenDialog] = useState<{ status: boolean, type: 'add' | 'edit', value: categoriesType | null }>({ status: false, type: 'add', value: null })
     const [tokenValue, settokenValue] = useState<string>('')
 
-  
+
     // ست کننده توکن در state
     useEffect(() => { const token = getCookie('token_myweblog'); if (token) settokenValue(token) }, [])
 
@@ -49,7 +49,7 @@ const CategoriesPage = () => {
     const handleDeleteCategory = async (id: string) => {
         console.log('del id', id);
         if (tokenValue) {
-            const res = await deleteCategory({ id: id, token: tokenValue })
+            const res = await deleteCategory({ id: id, args: { token: tokenValue } })
             console.log('del res', res);
             switch (res.status) {
                 case 200:

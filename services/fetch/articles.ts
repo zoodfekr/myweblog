@@ -2,11 +2,23 @@ import { ServerUrl } from "@/services/server";
 import { AddArticleTyle, articleType } from "@/types/articles";
 import { ErrorResponseType } from "@/types/register";
 
+
+
+
+
+
 // دریافت تمام مقالات
-export const getAllArticles = async (args?: { token?: string } | undefined): Promise<articleType[]> => {
+export const getAllArticles = async (args?: { token?: string, revalidate?: number, cache?: RequestCache, headers?: { "Content-Type": string, Authorization: string } } | undefined): Promise<articleType[]> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
-            cache: 'default'
+            next: args?.revalidate
+                ? { revalidate: args.revalidate }
+                : undefined,
+            cache: args?.cache ?? 'default',
+            headers: args?.headers ?? {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${args?.token}`,
+            },
         });
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();

@@ -2,9 +2,9 @@ import { getAllCategoriesById } from "@/services/fetch/categories";
 import React from "react";
 
 const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  
+
   const { slug } = await params;
-  const category = await getAllCategoriesById(slug);
+  const category = await getAllCategoriesById(slug, { revalidate: 28800, cache: 'force-cache' });
 
   if (!category)
     return (

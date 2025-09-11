@@ -8,7 +8,7 @@ const Categores_footer = async () => {
     return (
         <div className="flex flex-col gap-3">
             {categories_vallue &&
-                categories_vallue.map((value) => (
+                categories_vallue.slice(0, 3).map((value) => (
                     <Link
                         key={value.id}
                         href={`categories/${value.id}`}

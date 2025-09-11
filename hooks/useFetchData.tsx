@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 
 // پراپ‌های ورودی هوک
 export interface UseFetchDataProps<T> {
-    fetchFunction: (args?: { token?: string } | undefined) => Promise<T>; // هم با token هم بدونش کار می‌کنه
+    fetchFunction: (args?: any) => Promise<T>; // انعطاف‌پذیر برای انواع ورودی‌ها
     token?: string; // توکن اختیاری
 }
 
@@ -12,7 +12,7 @@ export interface UseFetchDataResult<T> {
     loading: boolean;
     error: string | null;
     success: boolean;
-    setData: React.Dispatch<React.SetStateAction<T | null>>;
+    setData: Dispatch<SetStateAction<T | null>>;
 }
 
 export const useFetchData = <T,>({

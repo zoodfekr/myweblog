@@ -15,7 +15,7 @@ const Page = async () => {
 
     const slicedArticles = articles.slice(0, 10)
 
-    return (
+    return ( 
         <div className="">
 
             {/* بنر سایت */}

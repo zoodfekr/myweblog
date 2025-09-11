@@ -49,12 +49,12 @@ const AddCategories = ({ setOpenDialog, handleFreshData, stateValue }: AddCatego
         }
 
         try {
-            let res: any = null;
+            let res: categoriesType | null = null;
 
             if (stateValue.type === 'add') {
-                res = await AddCategory(formData, token);
+                res = await AddCategory(formData, { token });
             } else if (stateValue.type === 'edit') {
-                res = await editCategory(formData, token);
+                res = await editCategory(formData, { token });
             }
 
             if (res) {

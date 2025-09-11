@@ -8,6 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ThumbUpIcon from '@mui/icons-material/ThumbUpAlt';
 import { ApexOptions } from 'apexcharts';
 import React from 'react';
+import MagicBento from '@/components/common/ui_components/magicBento/MagicBento';
 
 interface ChartProps {
   options: ApexOptions;

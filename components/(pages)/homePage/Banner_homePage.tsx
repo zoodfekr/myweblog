@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import banner from '@/public/image/thought-catalog-r9RmKAe65to-unsplash.jpg'
+import banner from '@/public/image/girl_article.jpg'
 
 
 const Banner_homePage = () => {
@@ -12,7 +12,7 @@ const Banner_homePage = () => {
                 alt="بنر سایت"
                 fill
                 quality={100}
-                className="w-full h-full object-cover"
+                className="rounded-2xl w-full h-full object-cover"
                 priority
             />
             {/* گرادینت ملایم و شفاف روی تصویر */}

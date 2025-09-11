@@ -60,7 +60,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
   }, [stateValue]);
 
   // ثبت تغییرات فرم در state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     console.log({ name, value });
@@ -102,7 +102,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
     } catch (error) {
       console.log('Error submitting article:', error);
       snack({
-        text:  'خطا در انجام عملیات',
+        text: 'خطا در انجام عملیات',
         variant: 'error'
       });
     }

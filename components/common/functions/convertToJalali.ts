@@ -1,4 +1,3 @@
-import React from 'react';
 import jalaali from 'jalaali-js';
 
 const convertToJalali = (props : string) => {
@@ -12,7 +11,7 @@ const convertToJalali = (props : string) => {
         const minutes = date.getMinutes().toString().padStart(2, '0');
         const seconds = date.getSeconds().toString().padStart(2, '0');
         return `${jalaliDate.jy}/${jalaliDate.jm}/${jalaliDate.jd} - ${hours}:${minutes}:${seconds}`;
-    } catch (e) {
+    } catch {
         return '';
     }
 } 

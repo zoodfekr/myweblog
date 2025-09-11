@@ -112,7 +112,7 @@ html {
 .container {
   margin: 20px auto;
   border-radius: 16px;
-  background-color: rgba(21, 16, 37, 0.6);
+  background-color: rgba(21, 16, 37, 0.2);
   backdrop-filter: blur(12px) saturate(140%);
   padding: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);

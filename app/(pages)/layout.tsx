@@ -4,11 +4,13 @@ import React from 'react'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div>
+        <div className="min-h-screen" style={{ backgroundColor: '#0b0713' }}>
             {/* اپبار سایت */}
             <Appbar />
 
-            {children}
+            <main className="mx-auto px-4 py-6 container">
+                {children}
+            </main>
 
             {/* فوتر سایت */}
             <Footer_homepage />

@@ -5,10 +5,41 @@ import { faIR } from '@mui/material/locale';
 export const theme = createTheme(
   {
     direction: 'rtl',
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#7c3aed',
+        light: '#a78bfa',
+        dark: '#5b21b6',
+        contrastText: '#ffffff',
+      },
+      secondary: {
+        main: '#9333ea',
+        light: '#c084fc',
+        dark: '#6b21a8',
+        contrastText: '#ffffff',
+      },
+      background: {
+        default: '#0b0713',
+        paper: '#151025',
+      },
+      text: {
+        primary: '#e9d8fd',
+        secondary: '#c4b5fd',
+      },
+    },
     typography: {
       fontFamily: 'IRANSansWeb, Arial, sans-serif',
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            backgroundColor: '#0b0713',
+            color: '#e9d8fd',
+          },
+        },
+      },
       MuiTextField: {
         defaultProps: {
           InputProps: {
@@ -20,6 +51,7 @@ export const theme = createTheme(
         styleOverrides: {
           input: {
             textAlign: 'right',
+            color: '#e9d8fd',
           },
         },
       },
@@ -27,6 +59,16 @@ export const theme = createTheme(
         styleOverrides: {
           root: {
             textAlign: 'center',
+            borderRadius: 12,
+            textTransform: 'none',
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundColor: '#151025',
+            backgroundImage: 'none',
           },
         },
       },

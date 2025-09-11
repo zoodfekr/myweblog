@@ -3,6 +3,7 @@
 
 import { getCookie } from '@/components/common/functions/cookie';
 import Switch_btn from '@/components/common/mini_components/Switch_btn';
+import DataTable from '@/components/common/dataTable/DataTable';
 import { useFetchData } from '@/hooks/useFetchData';
 import useSnack from '@/hooks/useSnack';
 import { changeUserRole, deleteUser, getAllUsers } from '@/services/fetch/users';
@@ -53,61 +54,43 @@ export default function UsersPage() {
   }
 
 
-  const tableColumns = [
-    { id: 'index', label: '#', minWidth: 30 },
-    { id: 'username', label: 'نام', minWidth: 100 },
-    { id: 'email', label: 'ایمیل', minWidth: 170 },
-    { id: 'role', label: 'نقش', minWidth: 100 },
-    { id: 'isAdmin', label: 'مدیر', minWidth: 70 },
-    { id: 'actions', label: 'عملگر', minWidth: 70 },
+  const columns = [
+    { key: 'index', header: '#', className: 'text-white' },
+    { key: 'username', header: 'نام', className: 'text-white' },
+    { key: 'email', header: 'ایمیل', className: 'text-white' },
+    { key: 'role', header: 'نقش', className: 'text-white' },
+    {
+      key: 'isAdmin',
+      header: 'مدیر',
+      render: (row: UsersType) => (
+        <Switch_btn id={row.id} role={row.role} onChange_function={handleChangeRole} />
+      ),
+      className: 'text-white'
+    },
+  ];
+
+  const actions = [
+    {
+      label: 'حذف',
+      icon: <DeleteIcon sx={{ fontSize: '25px', color: red[500] }} />,
+      onClick: (row: UsersType) => handleDeleteUser(row.id)
+    }
   ];
 
 
   return (
-    <div className="bg-white shadow p-6 border border-gray-100 rounded-lg">
+    <div className="bg-transparent">
       <div className="flex items-center gap-2 mb-6">
         <PeopleIcon className="bg-blue-100 p-1 rounded-full text-blue-600 text-2xl" />
         <h2 className="font-bold text-blue-800 text-lg">لیست کاربران</h2>
       </div>
-      <table className="w-full text-right border-collapse">
-        <thead>
-          <tr className="bg-blue-50 text-blue-800">
-            {tableColumns.map((column) => (
-              <th key={column.id} className="px-4 py-2" style={{ minWidth: column.minWidth }}>
-                {column.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data && data.map((user, idx) => (
-            <tr key={user.id} className="hover:bg-blue-50 border-b">
-              <td className="px-4 py-2 font-bold text-blue-700">{idx + 1}</td>
-              <td className="px-4 py-2 text-gray-800">{user.username}</td>
-              <td className="px-4 py-2 text-gray-600">{user.email}</td>
-
-              <td className="px-4 py-2">
-                <span className={`px-2 py-1 rounded text-xs font-semibold ${user.role === 'admin' ? 'bg-blue-100 text-blue-700' : user.role === 'user' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>{user.role}</span>
-              </td>
-
-              <td className="px-4 py-2 text-gray-600">
-                <Switch_btn id={user.id} role={user.role} onChange_function={handleChangeRole} />
-              </td>
-
-              <td className="px-4 py-2 font-semibold text-yellow-700">
-                <IconButton
-                  aria-label=""
-                  onClick={() => handleDeleteUser(user.id)}
-                >
-                  <DeleteIcon sx={{ fontSize: "15px", color: red[500] }} />
-                </IconButton>{" "}
-              </td>
-            </tr>
-          ))}
-
-
-        </tbody>
-      </table>
+      {data && (
+        <DataTable
+          data={data}
+          columns={columns}
+          actions={actions}
+        />
+      )}
     </div>
   );
 }

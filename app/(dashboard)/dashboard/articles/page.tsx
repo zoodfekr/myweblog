@@ -4,7 +4,6 @@ import IsLoading_status from '@/components/common/statusPages/IsLoading_status';
 import { useFetchData } from '@/hooks/useFetchData';
 import { deleteArticle, getAllArticles } from '@/services/fetch/articles';
 import { articleType } from '@/types/articles';
-import ShowArticlesTable from './_Partials/ShowArticlesTable';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import CustomDialog from '@/components/common/CustomDialog';
@@ -13,6 +12,13 @@ import useSnack from '@/hooks/useSnack';
 import { getCookie } from '@/components/common/functions/cookie';
 import DataNotFound from '@/components/common/statusPages/DataNotFound';
 import ShowArticle from './_Partials/ShowArticle';
+import DataTable from '@/components/common/dataTable/DataTable';
+import { TiEdit } from "react-icons/ti";
+import ShowCategoryById from '@/components/common/ShowCategoryById';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { blue, red } from '@mui/material/colors';
+
+
 
 const ArticlesPage = () => {
 
@@ -41,8 +47,10 @@ const ArticlesPage = () => {
   }, [])
 
 
+
+  // ? عملکرهای جدول
   //   تایع مدیریت کش
-  const handleFreshData = (value: articleType, type: 'add' | 'edit') => {
+  const handleFreshData = (value: articleType, type: 'add' | 'edit' | 'show') => {
 
     console.log('handleFreshData--------------', value, type);
     if (type === 'add') {
@@ -57,7 +65,6 @@ const ArticlesPage = () => {
       snack({ text: 'مقاله ویرایش شد', variant: 'success' });
     }
   };
-
 
   // تابع حذف دیتا از کش
   const handleDeleteArticle = async (id: string) => {
@@ -87,11 +94,7 @@ const ArticlesPage = () => {
 
 
 
-
-
-
   //? مدیریت دیالوگ 
-
   // هندل کنننده کامپوننت دیالوگ
   const handleDialogComponent = (type: 'add' | 'edit' | 'show') => {
     if (openDialog.status) {
@@ -121,30 +124,69 @@ const ArticlesPage = () => {
   }
 
 
+
+  // ?اطلاعات جدول
+  const columns = [
+    { key: "index", header: "#", className: "text-white" },
+    { key: "title", header: "عنوان", className: "text-white" },
+    { key: "author", header: "نویسنده", className: "text-white" },
+    { key: "views", header: "بازدید", className: "font-semibold text-green-700" },
+    { key: "createdAt", header: "تاریخ ایجاد", className: "font-semibold text-green-700" },
+    {
+      key: "categoryId",
+      header: "دسته بندی",
+      render: (row: articleType) => <ShowCategoryById id={row.categoryId} />,
+      className: "font-semibold text-green-700"
+    },
+  ];
+
+  const actions = [
+    {
+      label: "ویرایش",
+      icon: <TiEdit style={{ fontSize: "25px", color: blue[500] }} />,
+      onClick: (row: articleType) => handleOpenDialog("edit", row),
+    },
+    {
+      label: "حذف",
+      icon: <DeleteIcon sx={{ fontSize: "25px", color: red[500] }} />,
+      onClick: (row: articleType) => handleDeleteArticle(row.id),
+    },
+  ];
+
+
   // ? بخش محتوا
   if (loading) (<IsLoading_status />)
   if (error) (<IsError_status />)
   if ((!data || data.length === 0) && !loading) return <DataNotFound />
+  if (data) {
+    return (
+      <>
+        <div className='relative bg-transparent'>
 
-  return (
-    <>
-      <div className='relative bg-transparent'>
+          <CustomDialog open={openDialog.status} handleClose={handleCloseDialog} title={handlleDialogTitle(openDialog.type)}>
 
+            {handleDialogComponent(openDialog.type)}
 
-        <CustomDialog open={openDialog.status} handleClose={handleCloseDialog} title={handlleDialogTitle(openDialog.type)}>
-          {handleDialogComponent(openDialog.type)}
-        </CustomDialog>
-
-
-        <div className='top-0 left-0 absolute p-2'>
-          <Button variant='contained' onClick={() => handleOpenDialog('add', null)}>افزودن مقاله</Button>
-        </div>
+          </CustomDialog>
 
 
-        <ShowArticlesTable data={data} handleEdit={handleOpenDialog} deleteFunction={handleDeleteArticle} handleShow={handleShowArticle} />
-      </div >
-    </>
-  );
+          <div className='top-0 left-0 absolute'>
+            <Button variant='contained' onClick={() => handleOpenDialog('add', null)}>افزودن مقاله</Button>
+          </div>
+          <br /><br />
+
+          <DataTable
+            data={data}
+            columns={columns}
+            actions={actions}
+            onRowClick={handleShowArticle}
+          />
+
+
+        </div >
+      </>
+    );
+  }
 }
 
 

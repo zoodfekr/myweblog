@@ -78,8 +78,8 @@ const AddCommentForm = ({
   };
 
   return (
-    <div className="bg-white shadow-lg mt-8 mb-8 p-6 rounded-xl">
-      <h2 className="mb-6 pb-4 border-gray-200 border-b font-semibold text-gray-800 text-2xl">
+    <div className="shadow-lg mt-8 mb-8 p-6 rounded-xl card">
+      <h2 className="mb-6 pb-4 border-white/10 border-b font-semibold text-purple-100 text-2xl">
         افزودن نظر
       </h2>
 
@@ -87,7 +87,7 @@ const AddCommentForm = ({
         <div>
           <label
             htmlFor="author"
-            className="block mb-2 font-medium text-gray-700 text-sm"
+            className="block mb-2 font-medium text-purple-200 text-sm"
           >
             نام شما
           </label>
@@ -98,7 +98,7 @@ const AddCommentForm = ({
             onChange={(e) =>
               setNewComment((prev) => ({ ...prev, author: e.target.value }))
             }
-            className="px-3 py-2 border border-gray-300 focus:border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 w-full"
+            className="bg-white/5 px-3 py-2 border border-white/10 focus:border-transparent rounded-lg focus:ring-2 focus:ring-purple-500 w-full text-purple-100 placeholder-purple-200/50"
             placeholder="نام خود را وارد کنید"
             required
           />
@@ -107,7 +107,7 @@ const AddCommentForm = ({
         <div>
           <label
             htmlFor="content"
-            className="block mb-2 font-medium text-gray-700 text-sm"
+            className="block mb-2 font-medium text-purple-200 text-sm"
           >
             نظر شما
           </label>
@@ -118,7 +118,7 @@ const AddCommentForm = ({
               setNewComment((prev) => ({ ...prev, content: e.target.value }))
             }
             rows={4}
-            className="px-3 py-2 border border-gray-300 focus:border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 w-full"
+            className="bg-white/5 px-3 py-2 border border-white/10 focus:border-transparent rounded-lg focus:ring-2 focus:ring-purple-500 w-full text-purple-100 placeholder-purple-200/50"
             placeholder="نظر خود را بنویسید..."
             required
           />
@@ -126,7 +126,7 @@ const AddCommentForm = ({
 
         <button
           type="submit"
-          className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg w-full font-medium text-white transition-colors"
+          className="bg-gradient-to-r from-purple-600 hover:from-purple-700 to-fuchsia-600 hover:to-fuchsia-700 px-4 py-2 rounded-lg w-full font-medium text-white transition-colors"
         >
           ثبت نظر
         </button>

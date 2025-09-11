@@ -19,7 +19,7 @@ const ShowArticle = ({ data }: { data: articleType | null }) => {
     if (!data) return null;
 
     return (
-        <div className="space-y-4 bg-white shadow-lg mx-auto p-6 border rounded-2xl max-w-xl">
+        <div className="space-y-4 bg-white/90 shadow-lg mx-auto p-6 border rounded-2xl max-w-xl">
             <h2 className="flex items-center gap-2 font-bold text-gray-800 text-xl">
                 <FaHeading className="text-blue-600" />
                 {data.title}

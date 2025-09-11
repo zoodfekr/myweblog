@@ -117,7 +117,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 shadow-md mx-auto p-4 border rounded-xl max-w-md"
+      className="flex flex-col gap-4 bg-white/90 shadow-md mx-auto p-4 rounded-xl w-full"
     >
       <input
         type="text"

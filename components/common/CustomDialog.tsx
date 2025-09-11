@@ -54,6 +54,7 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
       keepMounted
       aria-describedby="alert-dialog-slide-description"
     >
+
       <IconButton
         aria-label="close"
         onClick={handleClose}
@@ -74,18 +75,18 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
       <DialogTitle
         sx={{ m: 0, p: 2 }}
         id="customized-dialog-title"
-        className="bg-blue-400 chart_title"
+        className="bg-purple-800/20 font-bold text-stone-400 chart_title"
       >
         {title}
       </DialogTitle>
 
-      <DialogContent sx={{ zIndex, mt: 2 }}>
+      <DialogContent sx={{ zIndex, mt: 0, background: "rgba(150,150,150,100)" }}>
         {text && (
           <Typography gutterBottom sx={{ my: 0, fontSize: textSize }}>
             {text}
           </Typography>
         )}
-        <div className="animate__animated animate__backInRight">{children}</div>
+        <div className="p-2">{children}</div>
       </DialogContent>
     </Dialog>
   );

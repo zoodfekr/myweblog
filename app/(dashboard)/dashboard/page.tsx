@@ -1,3 +1,4 @@
+
 'use client'
 import dynamic from 'next/dynamic';
 import PeopleIcon from '@mui/icons-material/People';
@@ -77,36 +78,47 @@ const radarSeries = [
 
 const Page = () => {
   return (
+    // language: javascript
     <div className="space-y-8">
-      <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+
+      <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mx-auto p-4 max-w-screen-xl">
         {stats.map((item, idx) => (
-          <div key={idx} className="flex items-center gap-4 bg-gradient-to-br from-white to-gray-50 shadow hover:shadow-lg p-5 border border-gray-100 rounded-xl transition">
-            {item.icon}
+
+
+          <div key={idx} className="flex items-center bg-white hover:bg-gray-100 shadow p-4 rounded-lg transition duration-300 ease-in-out">
+            <div className="mr-4">{item.icon}</div>
             <div>
               <div className={`text-3xl font-extrabold ${item.color}`}>{item.value.toLocaleString()}</div>
-              <div className="mt-1 font-semibold text-gray-600 text-sm">{item.label}</div>
+
+              <div className="mt-1 text-gray-600 text-sm">{item.label}</div>
             </div>
           </div>
         ))}
       </div>
-      <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <div className="bg-gradient-to-br from-white to-blue-50 shadow p-6 border border-gray-100 rounded-xl">
+
+
+      <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto p-4 max-w-screen-xl">
+        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
           <h2 className="mb-4 font-bold text-blue-800 text-lg">آمار بازدید ماهانه (خطی)</h2>
           <Chart options={lineOptions} series={lineSeries} type="line" height={250} />
         </div>
-        <div className="bg-gradient-to-br from-white to-orange-50 shadow p-6 border border-gray-100 rounded-xl">
+
+        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
           <h2 className="mb-4 font-bold text-orange-800 text-lg">بازدید مقالات (ستونی)</h2>
           <Chart options={barOptions} series={barSeries} type="bar" height={250} />
         </div>
-        <div className="bg-gradient-to-br from-white to-green-50 shadow p-6 border border-gray-100 rounded-xl">
+
+        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
           <h2 className="mb-4 font-bold text-green-800 text-lg">نقش کاربران (دایره‌ای)</h2>
           <Chart options={pieOptions} series={pieSeries} type="pie" height={250} />
         </div>
-        <div className="bg-gradient-to-br from-white to-pink-50 shadow p-6 border border-gray-100 rounded-xl">
+
+        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
           <h2 className="mb-4 font-bold text-pink-800 text-lg">وضعیت مقالات (دونات)</h2>
           <Chart options={donutOptions} series={donutSeries} type="donut" height={250} />
         </div>
-        <div className="bg-gradient-to-br from-white to-indigo-50 shadow p-6 border border-gray-100 rounded-xl">
+
+        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
           <h2 className="mb-4 font-bold text-indigo-800 text-lg">امتیازدهی (رادار)</h2>
           <Chart options={radarOptions} series={radarSeries} type="radar" height={250} />
         </div>

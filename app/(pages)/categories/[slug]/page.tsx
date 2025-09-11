@@ -8,9 +8,9 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
   if (!category)
     return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-gray-50 to-white min-h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="text-center">
-          <div className="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 mx-auto mb-6 rounded-full w-24 h-24">
+          <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 mx-auto mb-6 rounded-full w-24 h-24">
             <svg
               className="w-12 h-12 text-white"
               fill="none"
@@ -25,10 +25,10 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               />
             </svg>
           </div>
-          <h2 className="mb-2 font-bold text-gray-800 text-2xl">
+          <h2 className="mb-2 font-bold text-purple-100 text-2xl">
             مقاله‌ای موجود نیست
           </h2>
-          <p className="text-gray-600">دسته‌بندی مورد نظر یافت نشد</p>
+          <p className="text-purple-300/80">دسته‌بندی مورد نظر یافت نشد</p>
         </div>
       </div>
     );
@@ -36,18 +36,18 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 min-h-[50vh] overflow-hidden">
+      <div className="relative bg-gradient-to-br from-[#0b0713] via-[#120c22] to-[#0b0713] min-h-[50vh] overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <div className="top-10 left-10 absolute bg-green-300 opacity-20 blur-xl rounded-full w-96 h-96 animate-blob mix-blend-multiply filter"></div>
-          <div className="top-0 right-0 absolute bg-emerald-300 opacity-20 blur-xl rounded-full w-96 h-96 animate-blob animation-delay-2000 mix-blend-multiply filter"></div>
-          <div className="-bottom-8 left-20 absolute bg-teal-300 opacity-20 blur-xl rounded-full w-96 h-96 animate-blob animation-delay-4000 mix-blend-multiply filter"></div>
+          <div className="top-10 left-10 absolute bg-purple-700/30 blur-3xl rounded-full w-96 h-96 animate-blob mix-blend-screen"></div>
+          <div className="top-0 right-0 absolute bg-fuchsia-600/30 blur-3xl rounded-full w-96 h-96 animate-blob animation-delay-2000 mix-blend-screen"></div>
+          <div className="-bottom-8 left-20 absolute bg-violet-700/30 blur-3xl rounded-full w-96 h-96 animate-blob animation-delay-4000 mix-blend-screen"></div>
         </div>
 
         {/* Content */}
         <div className="z-10 relative flex flex-col justify-center items-center px-4 min-h-[50vh] text-center">
           <div className="mb-8">
-            <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 shadow-2xl mx-auto mb-6 rounded-2xl w-20 h-20">
+            <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 shadow-2xl mx-auto mb-6 rounded-2xl w-20 h-20">
               <svg
                 className="w-10 h-10 text-white"
                 fill="currentColor"
@@ -57,35 +57,35 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               </svg>
             </div>
           </div>
-          <h1 className="bg-clip-text bg-gradient-to-r from-white via-green-200 to-emerald-200 mb-6 font-bold text-transparent text-white text-4xl md:text-6xl">
+          <h1 className="bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-300 mb-6 font-extrabold text-transparent text-4xl md:text-6xl">
             {category.title}
           </h1>
-          <p className="max-w-3xl text-green-100 text-xl md:text-2xl leading-relaxed">
+          <p className="max-w-3xl text-purple-200/80 text-xl md:text-2xl leading-relaxed">
             {category.description}
           </p>
 
           {/* Stats Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm mt-8 px-6 py-3 border border-white/20 rounded-full">
             <svg
-              className="w-5 h-5 text-green-300"
+              className="w-5 h-5 text-purple-300"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="font-semibold text-green-100">دسته‌بندی فعال</span>
+            <span className="font-semibold text-purple-100">دسته‌بندی فعال</span>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative bg-gradient-to-b from-gray-50 to-white py-20">
+      <div className="relative py-20">
         <div className="mx-auto px-4 max-w-6xl">
           {/* Category Info Card */}
           <div className="mb-16">
-            <div className="bg-white shadow-2xl p-8 md:p-12 border border-gray-100 rounded-3xl">
+            <div className="shadow-2xl p-8 md:p-12 border border-white/10 rounded-3xl card">
               <div className="flex md:flex-row flex-col items-start md:items-center gap-6 mb-8">
-                <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 shadow-lg rounded-2xl w-16 h-16">
+                <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 shadow-lg rounded-2xl w-16 h-16">
                   <svg
                     className="w-8 h-8 text-white"
                     fill="currentColor"
@@ -95,10 +95,10 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="mb-2 font-bold text-gray-800 text-3xl md:text-4xl">
+                  <h2 className="mb-2 font-bold text-purple-100 text-3xl md:text-4xl">
                     {category.title}
                   </h2>
-                  <p className="text-gray-600 text-lg leading-relaxed">
+                  <p className="text-purple-300/80 text-lg leading-relaxed">
                     {category.description}
                   </p>
                 </div>
@@ -106,8 +106,8 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
               {/* Features Grid */}
               <div className="gap-6 grid grid-cols-1 md:grid-cols-3">
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 border border-green-100 rounded-2xl text-center">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 mx-auto mb-4 rounded-xl w-12 h-12">
+                <div className="p-6 border border-white/10 rounded-2xl text-center card">
+                  <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 mx-auto mb-4 rounded-xl w-12 h-12">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -122,16 +122,16 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-2 font-semibold text-gray-800">
+                  <h3 className="mb-2 font-semibold text-purple-100">
                     مقالات تخصصی
                   </h3>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-purple-300/80 text-sm">
                     محتوای با کیفیت و کاربردی
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 border border-green-100 rounded-2xl text-center">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 mx-auto mb-4 rounded-xl w-12 h-12">
+                <div className="p-6 border border-white/10 rounded-2xl text-center card">
+                  <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 mx-auto mb-4 rounded-xl w-12 h-12">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -146,14 +146,14 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-2 font-semibold text-gray-800">
+                  <h3 className="mb-2 font-semibold text-purple-100">
                     به‌روزرسانی مداوم
                   </h3>
-                  <p className="text-gray-600 text-sm">محتوای جدید و مرتبط</p>
+                  <p className="text-purple-300/80 text-sm">محتوای جدید و مرتبط</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 border border-green-100 rounded-2xl text-center">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 mx-auto mb-4 rounded-xl w-12 h-12">
+                <div className="p-6 border border-white/10 rounded-2xl text-center card">
+                  <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 mx-auto mb-4 rounded-xl w-12 h-12">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -168,10 +168,10 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-2 font-semibold text-gray-800">
+                  <h3 className="mb-2 font-semibold text-purple-100">
                     آمار و تحلیل
                   </h3>
-                  <p className="text-gray-600 text-sm">داده‌های دقیق و معتبر</p>
+                  <p className="text-purple-300/80 text-sm">داده‌های دقیق و معتبر</p>
                 </div>
               </div>
             </div>
@@ -180,10 +180,10 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
           {/* Articles Section */}
           <div className="mb-16">
             <div className="mb-12 text-center">
-              <h2 className="mb-4 font-bold text-gray-800 text-3xl md:text-4xl">
+              <h2 className="mb-4 font-extrabold text-purple-100 text-3xl md:text-4xl">
                 مقالات این دسته‌بندی
               </h2>
-              <p className="mx-auto max-w-2xl text-gray-600 text-lg">
+              <p className="mx-auto max-w-2xl text-purple-300/70 text-lg">
                 در این بخش می‌توانید تمام مقالات مربوط به این دسته‌بندی را
                 مشاهده کنید
               </p>
@@ -195,10 +195,10 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               {[1, 2, 3, 4, 5, 6].map((item) => (
                 <div
                   key={item}
-                  className="group bg-white shadow-xl hover:shadow-2xl border border-gray-100 rounded-3xl transition-all hover:-translate-y-2 duration-500 transform"
+                  className="group hover:bg-white/5 shadow-xl hover:shadow-purple-900/40 border border-white/10 rounded-3xl transition-all hover:-translate-y-2 duration-500 transform card"
                 >
                   <div className="p-8">
-                    <div className="flex justify-center items-center bg-gradient-to-br from-green-500 to-emerald-500 mb-6 rounded-xl w-12 h-12 group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex justify-center items-center bg-gradient-to-br from-purple-600 to-fuchsia-600 mb-6 rounded-xl w-12 h-12 group-hover:scale-110 transition-transform duration-300">
                       <svg
                         className="w-6 h-6 text-white"
                         fill="none"
@@ -214,20 +214,20 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                       </svg>
                     </div>
 
-                    <h3 className="group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-600 group-hover:to-emerald-600 mb-4 font-bold text-gray-800 group-hover:text-transparent text-xl transition-all duration-300">
+                    <h3 className="group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-fuchsia-400 mb-4 font-bold text-purple-100 group-hover:text-transparent text-xl transition-all duration-300">
                       مقاله نمونه {item}
                     </h3>
 
-                    <p className="mb-6 text-gray-600 leading-relaxed">
+                    <p className="mb-6 text-purple-300/80 leading-relaxed">
                       این یک مقاله نمونه است که در این دسته‌بندی قرار دارد و
                       محتوای مفیدی ارائه می‌دهد.
                     </p>
 
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-green-600 text-sm">
+                      <span className="font-semibold text-purple-300 text-sm">
                         دسته‌بندی
                       </span>
-                      <button className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 hover:from-green-600 to-emerald-500 hover:to-emerald-600 px-4 py-2 rounded-lg font-semibold text-white hover:scale-105 transition-all duration-300 transform">
+                      <button className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 hover:from-purple-700 to-fuchsia-600 hover:to-fuchsia-700 px-4 py-2 rounded-lg font-semibold text-white hover:scale-105 transition-all duration-300 transform">
                         <span>مشاهده</span>
                         <svg
                           className="w-4 h-4"

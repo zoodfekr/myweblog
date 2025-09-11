@@ -28,9 +28,8 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <body
         className={`${appFont.className} `}
         style={{
-          backgroundImage: `url(${sitebg.src})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: `radial-gradient(1200px 600px at 80% -10%, rgba(124, 58, 237, 0.25), transparent 60%), radial-gradient(1000px 500px at 10% 110%, rgba(147, 51, 234, 0.2), transparent 60%)`,
+          backgroundColor: '#0b0713',
           backgroundAttachment: 'fixed',
           position: "relative"
         }}>

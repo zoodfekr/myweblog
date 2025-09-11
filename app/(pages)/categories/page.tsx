@@ -5,17 +5,17 @@ import React from 'react'
 const Page = async () => {
     const categories = await getAllCategories()
 
-    // Array of beautiful gradient colors for categories - Green theme
+    // Array of beautiful gradient colors for categories - Purple theme
     const gradientColors = [
-        'from-green-500 via-emerald-500 to-teal-500',
-        'from-emerald-400 via-green-500 to-teal-600',
-        'from-lime-400 via-green-500 to-emerald-500',
-        'from-green-400 via-teal-500 to-cyan-500',
-        'from-teal-500 via-green-500 to-emerald-500',
-        'from-cyan-400 via-green-500 to-teal-500',
-        'from-green-400 via-lime-500 to-emerald-500',
-        'from-emerald-400 via-green-500 to-teal-500',
-        'from-green-400 via-cyan-500 to-teal-600',
+        'from-purple-600 via-fuchsia-600 to-purple-500',
+        'from-fuchsia-500 via-purple-600 to-violet-600',
+        'from-violet-500 via-fuchsia-600 to-purple-700',
+        'from-purple-500 via-violet-600 to-fuchsia-500',
+        'from-fuchsia-600 via-purple-700 to-violet-700',
+        'from-purple-700 via-fuchsia-600 to-purple-500',
+        'from-violet-600 via-purple-600 to-fuchsia-600',
+        'from-purple-600 via-violet-600 to-fuchsia-500',
+        'from-fuchsia-500 via-purple-700 to-violet-600',
     ]
 
     // Array of Material UI icons (using SVG paths)
@@ -34,39 +34,39 @@ const Page = async () => {
     return (
         <>
             {/* Hero Section with Animated Background */}
-            <div className="relative bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 min-h-[40vh] overflow-hidden">
+            <div className="relative bg-gradient-to-br from-[#0b0713] via-[#120c22] to-[#0b0713] min-h-[40vh] overflow-hidden">
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0">
-                    <div className="top-10 left-10 absolute bg-green-300 opacity-20 blur-xl rounded-full w-72 h-72 animate-blob mix-blend-multiply filter"></div>
-                    <div className="top-0 right-0 absolute bg-emerald-300 opacity-20 blur-xl rounded-full w-72 h-72 animate-blob animation-delay-2000 mix-blend-multiply filter"></div>
-                    <div className="-bottom-8 left-20 absolute bg-teal-300 opacity-20 blur-xl rounded-full w-72 h-72 animate-blob animation-delay-4000 mix-blend-multiply filter"></div>
+                    <div className="top-10 left-10 absolute bg-purple-700/30 blur-3xl rounded-full w-72 h-72 animate-blob mix-blend-screen"></div>
+                    <div className="top-0 right-0 absolute bg-fuchsia-600/30 blur-3xl rounded-full w-72 h-72 animate-blob animation-delay-2000 mix-blend-screen"></div>
+                    <div className="-bottom-8 left-20 absolute bg-violet-700/30 blur-3xl rounded-full w-72 h-72 animate-blob animation-delay-4000 mix-blend-screen"></div>
                 </div>
                 
                 {/* Content */}
                 <div className="z-10 relative flex flex-col justify-center items-center px-4 min-h-[40vh] text-center">
-                    <h1 className="bg-clip-text bg-gradient-to-r from-white via-green-200 to-emerald-200 mb-6 font-bold text-transparent text-white text-5xl md:text-7xl">
+                    <h1 className="bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-300 mb-6 font-extrabold text-transparent text-5xl md:text-7xl">
                         دسته بندی ها
                     </h1>
-                    <p className="max-w-2xl text-green-100 text-xl md:text-2xl leading-relaxed">
+                    <p className="max-w-2xl text-purple-200/80 text-xl md:text-2xl leading-relaxed">
                         کاوش کنید و مقالات مورد علاقه خود را در دسته بندی های مختلف پیدا کنید
                     </p>
                 </div>
             </div>
 
             {/* Categories Grid */}
-            <div className="relative bg-gradient-to-b from-gray-50 to-white py-20">
+            <div className="relative py-20">
                 <div className="mx-auto px-4 max-w-7xl">
                     {/* Stats Section */}
                     <div className="mb-16 text-center">
-                        <div className="inline-flex justify-center items-center bg-gradient-to-r from-green-500 to-emerald-500 mb-6 p-2 rounded-full">
+                        <div className="inline-flex justify-center items-center bg-gradient-to-r from-purple-600 to-fuchsia-600 mb-6 p-2 rounded-full">
                             <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h2 className="mb-4 font-bold text-gray-800 text-3xl md:text-4xl">
+                        <h2 className="mb-4 font-extrabold text-purple-100 text-3xl md:text-4xl">
                             {categories.length} دسته بندی مختلف
                         </h2>
-                        <p className="mx-auto max-w-2xl text-gray-600 text-lg">
+                        <p className="mx-auto max-w-2xl text-purple-300/70 text-lg">
                             هر دسته بندی شامل مقالات تخصصی و کاربردی در زمینه مربوطه می باشد
                         </p>
                     </div>
@@ -76,7 +76,7 @@ const Page = async () => {
                         {categories.map((category, index) => (
                             <div
                                 key={category.id}
-                                className="group relative bg-white shadow-xl hover:shadow-2xl rounded-3xl overflow-hidden transition-all hover:-translate-y-2 duration-500 transform"
+                                className="group relative hover:bg-white/5 shadow-xl hover:shadow-purple-900/40 border border-white/10 rounded-3xl overflow-hidden transition-all hover:-translate-y-2 duration-500 transform card"
                             >
                                 {/* Gradient Overlay */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${gradientColors[index % gradientColors.length]} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
@@ -93,12 +93,12 @@ const Page = async () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-600 group-hover:to-emerald-600 mb-4 font-bold text-gray-800 group-hover:text-transparent text-2xl transition-all duration-300">
+                                    <h3 className="group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-fuchsia-400 mb-4 font-bold text-purple-100 group-hover:text-transparent text-2xl transition-all duration-300">
                                         {category.title}
                                     </h3>
 
                                     {/* Description */}
-                                    <p className="mb-6 text-gray-600 group-hover:text-gray-700 leading-relaxed transition-colors duration-300">
+                                    <p className="mb-6 text-purple-300/80 leading-relaxed transition-colors duration-300">
                                         {category.description.length > 120
                                             ? category.description.slice(0, 120) + '...'
                                             : category.description}
@@ -107,7 +107,7 @@ const Page = async () => {
                                     {/* Action Button */}
                                     <Link
                                         href={`categories/${category.id}`}
-                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 hover:from-green-600 to-emerald-500 hover:to-emerald-600 shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-semibold text-white hover:scale-105 transition-all duration-300 transform"
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 hover:from-purple-700 to-fuchsia-600 hover:to-fuchsia-700 shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-semibold text-white hover:scale-105 transition-all duration-300 transform"
                                     >
                                         <span>مشاهده مقالات</span>
                                         <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,15 +117,15 @@ const Page = async () => {
                                 </div>
 
                                 {/* Decorative Elements */}
-                                <div className="top-0 right-0 absolute bg-gradient-to-br from-green-100 to-emerald-100 opacity-0 group-hover:opacity-20 rounded-full w-32 h-32 transition-opacity -translate-y-16 translate-x-16 duration-500"></div>
-                                <div className="bottom-0 left-0 absolute bg-gradient-to-br from-teal-100 to-green-100 opacity-0 group-hover:opacity-20 rounded-full w-24 h-24 transition-opacity -translate-x-12 translate-y-12 duration-500"></div>
+                                <div className="top-0 right-0 absolute bg-gradient-to-br from-purple-200/20 to-fuchsia-200/20 opacity-0 group-hover:opacity-20 rounded-full w-32 h-32 transition-opacity -translate-y-16 translate-x-16 duration-500"></div>
+                                <div className="bottom-0 left-0 absolute bg-gradient-to-br from-fuchsia-200/20 to-purple-200/20 opacity-0 group-hover:opacity-20 rounded-full w-24 h-24 transition-opacity -translate-x-12 translate-y-12 duration-500"></div>
                             </div>
                         ))}
                     </div>
 
                     {/* Bottom CTA */}
                     <div className="mt-16 text-center">
-                        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 hover:from-green-600 to-emerald-500 hover:to-emerald-600 shadow-lg hover:shadow-xl px-8 py-4 rounded-2xl font-semibold text-white hover:scale-105 transition-all duration-300 transform">
+                        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 hover:from-purple-700 to-fuchsia-600 hover:to-fuchsia-700 shadow-lg hover:shadow-xl px-8 py-4 rounded-2xl font-semibold text-white hover:scale-105 transition-all duration-300 transform">
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>

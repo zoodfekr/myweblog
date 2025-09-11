@@ -4,6 +4,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import CommentIcon from '@mui/icons-material/Comment';
 import { FaUsers } from "react-icons/fa";
 import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
+import StarBorder from '@/components/common/ui_components/starBorder/StarBorder';
 
 const links = [
     { href: '/dashboard', label: 'داشبورد', icon: <DashboardIcon className="text-blue-600" />, blank: false },
@@ -23,14 +24,29 @@ const Sidebar = () => {
             </div>
             <nav className="flex flex-col flex-1 gap-2">
                 {links.map(link => (
-                    <Link target={link.blank ? "_blank" : '_parent'} key={link.href} href={link.href} className="group flex items-center gap-4 bg-white/80 hover:bg-blue-100 shadow-sm px-4 py-3 border border-transparent hover:border-blue-300 rounded-lg transition">
-                        <span className="drop-shadow-sm text-2xl group-hover:scale-110 transition-transform">{link.icon}</span>
-                        <span className="drop-shadow-sm font-bold text-gray-700 group-hover:text-blue-700 text-base tracking-tight transition-colors">
-                            {link.label}
-                        </span>
-                    </Link>
+
+                    <StarBorder
+                        key={link.href}
+                        as="button"
+                        className="bg-stone-800"
+                        color="purple"
+                        speed="3s"
+                    >
+                        <Link target={link.blank ? "_blank" : '_parent'} href={link.href} className="group flex items-center gap-2 shadow-sm border border-transparent rounded-lg transition">
+                            <span className="drop-shadow-sm text-2xl group-hover:scale-110 transition-transform">{link.icon}</span>
+                            <span className="drop-shadow-sm font-bold text-gray-500 group-hover:text-blue-700 text-base tracking-tight transition-colors">
+                                {link.label}
+                            </span>
+                        </Link>
+                    </StarBorder>
+
+
                 ))}
             </nav>
+
+
+
+
             <div className="mt-auto pt-6 border-gray-100 border-t text-gray-400 text-xs text-center">© 2024 MyWeblog</div>
         </aside>
     );

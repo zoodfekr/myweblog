@@ -14,6 +14,9 @@ import AddCategories from './_Partials/AddCategories'
 
 import { getCookie } from '@/components/common/functions/cookie'
 import useSnack from '@/hooks/useSnack'
+import DataTable from '@/components/common/dataTable/DataTable'
+import DeleteIcon from '@mui/icons-material/Delete';
+import { red } from '@mui/material/colors';
 
 const CategoriesPage = () => {
 
@@ -94,10 +97,24 @@ const CategoriesPage = () => {
 
 
             <div className='top-0 left-0 absolute p-2'>
-                <Button variant='contained' onClick={() => handleAddFunctin(true)}>افزودن مقاله</Button>
+                <Button variant='contained' onClick={() => handleAddFunctin(true)}>افزودن دسته بندی</Button>
             </div>
 
-            <ShowCategoris data={data} deleteFunction={handleDeleteCategory} editFunction={handleEditFunction} />
+            {data && (
+                <DataTable
+                    data={data}
+                    columns={[
+                        { key: 'index', header: '#', className: 'text-white' },
+                        { key: 'title', header: 'عنوان', className: 'text-white' },
+                        { key: 'slug', header: 'اسلاگ', className: 'text-white' },
+                        { key: 'createdAt', header: 'تاریخ ایجاد', className: 'text-white' },
+                    ]}
+                    actions={[
+                        { label: 'ویرایش', icon: <span className='text-blue-400'>Edit</span>, onClick: (row: categoriesType) => handleEditFunction(row) },
+                        { label: 'حذف', icon: <DeleteIcon sx={{ fontSize: '25px', color: red[500] }} />, onClick: (row: categoriesType) => handleDeleteCategory(row.id) },
+                    ]}
+                />
+            )}
         </div>
     );
 };

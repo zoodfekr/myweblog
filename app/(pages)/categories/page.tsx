@@ -1,3 +1,4 @@
+import Header_HOC from '@/components/common/HOC/Header_HOC'
 import { getAllCategories } from '@/services/fetch/categories'
 import Link from 'next/link'
 import React from 'react'
@@ -34,23 +35,26 @@ const Page = async () => {
     return (
         <>
             {/* Hero Section with Animated Background */}
-            <div className="relative bg-gradient-to-br from-[#0b0713] via-[#120c22] to-[#0b0713] min-h-[40vh] overflow-hidden">
+            <div className="relative bg-gradient-to-br from-[#0b0713] via-[#120c22] to-[#0b0713] overflow-hidden">
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0">
                     <div className="top-10 left-10 absolute bg-purple-700/30 blur-3xl rounded-full w-72 h-72 animate-blob mix-blend-screen"></div>
                     <div className="top-0 right-0 absolute bg-fuchsia-600/30 blur-3xl rounded-full w-72 h-72 animate-blob animation-delay-2000 mix-blend-screen"></div>
                     <div className="-bottom-8 left-20 absolute bg-violet-700/30 blur-3xl rounded-full w-72 h-72 animate-blob animation-delay-4000 mix-blend-screen"></div>
                 </div>
-                
+
                 {/* Content */}
-                <div className="z-10 relative flex flex-col justify-center items-center px-4 min-h-[40vh] text-center">
+                <Header_HOC title="  دسته بندی ها" subtitle=" کاوش کنید و مقالات مورد علاقه خود را در دسته بندی های مختلف پیدا کنید" />
+
+
+                {/* <div className="z-10 relative flex flex-col justify-center items-center px-4 min-h-[40vh] text-center">
                     <h1 className="bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-300 mb-6 font-extrabold text-transparent text-5xl md:text-7xl">
                         دسته بندی ها
                     </h1>
                     <p className="max-w-2xl text-purple-200/80 text-xl md:text-2xl leading-relaxed">
                         کاوش کنید و مقالات مورد علاقه خود را در دسته بندی های مختلف پیدا کنید
                     </p>
-                </div>
+                </div> */}
             </div>
 
             {/* Categories Grid */}
@@ -80,7 +84,7 @@ const Page = async () => {
                             >
                                 {/* Gradient Overlay */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${gradientColors[index % gradientColors.length]} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                                
+
                                 {/* Card Content */}
                                 <div className="relative p-8">
                                     {/* Icon */}

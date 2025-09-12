@@ -2,10 +2,12 @@
 
 import { useFetchData } from "@/hooks/useFetchData";
 import useSnack from "@/hooks/useSnack";
-import { AddArticle, editArticle } from "@/services/fetch/articles";
+import { AddArticle, editArticle, sendImage } from "@/services/fetch/articles";
 import { getAllCategories } from "@/services/fetch/categories";
+import { ServerUrl_media } from "@/services/server";
 import { articleType } from "@/types/articles";
 import { categoriesType } from "@/types/categories";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 type ArticleFormType = {
@@ -27,7 +29,7 @@ type AddArticle_formType = {
 const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArticle_formType) => {
 
 
-  const { data: data_category, loading: loading_category, error: error_category, setData: setDate_category } = useFetchData<categoriesType[]>({ fetchFunction: getAllCategories });
+  const { data: data_category } = useFetchData<categoriesType[]>({ fetchFunction: getAllCategories });
 
 
   const snack = useSnack()
@@ -39,6 +41,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
     categoryId: "",
     author: "",
   });
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
 
   // تابع ریست کننده state
   const handleResetState = () => setFormData({ title: "", content: "", image: "", categoryId: "", author: "" })
@@ -70,6 +73,35 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
     }));
   };
 
+  // آپلود تصویر و تنظیم آدرس در فرم
+  const handleSelectImage: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const token = localStorage.getItem('token_myweblog');
+    if (!token) {
+      snack({ text: 'عدم دسترسی: ابتدا وارد شوید', variant: 'error' });
+      return;
+    }
+
+    try {
+      setIsUploadingImage(true);
+      const res = await sendImage({ token, image: file });
+      if ('imagePath' in res) {
+        setFormData((prev) => ({ ...prev, image: res.imagePath }));
+        snack({ text: res.message || 'تصویر با موفقیت آپلود شد', variant: 'success' });
+      } else {
+        snack({ text: res.message || 'خطا در آپلود تصویر', variant: 'error' });
+      }
+    } catch {
+      snack({ text: 'خطا در آپلود تصویر', variant: 'error' });
+    } finally {
+      setIsUploadingImage(false);
+      // پاک کردن ورودی فایل برای امکان انتخاب مجدد همان فایل
+      e.currentTarget.value = '';
+    }
+  };
+
   // ارسال دیتا به سرور برای افزودن و ادیت
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,23 +113,25 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
     }
 
     try {
-      let res: any = null;
-
       if (stateValue.type === 'add') {
-        res = await AddArticle(formData, token)
+        const resAdd = await AddArticle(formData, token);
+        if ('status' in resAdd) {
+          snack({ text: resAdd.message || 'خظا در انجام عملیات', variant: 'error' });
+          return;
+        }
+        handleFreshData(resAdd as unknown as articleType, stateValue.type);
       } else if (stateValue.type === 'edit') {
-        res = await editArticle(formData, token, stateValue.value ? stateValue.value.id : '');
+        const id = stateValue.value ? stateValue.value.id : '';
+        const resEdit = await editArticle(formData, token, id);
+        if ('status' in resEdit) {
+          snack({ text: resEdit.message || 'خظا در انجام عملیات', variant: 'error' });
+          return;
+        }
+        handleFreshData(resEdit as articleType, stateValue.type);
       }
 
-      if (res.status && res.status !== 200 && res.status !== 201) {
-        snack({ text: res.message || 'خظا در انجام عملیات', variant: 'error' });
-        return;
-      } else if (res) {
-        handleFreshData(res, stateValue.type);
-        handleResetState();
-        setOpenDialog();
-        console.log("✅ پاسخ سرور برای افزودن/ویرایش دسته بندی:", res);
-      }
+      handleResetState();
+      setOpenDialog();
 
     } catch (error) {
       console.log('Error submitting article:', error);
@@ -117,7 +151,7 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 bg-white/90 shadow-md mx-auto p-4 rounded-xl w-full"
+      className="flex flex-col gap-4 bg-stone-700 shadow-md mx-auto p-4 rounded-xl w-full"
     >
       <input
         type="text"
@@ -139,14 +173,31 @@ const AddArticle_form = ({ setOpenDialog, handleFreshData, stateValue }: AddArti
         required
       />
 
-      <input
-        type="text"
-        name="image"
-        placeholder="آدرس تصویر"
-        value={formData.image}
-        onChange={handleChange}
-        className="p-2 border rounded"
-      />
+      {/* آپلود تصویر */}
+      <div className="flex flex-col gap-2">
+        <label className="text-stone-200 text-sm">تصویر مقاله</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleSelectImage}
+          disabled={isUploadingImage}
+          className="bg-stone-600 file:bg-stone-500 disabled:opacity-60 p-2 file:px-3 file:py-1 border file:border-0 rounded file:rounded text-white file:text-white cursor-pointer"
+        />
+        {isUploadingImage && (
+          <span className="text-blue-300 text-sm">در حال آپلود تصویر...</span>
+        )}
+        {!isUploadingImage && formData.image && (
+          <div className="mt-1">
+            <Image
+              src={formData.image.startsWith('http') ? formData.image : `${ServerUrl_media}${formData.image.startsWith('/') ? '' : '/'}${formData.image}`}
+              alt="تصویر مقاله"
+              className="border rounded max-h-40"
+              width={500}
+              height={500}
+            />
+          </div>
+        )}
+      </div>
 
       <select
         name="categoryId"

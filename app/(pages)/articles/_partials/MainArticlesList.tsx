@@ -4,6 +4,7 @@ import { articleType } from '@/types/articles'
 import { ServerUrl_media } from '@/services/server'
 import Link from 'next/link'
 import { Button } from '@mui/material'
+import ShinyText from '@/components/common/ui_components/ShinyText/ShinyText'
 
 interface MainArticlesListProps {
     articles: articleType[]
@@ -18,14 +19,16 @@ const MainArticlesList = ({ articles }: MainArticlesListProps) => {
 
             <div className="space-y-6">
                 {articles.map((article) => (
-                    <article key={article.id} className="hover:bg-white/5 p-6 border border-white/10 rounded-lg transition-colors duration-300">
-                        <div className="flex items-start space-x-4 rtl:space-x-reverse">
+                    <article key={article.id} className="hover:bg-white/5 p-2 border border-white/10 rounded-lg transition-colors duration-300">
+                        <div className="flex items-start space-x-1 rtl:space-x-reverse">
                             {article.image && (
-                                <div className="flex flex-shrink-0 justify-center items-center">
+
+
+                                <div className="flex flex-shrink-0 justify-center items-center pl-2">
                                     <Image
                                         src={`${ServerUrl_media}${article.image}`}
                                         alt={article.title}
-                                        width={120}
+                                        width={200}
                                         height={80}
                                         className="rounded-lg object-cover"
                                     />
@@ -33,10 +36,13 @@ const MainArticlesList = ({ articles }: MainArticlesListProps) => {
                             )}
 
                             <div className="flex-1 min-w-0">
-                                <h3 className="mb-2 font-semibold text-purple-100 hover:text-purple-300 text-xl transition-colors">
-                                    {article.title}
-                                </h3>
-                                <p className="mb-3 text-purple-200/80 text-sm line-clamp-3">
+                                <ShinyText
+                                    text={article.title}
+                                    disabled={false}
+                                    speed={3}
+                                    className='mb-2 font-semibold text-purple-100 hover:text-purple-300 text-xl transition-colors'
+                                />
+                                <p className="mb-3 text-purple-200/80 text-sm text-justify line-clamp-3">
                                     {article.content.substring(0, 200)}...
                                 </p>
                                 <div className="flex justify-between items-center text-purple-300/70 text-sm">

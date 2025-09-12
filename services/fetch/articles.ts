@@ -139,3 +139,31 @@ export const deleteArticle = async ({ id, token }: { id: string, token: string }
 };
 
 
+// آپلود تصویر برای مقاله
+export const sendImage = async ({ token, image }: { token: string, image: File }):
+    Promise<{ message: string; imagePath: string } | { status: number; message: string }
+    > => {
+    try {
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const res = await fetch(`${ServerUrl}/articles/upload`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            return data as { message: string; imagePath: string };
+        } else {
+            return { status: res.status, message: data.message };
+        }
+    } catch (error) {
+        return { status: 500, message: "خطا در انجام عملیات" };
+    }
+};
+

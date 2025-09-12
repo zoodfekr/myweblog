@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import '../../components/common/ui_components/GradientText/GradientText.css';
+@import './dialogstyle.css';
 
 :root {
   --background: #0b0713;
@@ -141,5 +142,5 @@ html {
 
 .accent {
   color: var(--foreground);
-  background: linear-gradient(135deg, rgba(124,58,237,0.95), rgba(147,51,234,0.9));
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(147, 51, 234, 0.9));
 }

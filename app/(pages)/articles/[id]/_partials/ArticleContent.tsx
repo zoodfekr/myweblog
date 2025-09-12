@@ -9,7 +9,9 @@ interface ArticleContentProps {
 
 const ArticleContent = ({ article }: ArticleContentProps) => {
     return (
-        <div className="bg-white shadow-xl mb-8 border border-gray-200 rounded-3xl overflow-hidden hover:scale-[1.01] transition-transform duration-300">
+        <div
+            style={{ backgroundColor: '#151025' }}
+            className="shadow-xl mb-8 border border-gray-200 rounded-3xl overflow-hidden hover:scale-[1.01] transition-transform duration-300">
             {article.image && (
                 <Image
                     src={`${ServerUrl_media}${article.image}`}
@@ -29,7 +31,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
                     {article.title}
                 </h1>
 
-                <section className="mb-6 max-w-none text-gray-800 leading-relaxed prose prose-indigo prose-lg">
+                <section className="mb-6 max-w-none text-gray-400 text-lg text-justify leading-relaxed prose prose-indigo prose-lg">
                     <p>{article.content}</p>
                 </section>
 

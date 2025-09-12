@@ -36,7 +36,7 @@ const RandomArticlesSidebar = ({ randomArticles }: RandomArticlesSidebarProps) =
                         <h4 className="mb-2 font-semibold text-purple-100 hover:text-purple-300 line-clamp-2 transition-colors">
                             {article.title}
                         </h4>
-                        <p className="mb-2 text-purple-200/80 text-sm line-clamp-3">
+                        <p className="mb-2 text-purple-200/80 text-sm text-justify line-clamp-3">
                             {article.content.substring(0, 100)}...
                         </p>
                         <div className="flex justify-between items-center text-purple-300/70 text-xs">

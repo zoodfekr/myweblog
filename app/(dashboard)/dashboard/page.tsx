@@ -8,7 +8,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ThumbUpIcon from '@mui/icons-material/ThumbUpAlt';
 import { ApexOptions } from 'apexcharts';
 import React from 'react';
-import MagicBento from '@/components/common/ui_components/magicBento/MagicBento';
 
 interface ChartProps {
   options: ApexOptions;
@@ -20,20 +19,29 @@ interface ChartProps {
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) as React.FC<ChartProps>;
 
 const stats = [
-  { label: 'تعداد کاربران', value: 1200, icon: <PeopleIcon className="bg-blue-100 p-1 rounded-full text-blue-600 text-3xl" />, color: 'text-blue-700' },
-  { label: 'تعداد مقالات', value: 340, icon: <ArticleIcon className="bg-green-100 p-1 rounded-full text-green-600 text-3xl" />, color: 'text-green-700' },
-  { label: 'تعداد نظرات', value: 980, icon: <CommentIcon className="bg-yellow-100 p-1 rounded-full text-yellow-600 text-3xl" />, color: 'text-yellow-700' },
-  { label: 'بازدید امروز', value: 420, icon: <VisibilityIcon className="bg-purple-100 p-1 rounded-full text-purple-600 text-3xl" />, color: 'text-purple-700' },
-  { label: 'لایک‌ها', value: 210, icon: <ThumbUpIcon className="bg-pink-100 p-1 rounded-full text-pink-600 text-3xl" />, color: 'text-pink-700' },
+  { label: 'تعداد کاربران', value: 1200, icon: <PeopleIcon className="text-indigo-300 text-3xl" />, color: 'text-indigo-300' },
+  { label: 'تعداد مقالات', value: 340, icon: <ArticleIcon className="text-emerald-300 text-3xl" />, color: 'text-emerald-300' },
+  { label: 'تعداد نظرات', value: 980, icon: <CommentIcon className="text-yellow-300 text-3xl" />, color: 'text-yellow-300' },
+  { label: 'بازدید امروز', value: 420, icon: <VisibilityIcon className="text-purple-300 text-3xl" />, color: 'text-purple-300' },
+  { label: 'لایک‌ها', value: 210, icon: <ThumbUpIcon className="text-pink-300 text-3xl" />, color: 'text-pink-300' },
 ];
 
 // نمودار خطی
 const lineOptions: ApexOptions = {
-  chart: { id: 'line' },
-  xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'] },
-  colors: ['#2563eb', '#22c55e', '#eab308'],
-  dataLabels: { style: { colors: ['#222'] } },
-  legend: { labels: { colors: ['#222'] } },
+  chart: { id: 'line', background: 'transparent', foreColor: '#e5e7eb', toolbar: { show: false } },
+  theme: { mode: 'dark' },
+  xaxis: {
+    categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+    axisBorder: { color: 'rgba(255,255,255,0.12)' },
+    axisTicks: { color: 'rgba(255,255,255,0.12)' },
+    labels: { style: { colors: '#cbd5e1' } },
+  },
+  yaxis: { labels: { style: { colors: '#cbd5e1' } } },
+  grid: { borderColor: 'rgba(255,255,255,0.08)' },
+  colors: ['#60a5fa', '#34d399', '#fbbf24'],
+  dataLabels: { enabled: false },
+  legend: { labels: { colors: ['#e5e7eb'] } },
+  stroke: { width: 3, curve: 'smooth' },
 };
 const lineSeries = [
   { name: 'بازدیدها', data: [120, 200, 150, 300, 250, 400] },
@@ -43,9 +51,18 @@ const lineSeries = [
 
 // نمودار ستونی
 const barOptions: ApexOptions = {
-  chart: { id: 'bar' },
-  xaxis: { categories: ['مقاله ۱', 'مقاله ۲', 'مقاله ۳', 'مقاله ۴', 'مقاله ۵'] },
+  chart: { id: 'bar', background: 'transparent', foreColor: '#e5e7eb', toolbar: { show: false } },
+  theme: { mode: 'dark' },
+  xaxis: {
+    categories: ['مقاله ۱', 'مقاله ۲', 'مقاله ۳', 'مقاله ۴', 'مقاله ۵'],
+    axisBorder: { color: 'rgba(255,255,255,0.12)' },
+    axisTicks: { color: 'rgba(255,255,255,0.12)' },
+    labels: { style: { colors: '#cbd5e1' } },
+  },
+  yaxis: { labels: { style: { colors: '#cbd5e1' } } },
+  grid: { borderColor: 'rgba(255,255,255,0.08)' },
   colors: ['#f59e42'],
+  plotOptions: { bar: { borderRadius: 6, columnWidth: '40%' } },
 };
 const barSeries = [
   { name: 'بازدید', data: [80, 120, 60, 150, 100] },
@@ -53,25 +70,33 @@ const barSeries = [
 
 // نمودار دایره‌ای
 const pieOptions: ApexOptions = {
+  chart: { background: 'transparent', foreColor: '#e5e7eb' },
+  theme: { mode: 'dark' },
   labels: ['ادمین', 'نویسنده', 'کاربر'],
-  colors: ['#2563eb', '#22c55e', '#eab308'],
-  legend: { position: 'bottom' },
+  colors: ['#60a5fa', '#34d399', '#fbbf24'],
+  legend: { position: 'bottom', labels: { colors: ['#e5e7eb'] } },
 };
 const pieSeries = [3, 4, 8];
 
 // نمودار دونات
 const donutOptions: ApexOptions = {
+  chart: { background: 'transparent', foreColor: '#e5e7eb' },
+  theme: { mode: 'dark' },
   labels: ['منتشر شده', 'پیش‌نویس', 'در انتظار'],
   colors: ['#10b981', '#f59e42', '#f43f5e'],
-  legend: { position: 'bottom' },
+  legend: { position: 'bottom', labels: { colors: ['#e5e7eb'] } },
 };
 const donutSeries = [12, 5, 2];
 
 // نمودار رادار
 const radarOptions: ApexOptions = {
-  chart: { id: 'radar' },
-  xaxis: { categories: ['کیفیت', 'سرعت', 'پشتیبانی', 'امنیت', 'سادگی'] },
-  colors: ['#6366f1'],
+  chart: { id: 'radar', background: 'transparent', foreColor: '#e5e7eb', toolbar: { show: false } },
+  theme: { mode: 'dark' },
+  xaxis: { categories: ['کیفیت', 'سرعت', 'پشتیبانی', 'امنیت', 'سادگی'], labels: { style: { colors: '#cbd5e1' } } },
+  colors: ['#818cf8'],
+  grid: { borderColor: 'rgba(255,255,255,0.08)' },
+  fill: { opacity: 0.3 },
+  stroke: { width: 2 },
 };
 const radarSeries = [
   { name: 'امتیاز', data: [80, 90, 70, 85, 95] },
@@ -85,13 +110,11 @@ const Page = () => {
       <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mx-auto p-4 max-w-screen-xl">
         {stats.map((item, idx) => (
 
-
-          <div key={idx} className="flex items-center bg-white hover:bg-gray-100 shadow p-4 rounded-lg transition duration-300 ease-in-out">
+          <div key={idx} className="flex items-center bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-4 border border-white/10 rounded-xl transition duration-300 ease-in-out">
             <div className="mr-4">{item.icon}</div>
             <div>
               <div className={`text-3xl font-extrabold ${item.color}`}>{item.value.toLocaleString()}</div>
-
-              <div className="mt-1 text-gray-600 text-sm">{item.label}</div>
+              <div className="mt-1 text-stone-300/90 text-sm">{item.label}</div>
             </div>
           </div>
         ))}
@@ -99,28 +122,28 @@ const Page = () => {
 
 
       <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto p-4 max-w-screen-xl">
-        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
-          <h2 className="mb-4 font-bold text-blue-800 text-lg">آمار بازدید ماهانه (خطی)</h2>
+        <div className="bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-6 border border-white/10 rounded-xl transition duration-300 ease-in-out">
+          <h2 className="mb-4 font-bold text-indigo-200 text-lg">آمار بازدید ماهانه (خطی)</h2>
           <Chart options={lineOptions} series={lineSeries} type="line" height={250} />
         </div>
 
-        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
-          <h2 className="mb-4 font-bold text-orange-800 text-lg">بازدید مقالات (ستونی)</h2>
+        <div className="bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-6 border border-white/10 rounded-xl transition duration-300 ease-in-out">
+          <h2 className="mb-4 font-bold text-amber-200 text-lg">بازدید مقالات (ستونی)</h2>
           <Chart options={barOptions} series={barSeries} type="bar" height={250} />
         </div>
 
-        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
-          <h2 className="mb-4 font-bold text-green-800 text-lg">نقش کاربران (دایره‌ای)</h2>
+        <div className="bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-6 border border-white/10 rounded-xl transition duration-300 ease-in-out">
+          <h2 className="mb-4 font-bold text-emerald-200 text-lg">نقش کاربران (دایره‌ای)</h2>
           <Chart options={pieOptions} series={pieSeries} type="pie" height={250} />
         </div>
 
-        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
-          <h2 className="mb-4 font-bold text-pink-800 text-lg">وضعیت مقالات (دونات)</h2>
+        <div className="bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-6 border border-white/10 rounded-xl transition duration-300 ease-in-out">
+          <h2 className="mb-4 font-bold text-pink-200 text-lg">وضعیت مقالات (دونات)</h2>
           <Chart options={donutOptions} series={donutSeries} type="donut" height={250} />
         </div>
 
-        <div className="bg-white hover:bg-gray-100 shadow p-6 rounded-lg transition duration-300 ease-in-out">
-          <h2 className="mb-4 font-bold text-indigo-800 text-lg">امتیازدهی (رادار)</h2>
+        <div className="bg-white/5 hover:bg-white/10 shadow backdrop-blur-md p-6 border border-white/10 rounded-xl transition duration-300 ease-in-out">
+          <h2 className="mb-4 font-bold text-indigo-200 text-lg">امتیازدهی (رادار)</h2>
           <Chart options={radarOptions} series={radarSeries} type="radar" height={250} />
         </div>
       </div>

@@ -18,9 +18,8 @@ const NavigationBtns = () => {
         { name: 'خانه', href: '/', icon: Home },
         { name: 'مقالات', href: '/articles', icon: Article },
         { name: 'دسته‌بندی‌ها', href: '/categories', icon: Category },
-        { name: ' مدیریت', href: '/dashboard ', icon: Category },
         { name: 'نظرات', href: '/comments', icon: Comment },
-        // { name: 'ورود', href: '/login', icon: LoginRoundedIcon },
+        { name: ' مدیریت', href: '/dashboard ', icon: Category },
     ]
 
 

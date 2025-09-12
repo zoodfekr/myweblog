@@ -14,6 +14,7 @@ const Footer_homepage = () => {
             <Image
                 src={footerbg}  // ساده‌تر: از مسیر public به صورت رشته
                 alt="بنر فوتر"
+                quality={100}
                 style={{
                     width: '100%',
                     height: '100%',
@@ -21,11 +22,11 @@ const Footer_homepage = () => {
                     // position: 'absolute',
                 }}
                 className="z-0 absolute" // z-0 به‌جای -z-10
-                // priority
+            // priority
             />
 
 
-            <div className="top-0 left-0 z-10 relative gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto px-4 w-full w-full h-full h-full">
+            <div className="top-0 left-0 z-10 relative justify-center gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto p-5 px-4 w-full h-full">
                 {/* درباره ما */}
                 <div>
                     <h2 className="mb-2 font-semibold text-purple-100 text-xl">درباره ما</h2>
@@ -41,7 +42,7 @@ const Footer_homepage = () => {
                 </div>
 
                 {/* شبکه‌های اجتماعی */}
-                <div>
+                <div className='flex flex-col justify-center items-center'>
                     <h2 className="font-semibold text-purple-100 text-xl">ما را دنبال کنید</h2>
                     <div className="flex space-x-4 rtl:space-x-reverse mt-4">
                         <a href="#" className="text-purple-300/70 hover:text-purple-200 transition"><Facebook /></a>

@@ -13,7 +13,7 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
     const items = data.slice(0, 10).map((article: articleType, idx: number) => ({
         image: `${ServerUrl_media}${article.image}`,
         title: article.title,
-        subtitle: article.content?.slice(0, 90) || '',
+        subtitle: article.content?.slice(0, 200) || '',
         handle: `${article.author || 'ناشناس'} • ${new Date(article.createdAt).toLocaleDateString('fa-IR')}`,
         borderColor: palette[idx % palette.length],
         gradient: `linear-gradient(145deg, ${palette[idx % palette.length]}, #000)`,

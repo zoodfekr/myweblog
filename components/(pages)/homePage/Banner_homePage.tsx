@@ -12,7 +12,7 @@ const Banner_homePage = () => {
                 alt="بنر سایت"
                 fill
                 quality={100}
-                className="rounded-2xl w-full h-full object-cover"
+                className="w-full h-full object-cover"
                 priority
             />
             {/* گرادینت ملایم و شفاف روی تصویر */}

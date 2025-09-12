@@ -59,22 +59,18 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-300 min-h-screen">
-      <div className="bg-white/30 shadow-xl backdrop-blur-md p-10 border border-white/40 rounded-2xl w-full max-w-md hover:scale-[1.02] transition-all duration-300">
+    <div className="flex justify-center items-center px-4 min-h-screen">
+      <div className="bg-white/5 shadow-lg backdrop-blur-md p-8 border border-white/10 rounded-2xl w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
-          <div className="bg-purple-500 shadow-md p-3 rounded-full text-white">
+          <div className="bg-purple-600/90 shadow-md p-3 rounded-full text-white">
             <PersonOutline fontSize="medium" />
           </div>
-          <h2 className="mt-4 font-extrabold text-gray-800 text-3xl">
-            ثبت‌نام
-          </h2>
-          <p className="mt-1 text-gray-600 text-sm">
-            برای ساخت حساب جدید اطلاعات زیر را وارد کنید.
-          </p>
+          <h2 className="mt-4 font-extrabold text-stone-200 text-3xl">ثبت‌نام</h2>
+          <p className="mt-1 text-stone-300/80 text-sm">برای ساخت حساب جدید اطلاعات زیر را وارد کنید.</p>
         </div>
         <form className="space-y-5" onSubmit={handleSubmit}>
           <TextField
-            sx={{ my: 1 }}
+            sx={{ my: 1, '& .MuiOutlinedInput-root': { color: '#e7e5e4' }, '& .MuiInputLabel-root': { color: '#cbd5e1' }, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' } }}
             label="نام کاربری"
             variant="outlined"
             fullWidth
@@ -90,7 +86,7 @@ const RegisterPage = () => {
             }}
           />
           <TextField
-            sx={{ my: 1 }}
+            sx={{ my: 1, '& .MuiOutlinedInput-root': { color: '#e7e5e4' }, '& .MuiInputLabel-root': { color: '#cbd5e1' }, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' } }}
             label="ایمیل"
             variant="outlined"
             fullWidth
@@ -107,7 +103,7 @@ const RegisterPage = () => {
             }}
           />
           <TextField
-            sx={{ my: 1 }}
+            sx={{ my: 1, '& .MuiOutlinedInput-root': { color: '#e7e5e4' }, '& .MuiInputLabel-root': { color: '#cbd5e1' }, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' } }}
             label="رمز عبور"
             variant="outlined"
             fullWidth
@@ -127,17 +123,17 @@ const RegisterPage = () => {
             variant="contained"
             fullWidth
             type="submit"
-            className="!bg-gradient-to-r !from-purple-500 hover:!from-purple-600 !to-indigo-500 hover:!to-indigo-600 py-2 font-semibold text-white"
+            className="!bg-gradient-to-r !from-purple-600 hover:!from-purple-700 !to-indigo-600 hover:!to-indigo-700 py-2 font-semibold text-white"
           >
             ثبت‌نام
           </Button>
         </form>
         <div className="mt-6 text-center">
-          <p className="text-gray-700 text-sm">
+          <p className="text-stone-300 text-sm">
             قبلاً ثبت‌نام کرده‌اید؟{" "}
             <a
               href="/login"
-              className="font-medium text-indigo-600 hover:underline"
+              className="font-medium text-indigo-300 hover:underline"
             >
               وارد شوید
             </a>

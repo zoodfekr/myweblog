@@ -5,12 +5,14 @@ import PixelBlast from '@/components/common/ui_components/PixelBlast/PixelBlast'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="flex flex-col bg-gray-50 min-h-screen" dir='rtl'>
+        <div className="flex flex-col min-h-screen" dir='rtl'>
             <Appbar />
             <div className="flex flex-1" dir='rtl'>
                 <Sidebar />
-                <main className="relative flex-1 bg-stone-800 ml-60 p-3">
-                        {children}
+                <main className="relative flex-1 ml-60 p-4">
+                        <div className="bg-white/5 shadow-lg backdrop-blur-md p-4 border border-white/10 rounded-2xl">
+                            {children}
+                        </div>
                 </main>
 
 

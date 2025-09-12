@@ -17,10 +17,10 @@ const links = [
 
 const Sidebar = () => {
     return (
-        <aside className="top-0 left-0 z-20 fixed flex flex-col gap-4 bg-stone-900 shadow-xl px-4 py-8 border-gray-200 w-60 h-screen">
+        <aside className="top-0 left-0 z-20 fixed flex flex-col gap-4 bg-white/5 shadow-xl backdrop-blur-md px-4 py-8 border-white/10 w-60 h-screen">
 
             <div className="flex justify-center items-center mb-8">
-                <span className="font-extrabold text-blue-700 text-2xl tracking-tight">پنل مدیریت</span>
+                <span className="font-extrabold text-stone-200 text-2xl tracking-tight">پنل مدیریت</span>
             </div>
             <nav className="flex flex-col flex-1 gap-2">
                 {links.map(link => (
@@ -28,13 +28,13 @@ const Sidebar = () => {
                     <StarBorder
                         key={link.href}
                         as="button"
-                        className="bg-stone-800"
+                        className="bg-white/5"
                         color="purple"
                         speed="3s"
                     >
                         <Link target={link.blank ? "_blank" : '_parent'} href={link.href} className="group flex items-center gap-2 shadow-sm border border-transparent rounded-lg transition">
-                            <span className="drop-shadow-sm text-2xl group-hover:scale-110 transition-transform">{link.icon}</span>
-                            <span className="drop-shadow-sm font-bold text-gray-500 group-hover:text-blue-700 text-base tracking-tight transition-colors">
+                            <span className="drop-shadow-sm text-stone-300 text-2xl group-hover:scale-110 transition-transform">{link.icon}</span>
+                            <span className="drop-shadow-sm font-bold text-stone-300 group-hover:text-indigo-300 text-base tracking-tight transition-colors">
                                 {link.label}
                             </span>
                         </Link>

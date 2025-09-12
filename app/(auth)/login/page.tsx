@@ -45,14 +45,14 @@ const LoginPage = () => {
 
 
     return (
-        <div className="flex justify-center items-center bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-200 min-h-screen">
-            <div className="bg-white/30 shadow-xl backdrop-blur-md p-10 border border-white/40 rounded-2xl w-full max-w-md hover:scale-[1.02] transition-all duration-300">
+        <div className="flex justify-center items-center px-4 min-h-screen">
+            <div className="bg-white/5 shadow-lg backdrop-blur-md p-8 border border-white/10 rounded-2xl w-full max-w-md">
                 <div className="flex flex-col items-center mb-8">
-                    <div className="bg-indigo-500 shadow-md p-3 rounded-full text-white">
+                    <div className="bg-indigo-600/90 shadow-md p-3 rounded-full text-white">
                         <LockOutlined fontSize="medium" />
                     </div>
-                    <h2 className="mt-4 font-extrabold text-gray-800 text-3xl">ورود به حساب</h2>
-                    <p className="mt-1 text-gray-600 text-sm">خوش برگشتی! لطفاً اطلاعات خود را وارد کنید.</p>
+                    <h2 className="mt-4 font-extrabold text-stone-200 text-3xl">ورود به حساب</h2>
+                    <p className="mt-1 text-stone-300/80 text-sm">خوش برگشتی! لطفاً اطلاعات خود را وارد کنید.</p>
                 </div>
                 <form className="space-y-5" onSubmit={handleSubmit}>
                     <TextField
@@ -61,7 +61,7 @@ const LoginPage = () => {
                         fullWidth
                         type="username"
                         required
-                        sx={{ my: 1 }}
+                        sx={{ my: 1, '& .MuiOutlinedInput-root': { color: '#e7e5e4' }, '& .MuiInputLabel-root': { color: '#cbd5e1' }, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' } }}
                         onChange={handleChange('username')}
                         InputProps={{
                             startAdornment: (
@@ -77,7 +77,7 @@ const LoginPage = () => {
                         fullWidth
                         type="password"
                         required
-                        sx={{ my: 1 }}
+                        sx={{ my: 1, '& .MuiOutlinedInput-root': { color: '#e7e5e4' }, '& .MuiInputLabel-root': { color: '#cbd5e1' }, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' } }}
                         onChange={handleChange('password')}
                         InputProps={{
                             startAdornment: (
@@ -92,15 +92,15 @@ const LoginPage = () => {
                         sx={{ mt: 1 }}
                         variant="contained"
                         fullWidth
-                        className="!bg-gradient-to-r !from-indigo-500 hover:!from-indigo-600 !to-purple-500 hover:!to-purple-600 py-2 font-semibold text-white"
+                        className="!bg-gradient-to-r !from-indigo-600 hover:!from-indigo-700 !to-purple-600 hover:!to-purple-700 py-2 font-semibold text-white"
                     >
                         ورود
                     </Button>
                 </form>
                 <div className="mt-6 text-center">
-                    <p className="text-gray-700 text-sm">
+                    <p className="text-stone-300 text-sm">
                         حساب کاربری ندارید؟{' '}
-                        <a href="/register" className="font-medium text-purple-600 hover:underline">
+                        <a href="/register" className="font-medium text-indigo-300 hover:underline">
                             ثبت‌نام کنید
                         </a>
                     </p>

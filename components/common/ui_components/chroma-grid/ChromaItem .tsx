@@ -3,6 +3,8 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import './ChromaGrid.css';
+import Image from 'next/image';
+import { Divider } from '@mui/material';
 
 export interface ChromaItem {
     image: string;
@@ -185,12 +187,27 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
                     }
                 >
                     <div className="chroma-img-wrapper">
-                        <img src={c.image} alt={c.title} loading="lazy" />
+                        <Image src={c.image} alt={c.title} width={150} height={150} />
                     </div>
-                    <footer className="chroma-info">
-                        <h3 className="name">{c.title}</h3>
-                        {c.handle && <span className="handle">{c.handle}</span>}
-                        <p className="role">{c.subtitle}</p>
+
+                    <footer className="px-4 pb-3">
+                        {/*عنوان */}
+                        <h3 className="font-bold line-clamp-1">{c.title}</h3>
+
+                        {/* متن */}
+                        <div className='my-3'>
+                            <p className="text-justify line-clamp-3 role">{c.subtitle}</p>
+                        </div>
+
+                        <Divider></Divider>
+
+                        <div className='py-2'>
+                            {/* نوسینده */}
+                            {c.handle && <span className="handle">{c.handle}</span>}
+                        </div>
+
+
+                        {/* خالی */}
                         {c.location && <span className="location">{c.location}</span>}
                     </footer>
                 </article>

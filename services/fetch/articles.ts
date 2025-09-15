@@ -1,10 +1,11 @@
 import { ServerUrl } from "@/services/server";
 import { AddArticleTyle, articleType } from "@/types/articles";
 import { ErrorResponseType } from "@/types/register";
+import { promises } from "dns";
 
 
 
-
+type cachOptionType = { revalidate: number, cache: RequestCache }
 
 
 // دریافت تمام مقالات
@@ -91,7 +92,7 @@ export const editArticle = async (article: AddArticleTyle, token: string, id: st
 };
 
 // دریافت مقاله با شناسه
-export const GetArticlesById = async ({ id, options }: { id: string, options?: { revalidate: number, cache: RequestCache } }): Promise<articleType | null> => {
+export const GetArticlesById = async ({ id, options }: { id: string, options?: cachOptionType }): Promise<articleType | null> => {
     try {
         const res = await fetch(`${ServerUrl}/articles/${id}`,
             {
@@ -109,8 +110,6 @@ export const GetArticlesById = async ({ id, options }: { id: string, options?: {
         return null;
     }
 }
-
-
 
 // حذف مقاله
 export const deleteArticle = async ({ id, token }: { id: string, token: string }): Promise<{ message: string, status: number }> => {
@@ -137,7 +136,6 @@ export const deleteArticle = async ({ id, token }: { id: string, token: string }
         };
     }
 };
-
 
 // آپلود تصویر برای مقاله
 export const sendImage = async ({ token, image }: { token: string, image: File }):
@@ -166,4 +164,31 @@ export const sendImage = async ({ token, image }: { token: string, image: File }
         return { status: 500, message: "خطا در انجام عملیات" };
     }
 };
+
+// دریافت مقالات مرتبط با دسته بندی خاص
+export const GetArticleByCategory = async ({ catId, options }: { catId: string, options?: cachOptionType }): Promise<articleType[] | { message: string, status: number }> => {
+    try {
+        const res = await fetch(`${ServerUrl}/categories/${catId}/articles`,
+            {
+                next: options?.revalidate ? { revalidate: options.revalidate } : undefined,
+                cache: options?.cache ?? 'default'
+            }
+        );
+        const data = await res.json();
+
+        if (res.ok) {
+            return data as articleType[];
+        } else {
+            return {
+                status: res.status,
+                message: data.message
+            };
+        }
+    } catch (error) {
+        return {
+            status: 500,
+            message: 'خطا در دریافت اطلاعات'
+        };
+    }
+}
 

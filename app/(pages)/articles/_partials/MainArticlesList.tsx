@@ -19,7 +19,7 @@ const MainArticlesList = ({ articles }: MainArticlesListProps) => {
 
             <div className="space-y-6">
                 {articles.map((article) => (
-                    <article key={article.id} className="hover:bg-white/5 p-2 border border-white/10 rounded-lg transition-colors duration-300">
+                    <article key={article.id} className="hover:bg-white/5 hover:shadow-fuchsia-900 p-2 border border-white/10 rounded-lg hover:scale-103 transition-all duration-300">
                         <div className="flex items-start space-x-1 rtl:space-x-reverse">
                             {article.image && (
 

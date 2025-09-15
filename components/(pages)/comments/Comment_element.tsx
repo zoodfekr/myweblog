@@ -16,7 +16,7 @@ const Comment_element = async ({ comments }: { comments: commentsType[] }) => {
                 {comments.map((comment) => (
                     <div key={comment.id} className="hover:bg-white/5 p-4 border border-white/10 rounded-lg transition-colors">
                         <div className="flex items-start space-x-3 rtl:space-x-reverse">
-                            <div className="flex-shrink-0">
+                            <div className="flex-shrink-0 ml-2">
                                 <div className="flex justify-center items-center bg-gradient-to-br from-purple-600/20 to-fuchsia-600/20 border border-white/10 rounded-full w-10 h-10">
                                     <span className="font-semibold text-purple-300">
                                         {comment.author.charAt(0).toUpperCase()}
@@ -24,7 +24,7 @@ const Comment_element = async ({ comments }: { comments: commentsType[] }) => {
                                 </div>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center space-x-2 rtl:space-x-reverse mb-2">
+                                <div className="flex justify-between items-center space-x-2 rtl:space-x-reverse mb-2">
                                     <span className="font-semibold text-purple-100">{comment.author}</span>
                                     <span className="text-purple-300/60 text-sm">
                                         {new Date(comment.createdAt).toLocaleDateString('fa-IR')}

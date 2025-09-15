@@ -1,4 +1,5 @@
 import Header_HOC from '@/components/common/HOC/Header_HOC'
+import CurvedLoop from '@/components/common/ui_components/CurvedLoop/CurvedLoop'
 import { getAllCategories } from '@/services/fetch/categories'
 import Link from 'next/link'
 import React from 'react'
@@ -74,6 +75,8 @@ const Page = async () => {
                             هر دسته بندی شامل مقالات تخصصی و کاربردی در زمینه مربوطه می باشد
                         </p>
                     </div>
+
+
 
                     {/* Categories Grid */}
                     <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

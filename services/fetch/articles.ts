@@ -4,31 +4,61 @@ import { ErrorResponseType } from "@/types/register";
 import { promises } from "dns";
 
 
+type CacheOptionType = {
+    revalidate?: number;  //isr
+    cache?:
+    "default"       //ssg
+    | "force-cache"   //ssg
+    | "no-store";     //ssr
+};
 
-type cachOptionType = { revalidate: number, cache: RequestCache }
 
-
-// دریافت تمام مقالات
-export const getAllArticles = async (args?: { token?: string, revalidate?: number, cache?: RequestCache, headers?: { "Content-Type": string, Authorization: string } } | undefined): Promise<articleType[]> => {
+//* دریافت تمام مقالات
+export const getAllArticles = async (args?: CacheOptionType): Promise<articleType[] | ErrorResponseType> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
-            next: args?.revalidate
-                ? { revalidate: args.revalidate }
-                : undefined,
-            cache: args?.cache ?? 'default',
-            headers: args?.headers ?? {
+            ...(args?.revalidate ? { next: { revalidate: args.revalidate } } : {}),
+            ...(args?.cache ? { cache: args.cache } : { cache: 'default' }),
+            headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${args?.token}`,
             },
         });
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
-        return data as articleType[];
+        if (res.ok) {
+            return data as articleType[];
+        } else {
+            return {
+                status: res.status,
+                message: data.message
+            };
+        }
     } catch (error) {
-        console.error("Error fetching all articles:", error);
-        return [];
+        return {
+            status: 500,
+            message: 'خطا در دریافت اطلاعات'
+        };
+    }
+};
+
+// دریافت مقاله با شناسه
+export const GetArticlesById = async ({ id, args }: { id: string, args?: CacheOptionType }): Promise<articleType | null> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles/${id}`, {
+            ...(args?.revalidate ? { next: { revalidate: args.revalidate } } : {}),
+            ...(args?.cache ? { cache: args.cache } : { cache: 'default' }),
+        });
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data as articleType;
+    } catch (error) {
+        console.error(`Error fetching article with id ${id}:`, error);
+        return null;
     }
 }
+
+
 
 // افزودن مقاله
 export const AddArticle = async (article: AddArticleTyle, token: string): Promise<AddArticleTyle | ErrorResponseType> => {
@@ -91,25 +121,6 @@ export const editArticle = async (article: AddArticleTyle, token: string, id: st
     }
 };
 
-// دریافت مقاله با شناسه
-export const GetArticlesById = async ({ id, options }: { id: string, options?: cachOptionType }): Promise<articleType | null> => {
-    try {
-        const res = await fetch(`${ServerUrl}/articles/${id}`,
-            {
-                next: options?.revalidate ? { revalidate: options.revalidate } : undefined,
-                cache: options?.cache ?? 'default'
-            }
-        );
-        if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        return data as articleType;
-    } catch (error) {
-        console.error(`Error fetching article with id ${id}:`, error);
-        return null;
-    }
-}
 
 // حذف مقاله
 export const deleteArticle = async ({ id, token }: { id: string, token: string }): Promise<{ message: string, status: number }> => {

@@ -10,12 +10,15 @@ import { getAllCategories } from '@/services/fetch/categories'
 const Page = async () => {
 
 
-    const articles = await getAllArticles({ revalidate: 28800, cache: 'force-cache' })
-    const categories_vallue = await getAllCategories({ revalidate: 28800, cache: 'force-cache' })
+    const articlesResponse = await getAllArticles({ revalidate: 28800 })
 
-    const slicedArticles = articles.slice(0, 10)
+    const articles = Array.isArray(articlesResponse) ? articlesResponse : undefined
 
-    return ( 
+    const categories_vallue = await getAllCategories({ revalidate: 28800 })
+
+    const slicedArticles = articles ? articles.slice(0, 10) : []
+
+    return (
         <div className="">
 
             {/* بنر سایت */}

@@ -14,7 +14,7 @@ type CacheOptionType = {
 
 
 //* دریافت تمام مقالات
-export const getAllArticles = async (args?: CacheOptionType): Promise<articleType[] | ErrorResponseType> => {
+export const getAllArticles = async (args?: CacheOptionType): Promise<articleType[] | []> => {
     try {
         const res = await fetch(`${ServerUrl}/articles`, {
             ...(args?.revalidate ? { next: { revalidate: args.revalidate } } : {}),
@@ -23,20 +23,14 @@ export const getAllArticles = async (args?: CacheOptionType): Promise<articleTyp
                 "Content-Type": "application/json",
             },
         });
-        const data = await res.json();
-        if (res.ok) {
-            return data as articleType[];
-        } else {
-            return {
-                status: res.status,
-                message: data.message
-            };
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
+        const data = await res.json();
+        return data as articleType[];
     } catch (error) {
-        return {
-            status: 500,
-            message: 'خطا در دریافت اطلاعات'
-        };
+        return []; // به جای پرتاب دوباره خطا، null برگردون چون Promise<articleType | null> تعریف شده
+
     }
 };
 
@@ -54,7 +48,7 @@ export const GetArticlesById = async ({ id, args }: { id: string, args?: CacheOp
         return data as articleType;
     } catch (error) {
         console.error(`Error fetching article with id ${id}:`, error);
-        return null;
+        return null; // به جای پرتاب دوباره خطا، null برگردون چون Promise<articleType | null> تعریف شده
     }
 }
 
@@ -177,7 +171,7 @@ export const sendImage = async ({ token, image }: { token: string, image: File }
 };
 
 // دریافت مقالات مرتبط با دسته بندی خاص
-export const GetArticleByCategory = async ({ catId, options }: { catId: string, options?: cachOptionType }): Promise<articleType[] | { message: string, status: number }> => {
+export const GetArticleByCategory = async ({ catId, options }: { catId: string, options?: CacheOptionType }): Promise<articleType[] | { message: string, status: number }> => {
     try {
         const res = await fetch(`${ServerUrl}/categories/${catId}/articles`,
             {

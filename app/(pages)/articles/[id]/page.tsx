@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { GetArticlesById } from '@/services/fetch/articles'
+import { getAllArticles, GetArticlesById } from '@/services/fetch/articles'
 import ArticleContent from './_partials/ArticleContent'
 import Page_HOC from '@/components/common/HOC/Page_HOC'
 import Header_HOC from '@/components/common/HOC/Header_HOC'
@@ -10,14 +10,21 @@ import CommentSection_byId from '@/components/(pages)/comments/CommentSection_by
 import AddCommentForm from '@/components/(pages)/comments/AddCommentForm'
 
 
+// این فانکشن فقط سمت سرور و در زمان build اجرا میشه
+export async function generateStaticParams() {
+    const articles = await getAllArticles();
+    if (!Array.isArray(articles)) return [];
+    return articles.map(article => ({ id: article.id.toString() }));
+}
+
+export const revalidate = 60; // هر 8 ساعت یکبار آپدیت
 
 const SingleArticlePage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const { id } = await params;
 
-
     try {
-        const articleData = await GetArticlesById({ id, options: { revalidate: 28800, cache: 'force-cache' } })
+        const articleData = await GetArticlesById({ id })
 
         if (!articleData) return <NotFound_Data />
 

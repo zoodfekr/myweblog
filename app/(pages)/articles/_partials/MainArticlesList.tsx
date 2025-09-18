@@ -5,6 +5,7 @@ import { ServerUrl_media } from '@/services/server'
 import Link from 'next/link'
 import { Button } from '@mui/material'
 import ShinyText from '@/components/common/ui_components/ShinyText/ShinyText'
+import { MainArticlePaginate } from './MainArticlePaginate'
 
 interface MainArticlesListProps {
     articles: articleType[]
@@ -60,6 +61,8 @@ const MainArticlesList = ({ articles }: MainArticlesListProps) => {
                     </article>
                 ))}
             </div>
+
+            <MainArticlePaginate />
         </div>
     )
 }

@@ -3,13 +3,10 @@ import React from 'react'
 import { commentsType } from '@/types/comments'
 import Comment_element from './Comment_element'
 
-const CommentSection_getAll = async () => {
-
-    const comments: commentsType[] = await getAllComments({ revalidate: 28800, cache: 'force-cache' })
-
+const CommentSection_getAll = async ({ data }: { data: commentsType[] }) => {
 
     return (
-        <Comment_element comments={comments} />
+        <Comment_element comments={data} />
     )
 }
 

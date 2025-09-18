@@ -6,10 +6,11 @@ import { articleType } from "@/types/articles";
 const Page_HOC = async ({ children }: { children: React.ReactNode }) => {
 
 
-    const articles: articleType[] = await getAllArticles()
+    const articles: articleType[] | null = await getAllArticles()
+    const safeArticles = articles ?? [];
 
     // Create random articles for sidebar (take 3 random articles)
-    const shuffled = [...articles].sort(() => 0.5 - Math.random())
+    const shuffled = [...safeArticles].sort(() => 0.5 - Math.random())
     const randomArticles = shuffled.slice(0, 3)
 
     return (

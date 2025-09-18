@@ -1,17 +1,29 @@
 import { ServerUrl } from "@/services/server";
 import { AddcommentsType, commentsType } from "@/types/comments";
 
+
+
+type CacheOptionType = {
+  revalidate?: number;  //isr
+  cache?:
+  "default"       //ssg
+  | "force-cache"   //ssg
+  | "no-store";     //ssr
+};
+
+
 // دریافت تمام نظرات
-export const getAllComments = async (options?: { revalidate?: number, cache?: RequestCache, token?: string } ): Promise<commentsType[]> => {
+export const getAllComments = async (args?: CacheOptionType): Promise<commentsType[] | []> => {
   try {
     const res = await fetch(`${ServerUrl}/comments`, {
-      next: options?.revalidate
-        ? { revalidate: options.revalidate }
-        : undefined,
-      cache: options?.cache ?? "default",
+      ...(args?.revalidate ? { next: { revalidate: args.revalidate } } : {}),
+      ...(args?.cache ? { cache: args.cache } : { cache: 'default' }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error(`HTTP error! status: ${res.status} ${res.statusText}`);
     }
     const data = await res.json();
     return data as commentsType[];
@@ -20,6 +32,7 @@ export const getAllComments = async (options?: { revalidate?: number, cache?: Re
     return [];
   }
 };
+
 
 // ایجاد نظر جدید
 export const createComment = async ({

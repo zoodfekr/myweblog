@@ -510,7 +510,7 @@ const BentoCardGrid: React.FC<{
     gridRef?: React.RefObject<HTMLDivElement | null>;
     uniformGrid?: boolean;
 }> = ({ children, gridRef, uniformGrid }) => (
-    <div className={`mb-card-grid mb-section ${uniformGrid ? 'mb-grid-uniform' : ''}`} ref={gridRef}>
+    <div className={`mb-card-grid mb-section   ${uniformGrid ? 'mb-grid-uniform' : ''}`} ref={gridRef}>
         {children}
     </div>
 );

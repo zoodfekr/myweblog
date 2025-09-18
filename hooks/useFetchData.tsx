@@ -2,7 +2,7 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 
 // پراپ‌های ورودی هوک
 export interface UseFetchDataProps<T> {
-    fetchFunction: (args?: any) => Promise<T>; // انعطاف‌پذیر برای انواع ورودی‌ها
+    fetchFunction: (args?: any) => Promise<T | null>; // انعطاف‌پذیر برای انواع ورودی‌ها و سازگار با null
     token?: string; // توکن اختیاری
 }
 
@@ -20,7 +20,7 @@ export const useFetchData = <T,>({
     token,
 }: UseFetchDataProps<T>): UseFetchDataResult<T> => {
 
-    
+
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -32,10 +32,10 @@ export const useFetchData = <T,>({
                 setLoading(true);
 
                 // اگر توکن بود، پاس بده؛ اگر نبود، بدون پارامتر صدا بزن
-                const result = await fetchFunction(token ? { token } : undefined);
+                const result = await fetchFunction(token ? { token } : null);
 
                 setData(result);
-                setSuccess(true);
+                setSuccess(!!result);
             } catch (err: unknown) {
                 setError(err instanceof Error ? err.message : "Unexpected error");
             } finally {
@@ -44,7 +44,7 @@ export const useFetchData = <T,>({
         };
 
         fetchData();
-    }, [token]);
+    }, [token, fetchFunction]);
 
     return { data, loading, error, success, setData };
 };

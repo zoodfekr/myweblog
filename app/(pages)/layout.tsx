@@ -26,7 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             {/* اپبار سایت */}
             <Appbar />
 
-            <main className="mx-auto px-4 py-6 container">
+            <main className="mx-auto px-1 sm:px-4 py-3 sm:py-6 container">
                 {children}
             </main>
 

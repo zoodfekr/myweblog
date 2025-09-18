@@ -25,7 +25,7 @@ const NavigationBtns = () => {
 
 
     return (
-        <nav className="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
+        <nav className="hidden md:flex items-center space-x-1 rtl:space-x-reverse">
             {navigationItems.map((item) => {
                 const Icon = item.icon
                 // const active = isActive(item.href)
@@ -33,11 +33,11 @@ const NavigationBtns = () => {
                     <Link
                         key={item.name}
                         href={item.href}
-                        className={`relative flex items-center space-x-2 rtl:space-x-reverse px-2 py-2 rounded transition-all duration-300 group overflow-hidden `}
+                        className={`relative flex items-center space-x-2 rtl:space-x-reverse px-3 py-2 rounded-lg transition-all duration-300 group overflow-hidden text-white hover:text-white`}
                     >
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                         <Icon className="z-10 relative text-lg" />
-                        <span className="z-10 relative font-medium">{item.name}</span>
+                        <span className="z-10 relative font-medium text-sm lg:text-base">{item.name}</span>
                         {/* {active && (<div className="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-emerald-400 to-green-400 h-0.5"></div>)} */}
                     </Link>
                 )

@@ -1,7 +1,6 @@
 import { ServerUrl } from "@/services/server";
 import { AddArticleTyle, articleType } from "@/types/articles";
 import { ErrorResponseType } from "@/types/register";
-import { promises } from "dns";
 
 
 type CacheOptionType = {
@@ -29,8 +28,37 @@ export const getAllArticles = async (args?: CacheOptionType): Promise<articleTyp
         const data = await res.json();
         return data as articleType[];
     } catch (error) {
+        console.error('Error fetching articles:', error);
         return []; // به جای پرتاب دوباره خطا، null برگردون چون Promise<articleType | null> تعریف شده
 
+    }
+};
+
+//* دریافت مقالات با صفحه‌بندی
+export const getArticlesPaginated = async (page: number = 1, limit: number = 6, args?: CacheOptionType): Promise<{ articles: articleType[], totalPages: number, currentPage: number, totalArticles: number }> => {
+    try {
+        const res = await fetch(`${ServerUrl}/articles?page=${page}&limit=${limit}`, {
+            ...(args?.revalidate ? { next: { revalidate: args.revalidate } } : {}),
+            ...(args?.cache ? { cache: args.cache } : { cache: 'default' }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        
+        // Ensure the response has the expected structure
+        return {
+            articles: Array.isArray(data.articles) ? data.articles : (Array.isArray(data) ? data : []),
+            totalPages: typeof data.totalPages === 'number' ? data.totalPages : Math.ceil((Array.isArray(data.articles) ? data.articles.length : (Array.isArray(data) ? data.length : 0)) / limit),
+            currentPage: typeof data.currentPage === 'number' ? data.currentPage : page,
+            totalArticles: typeof data.totalArticles === 'number' ? data.totalArticles : (Array.isArray(data.articles) ? data.articles.length : (Array.isArray(data) ? data.length : 0))
+        };
+    } catch (error) {
+        console.error('Error fetching paginated articles:', error);
+        return { articles: [], totalPages: 0, currentPage: 1, totalArticles: 0 };
     }
 };
 
@@ -78,9 +106,10 @@ export const AddArticle = async (article: AddArticleTyle, token: string): Promis
         }
 
     } catch (error) {
+        console.error("Error adding article:", error);
         return {
             status: 500,
-            message: 'خطا در حذف دسته بندی'
+            message: 'خطا در افزودن مقاله'
         };
     }
 };
@@ -107,10 +136,10 @@ export const editArticle = async (article: AddArticleTyle, token: string, id: st
         }
 
     } catch (error) {
-        console.error("Error creating article:", error);
+        console.error("Error editing article:", error);
         return {
             status: 500,
-            message: 'خطا در حذف دسته بندی'
+            message: 'خطا در ویرایش مقاله'
         };
     }
 };
@@ -134,10 +163,10 @@ export const deleteArticle = async ({ id, token }: { id: string, token: string }
             message: data.message
         };
     } catch (error) {
-        console.error("Error deleting category:", error);
+        console.error("Error deleting article:", error);
         return {
             status: 500,
-            message: 'خطا در حذف دسته بندی'
+            message: 'خطا در حذف مقاله'
         };
     }
 };
@@ -166,6 +195,7 @@ export const sendImage = async ({ token, image }: { token: string, image: File }
             return { status: res.status, message: data.message };
         }
     } catch (error) {
+        console.error("Error uploading image:", error);
         return { status: 500, message: "خطا در انجام عملیات" };
     }
 };
@@ -190,6 +220,7 @@ export const GetArticleByCategory = async ({ catId, options }: { catId: string, 
             };
         }
     } catch (error) {
+        console.error("Error fetching articles by category:", error);
         return {
             status: 500,
             message: 'خطا در دریافت اطلاعات'

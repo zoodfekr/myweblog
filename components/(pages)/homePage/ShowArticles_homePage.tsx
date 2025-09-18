@@ -21,8 +21,9 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
     }));
 
     return (
-        <div className="mx-auto px-2 py-8 container">
-            <h1 className="bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-300 mb-10 font-extrabold text-transparent text-3xl text-center">آخرین مقالات</h1>
+        <div className="mx-auto px-1 sm:px-4 md:px-6 py-4 sm:py-8">
+            <h1 className="bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-300 mb-6 sm:mb-10 font-extrabold text-transparent text-2xl sm:text-3xl text-center">آخرین مقالات</h1>
+
             <div style={{ minHeight: '480px', position: 'relative' }}>
                 <ChromaGrid
                     items={items}
@@ -34,18 +35,24 @@ const ShowArticles_homePage = ({ data }: { data: articleType[] }) => {
             </div>
 
 
-            <div className="flex justify-center mt-10">
-                <Magnet padding={50} disabled={false} magnetStrength={3}>
+            <div className="flex justify-center mt-6 sm:mt-10">
+                <Magnet padding={30} disabled={false} magnetStrength={3}>
                     <Link href="/articles">
                         <Button
                             variant="contained"
                             color="primary"
                             sx={{
                                 fontWeight: 'bold',
-                                paddingX: 4,
-                                paddingY: 1.5,
-                                borderRadius: '12px',
+                                paddingX: 3,
+                                paddingY: 1,
+                                borderRadius: '8px',
                                 textTransform: 'none',
+                                fontSize: '0.875rem',
+                                '@media (max-width: 768px)': {
+                                    paddingX: 2,
+                                    paddingY: 0.75,
+                                    fontSize: '0.75rem',
+                                }
                             }}
                         >
                             مشاهده همه مقالات
